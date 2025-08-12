@@ -20,7 +20,9 @@ export const httpTransport = {
     const protocol = remote.protocolVersion === 2 ? 'v2' : 'v1'
     const capabilities =
       protocol === 'v2'
-        ? Object.entries(remote.capabilities2 || {}).map(([k, v]) => (v === true ? k : `${k}=${v}`))
+        ? Object.entries(remote.capabilities2 || {}).map(([k, v]) =>
+            v === true ? k : `${k}=${v}`
+          )
         : Array.from(remote.capabilities || [])
 
     const refs = []
@@ -31,7 +33,11 @@ export const httpTransport = {
       // symrefs map if available
       if (remote.symrefs) {
         for (const [sym, target] of remote.symrefs) {
-          refs.push({ name: sym, oid: '0000000000000000000000000000000000000000', symbolic: target })
+          refs.push({
+            name: sym,
+            oid: '0000000000000000000000000000000000000000',
+            symbolic: target,
+          })
         }
       }
       // peeled map if available

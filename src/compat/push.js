@@ -2,11 +2,18 @@
 
 export function createPushCompat(transport) {
   async function push(opts) {
-    const res = await transport.upload({
+    const res = await transport.performPush({
       url: opts.url,
       refspecs: opts.refspecs,
       force: opts.force,
-      onProgress: p => opts.onProgress?.({ writtenObjects: p.writtenObjects, totalObjects: p.totalObjects }),
+      onProgress: p => {
+        if (opts.onProgress) {
+          opts.onProgress({
+            writtenObjects: p.writtenObjects,
+            totalObjects: p.totalObjects,
+          })
+        }
+      },
     })
     return res
   }

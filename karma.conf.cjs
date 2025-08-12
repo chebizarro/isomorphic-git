@@ -3,6 +3,7 @@ process.env.CHROME_BIN = require('puppeteer').executablePath()
 const path = require('path')
 
 const webpack = require('webpack')
+const testEntry = process.env.TEST_ENTRY || '__tests__/index.webpack.js'
 
 const REPO = process.env.BUILD_REPOSITORY_NAME
 const ISSUE =
@@ -22,7 +23,7 @@ module.exports = function (config) {
     frameworks: ['jasmine'],
     // list of files / patterns to load in the browser
     files: [
-      '__tests__/index.webpack.js',
+      testEntry,
       {
         pattern: '__tests__/__fixtures__/**/*',
         served: true,
@@ -47,7 +48,7 @@ module.exports = function (config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      '__tests__/index.webpack.js': ['webpack'],
+      [testEntry]: ['webpack'],
     },
     // web server port
     port: 9876,
