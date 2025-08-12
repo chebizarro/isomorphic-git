@@ -4,6 +4,9 @@ import '../typedefs.js'
 import { GitRemoteManager } from '../managers/GitRemoteManager.js'
 import { assertParameter } from '../utils/assertParameter.js'
 import { formatInfoRefs } from '../utils/formatInfoRefs.js'
+import { LIBGIT2_COMPAT } from '../compat/flag.js'
+import { createRemoteInfoCompat } from '../compat/runtime-remote-info.js'
+import { httpTransport as _compatHttpTransport } from '../compat/adapters/http-transport.js'
 
 /**
  * @typedef {Object} GetRemoteInfo2Result - This object has the following schema:
@@ -65,6 +68,34 @@ export async function getRemoteInfo2({
   try {
     assertParameter('http', http)
     assertParameter('url', url)
+
+    // Compat path: reuse existing HTTP discovery but normalize semantics
+    if (LIBGIT2_COMPAT) {
+      const transport = _compatHttpTransport
+      // Thread through known discovery options where possible
+      // Note: our adapter defaults to upload-pack service and protocol v2; this mirrors compat behavior
+      const { getRemoteInfo2: compatGet } = createRemoteInfoCompat(transport)
+      const info = await compatGet(url, { onAuth })
+      if (info.protocol === 'v2') {
+        return {
+          protocolVersion: 2,
+          capabilities: info.capabilities,
+        }
+      }
+      // v1: include refs in JSON-compatible shape
+      const capabilities = info.capabilities
+      const refs = (info.refs || []).map(r => ({
+        ref: r.name,
+        oid: r.oid,
+        target: r.symbolic || undefined,
+        peeled: r.peeled || undefined,
+      }))
+      return {
+        protocolVersion: 1,
+        capabilities,
+        refs,
+      }
+    }
 
     const GitRemoteHTTP = GitRemoteManager.getRemoteHelperFor({ url })
     const remote = await GitRemoteHTTP.discover({
