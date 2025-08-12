@@ -76,6 +76,13 @@ export interface CompatAPI {
       protocolVersion?: 1 | 2
     }
   ): Promise<RemoteInfo>;
-  fetch(opts: FetchOptions): Promise<{ updatedRefs: string[] }>;
+  fetch(opts: FetchOptions): Promise<{
+    defaultBranch?: string
+    fetchHead?: OID
+    fetchHeadDescription?: string
+    headers?: Record<string, string>
+    pruned: string[]
+    updatedRefs?: string[]
+  }>;
   push(opts: PushOptions): Promise<{ updates: Array<{ ref: string; ok: boolean; message?: string }>; rejected: string[] }>;
 }

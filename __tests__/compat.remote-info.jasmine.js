@@ -14,7 +14,8 @@ describe('compat remote-info (jasmine)', () => {
       },
     }
 
-    const { getRemoteInfo2 } = createRemoteInfoCompat(transport)
+    // Cast transport to any to satisfy TS types in allowJs mode
+    const { getRemoteInfo2 } = createRemoteInfoCompat(/** @type {any} */ (transport))
     const info = await getRemoteInfo2('https://example.com/repo.git')
 
     expect(info.protocol).toBe('v2')
@@ -40,13 +41,17 @@ describe('compat remote-info (jasmine)', () => {
       },
     }
 
-    const { getRemoteInfo2 } = createRemoteInfoCompat(transport)
+    const { getRemoteInfo2 } = createRemoteInfoCompat(/** @type {any} */ (transport))
     const info = await getRemoteInfo2('https://example.com/repo.git')
 
     expect(info.protocol).toBe('v1')
-    expect(info.head.symbolic).toBe(headSym)
+    // Guard head existence for TS
+    expect(info.head && info.head.symbolic).toBe(headSym)
     const tag = info.refs.find(r => r.name === 'refs/tags/v1.0.0')
-    expect(tag.annotated).toBe(true)
-    expect(tag.peeled).toBe(peeled)
+    expect(tag).toBeDefined()
+    if (tag) {
+      expect(tag.annotated).toBe(true)
+      expect(tag.peeled).toBe(peeled)
+    }
   })
 })
