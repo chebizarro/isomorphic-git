@@ -3,36 +3,17 @@
 import type { CompatAPI, FetchOptions } from './backend'
 import { err } from './errors'
 
-export interface PackTransport {
-  negotiate(opts: {
-    url: string
-    depth?: number
-    since?: Date
-    exclude?: string[]
-    refspecs?: string[]
-    onProgress?: (p: { phase: string; receivedBytes?: number }) => void
-  }): Promise<{ updatedRefs: string[] }>
+// Align the TS type with the JS runtime adapter which exposes `performFetch`
+export interface FetchTransport {
+  performFetch(opts: any): Promise<any> // FetchResult shape as returned by legacy _fetch
 }
 
-export function createFetchCompat(transport: PackTransport): Pick<CompatAPI, 'fetch'> {
-  async function fetch(opts: FetchOptions): Promise<{ updatedRefs: string[] }> {
-    // Validate inputs, normalize refspecs, map shallow/deepen flags.
-    // Implement refspec resolution consistent with libgit2 expectations.
-    const res = await transport.negotiate({
-      url: opts.url,
-      depth: opts.depth,
-      since: opts.since,
-      exclude: opts.exclude,
-      refspecs: opts.refspecs,
-      onProgress: p =>
-        opts.onProgress?.({
-          receivedObjects: 0,
-          indexedObjects: 0,
-          receivedBytes: p.receivedBytes ?? 0,
-          phase: p.phase as any,
-        }),
+export function createFetchCompat(transport: FetchTransport): Pick<CompatAPI, 'fetch'> {
+  async function fetch(opts: FetchOptions): Promise<any> {
+    // Validate inputs, normalize refspecs, map shallow/deepen flags as needed later.
+    return await transport.performFetch({
+      ...opts,
     })
-    return { updatedRefs: res.updatedRefs }
   }
 
   return { fetch }

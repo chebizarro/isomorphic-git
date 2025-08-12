@@ -3,21 +3,11 @@
 
 export function createFetchCompat(transport) {
   async function fetch(opts) {
-    const res = await transport.negotiate({
-      url: opts.url,
-      depth: opts.depth,
-      since: opts.since,
-      exclude: opts.exclude,
-      refspecs: opts.refspecs,
-      onProgress: p =>
-        opts.onProgress?.({
-          receivedObjects: 0,
-          indexedObjects: 0,
-          receivedBytes: p.receivedBytes ?? 0,
-          phase: p.phase,
-        }),
+    // Pass through to transport which returns the standard FetchResult
+    return await transport.performFetch({
+      ...opts,
+      onProgress: opts.onProgress,
     })
-    return { updatedRefs: res.updatedRefs }
   }
   return { fetch }
 }

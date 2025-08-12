@@ -6,6 +6,8 @@ import { FileSystem } from '../models/FileSystem.js'
 import { assertParameter } from '../utils/assertParameter.js'
 import { join } from '../utils/join.js'
 import { LIBGIT2_COMPAT } from '../compat/flag.js'
+import { createPushCompat } from '../compat/push.js'
+import { pushTransport as _compatPushTransport } from '../compat/adapters/push-transport.js'
 
 /**
  * Push a branch or tag
@@ -81,11 +83,11 @@ export async function push({
     assertParameter('http', http)
     assertParameter('gitdir', gitdir)
 
-    // Compat flag wired: currently using the same implementation. Future commits will route
-    // to compat push semantics while preserving the public API.
+    // Compat flag: delegate via compat push factory using adapter over legacy internals.
     if (LIBGIT2_COMPAT) {
-      return await _push({
-        fs: new FileSystem(fs),
+      const { push: compatPush } = createPushCompat(_compatPushTransport)
+      return await compatPush({
+        fs,
         cache,
         http,
         onProgress,
