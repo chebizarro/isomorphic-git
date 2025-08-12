@@ -5,6 +5,7 @@ import { _fetch } from '../commands/fetch.js'
 import { FileSystem } from '../models/FileSystem.js'
 import { assertParameter } from '../utils/assertParameter.js'
 import { join } from '../utils/join.js'
+import { LIBGIT2_COMPAT } from '../compat/flag.js'
 
 /**
  *
@@ -94,6 +95,36 @@ export async function fetch({
     assertParameter('fs', fs)
     assertParameter('http', http)
     assertParameter('gitdir', gitdir)
+
+    // Compat flag wired: currently using the same implementation. Future commits will route
+    // to compat fetch semantics while preserving the public API.
+    if (LIBGIT2_COMPAT) {
+      return await _fetch({
+        fs: new FileSystem(fs),
+        cache,
+        http,
+        onProgress,
+        onMessage,
+        onAuth,
+        onAuthSuccess,
+        onAuthFailure,
+        gitdir,
+        ref,
+        remote,
+        remoteRef,
+        url,
+        corsProxy,
+        depth,
+        since,
+        exclude,
+        relative,
+        tags,
+        singleBranch,
+        headers,
+        prune,
+        pruneTags,
+      })
+    }
 
     return await _fetch({
       fs: new FileSystem(fs),

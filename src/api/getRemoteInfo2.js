@@ -75,7 +75,16 @@ export async function getRemoteInfo2({
       // Thread through known discovery options where possible
       // Note: our adapter defaults to upload-pack service and protocol v2; this mirrors compat behavior
       const { getRemoteInfo2: compatGet } = createRemoteInfoCompat(transport)
-      const info = await compatGet(url, { onAuth })
+      const info = await compatGet(url, {
+        http,
+        onAuth,
+        onAuthSuccess,
+        onAuthFailure,
+        corsProxy,
+        headers,
+        forPush,
+        protocolVersion,
+      })
       if (info.protocol === 'v2') {
         return {
           protocolVersion: 2,

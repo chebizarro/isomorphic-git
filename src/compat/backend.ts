@@ -63,7 +63,19 @@ export type AuthResult =
   | { type: 'ssh'; username?: string; privateKey?: string; passphrase?: string; agent?: boolean };
 
 export interface CompatAPI {
-  getRemoteInfo2(url: string, opts?: { onAuth?: (h: AuthHint) => Promise<AuthResult> | AuthResult }): Promise<RemoteInfo>;
+  getRemoteInfo2(
+    url: string,
+    opts?: {
+      http?: unknown
+      onAuth?: (h: AuthHint) => Promise<AuthResult> | AuthResult
+      onAuthSuccess?: (r: unknown) => void
+      onAuthFailure?: (r: unknown) => void
+      corsProxy?: string
+      headers?: Record<string, string>
+      forPush?: boolean
+      protocolVersion?: 1 | 2
+    }
+  ): Promise<RemoteInfo>;
   fetch(opts: FetchOptions): Promise<{ updatedRefs: string[] }>;
   push(opts: PushOptions): Promise<{ updates: Array<{ ref: string; ok: boolean; message?: string }>; rejected: string[] }>;
 }
