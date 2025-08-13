@@ -42,3 +42,11 @@ jobs:
           TEST_BROWSERS: ChromeHeadlessNoSandbox
         run: |
           npx karma start ./karma.conf.cjs --single-run -log-level warn
+
+      - name: Run compat golden Karma suite (Chrome)
+        env:
+          NODE_OPTIONS: --openssl-legacy-provider
+          TEST_ENTRY: __tests__/golden.index.webpack.js
+          TEST_BROWSERS: ChromeHeadlessNoSandbox
+        run: |
+          npx karma start ./karma.conf.cjs --single-run -log-level warn

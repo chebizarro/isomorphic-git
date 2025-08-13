@@ -63,6 +63,7 @@ Object {
         "ref": "refs/heads/main",
       },
       Object {
+        "code": "ENONFASTFORWARD",
         "message": "rejected non-fast-forward",
         "ok": false,
         "ref": "refs/tags/v1.0.0",

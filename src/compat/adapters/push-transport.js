@@ -1,5 +1,6 @@
 // Adapter wrapping the legacy _push to provide a compat transport surface.
 import { _push } from '../../commands/push.js'
+import { mapLegacyPushMessageToCode } from '../errors'
 import { FileSystem } from '../../models/FileSystem.js'
 
 export const pushTransport = {
@@ -29,7 +30,13 @@ export const pushTransport = {
     const updates = []
     if (res && res.refs && typeof res.refs === 'object') {
       for (const [ref, info] of Object.entries(res.refs)) {
-        updates.push({ ref, ok: !!info.ok, message: info.message || info.error })
+        const ok = !!info.ok
+        const message = info.message || info.error
+        const entry = { ref, ok, message }
+        if (!ok && message) {
+          entry.code = mapLegacyPushMessageToCode(String(message))
+        }
+        updates.push(entry)
       }
     } else if (Array.isArray(res && res.ok)) {
       // Fallback: treat ok list as successful refs except the first 'unpack'
@@ -43,7 +50,7 @@ export const pushTransport = {
           // naive parse: split first space
           const sp = m.indexOf(' ')
           const ref = sp > 0 ? m.slice(0, sp) : m
-          updates.push({ ref, ok: false, message: m })
+          updates.push({ ref, ok: false, message: m, code: mapLegacyPushMessageToCode(m) })
         }
       }
     }

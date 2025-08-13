@@ -42,3 +42,17 @@ export const err = {
     return new CompatError('EUNSUPPORTED', msg);
   },
 };
+
+// Heuristic mapper from legacy push error strings to CompatErrorCode
+export function mapLegacyPushMessageToCode(msg: string): CompatErrorCode {
+  const m = msg.toLowerCase()
+  if (m.includes('non-fast-forward') || m.includes('non fast forward')) return 'ENONFASTFORWARD'
+  if (m.includes('failed to write') || m.includes('cannot lock ref')) return 'ECONFLICT'
+  if (m.includes('pre-receive hook declined') || m.includes('hooks declined')) return 'EPERM'
+  if (m.includes('authentication') || m.includes('auth failed') || m.includes('unauthorized')) return 'EAUTH'
+  if (m.includes('not found') || m.includes('does not exist')) return 'ENOTFOUND'
+  if (m.includes('connection') || m.includes('network')) return 'ECONNECTION'
+  if (m.includes('shallow update not allowed')) return 'EUNSUPPORTED'
+  if (m.includes('protocol')) return 'EPROTOCOL'
+  return 'EINTERNAL'
+}
