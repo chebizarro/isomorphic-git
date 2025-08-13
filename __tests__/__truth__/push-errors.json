@@ -1,0 +1,7 @@
+[
+  { "message": "[remote rejected] main -> main (non-fast-forward) (hint: Updates were rejected because...)", "code": "ENONFASTFORWARD" },
+  { "message": "remote: error: GH006: Protected branch update failed for refs/heads/main. hook declined", "code": "EPERM" },
+  { "message": "! [rejected]  v1.2.3 -> v1.2.3 (cannot lock ref refs/tags/v1.2.3: is at abcdef0 but expected 1234567)", "code": "ECONFLICT" },
+  { "message": "fatal: Authentication failed for https://example.com/repo.git", "code": "EAUTH" },
+  { "message": "! [remote rejected] feature -> feature (shallow update not allowed)", "code": "EUNSUPPORTED" }
+]

@@ -9,7 +9,12 @@ function mapLegacyPushMessageToCode(msg) {
   const m = String(msg).toLowerCase()
   if (m.includes('non-fast-forward') || m.includes('non fast forward')) return 'ENONFASTFORWARD'
   if (m.includes('failed to write') || m.includes('cannot lock ref')) return 'ECONFLICT'
-  if (m.includes('pre-receive hook declined') || m.includes('hooks declined')) return 'EPERM'
+  if (
+    m.includes('pre-receive hook declined') ||
+    m.includes('hooks declined') ||
+    m.includes('hook declined') ||
+    m.includes('protected branch')
+  ) return 'EPERM'
   if (m.includes('authentication') || m.includes('auth failed') || m.includes('unauthorized')) return 'EAUTH'
   if (m.includes('not found') || m.includes('does not exist')) return 'ENOTFOUND'
   if (m.includes('connection') || m.includes('network')) return 'ECONNECTION'

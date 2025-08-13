@@ -1,6 +1,6 @@
 {
   "name": "isomorphic-git",
-  "version": "0.0.0-development",
+  "version": "2.0.0-alpha",
   "description": "A pure JavaScript reimplementation of git for node and browsers",
   "type": "module",
   "typings": "./index.d.cts",
@@ -45,6 +45,7 @@
     "format": "nps format",
     "build": "nps build",
     "test": "nps test",
+    "test:compat:golden": "cross-env NODE_OPTIONS=--openssl-legacy-provider TEST_ENTRY=__tests__/golden.index.webpack.js TEST_BROWSERS=ChromeHeadlessNoSandbox karma start ./karma.conf.cjs --single-run -log-level warn",
     "publish-website": "nps website",
     "prepublishOnly": "nps prepublish",
     "semantic-release": "semantic-release",
