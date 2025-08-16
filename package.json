@@ -3,12 +3,14 @@
   "version": "2.0.0-alpha",
   "description": "A pure JavaScript reimplementation of git for node and browsers",
   "type": "module",
-  "typings": "./index.d.cts",
+  "types": "./index.d.ts",
   "main": "./index.cjs",
   "module": "./index.js",
   "exports": {
     ".": {
-      "types": "./index.d.cts",
+      "types": "./index.d.ts",
+      "import": "./index.js",
+      "require": "./index.cjs",
       "default": "./index.cjs"
     },
     "./http/node": {
