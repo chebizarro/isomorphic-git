@@ -82,10 +82,17 @@ const pkgify = (input, output, name) => {
 }
 
 export default [
-  ecmaConfig('index.js', 'index.js'),
-  nodeConfig('index.js', 'index.cjs'),
+  // Root ESM/CJS outputs into dist/
+  ecmaConfig('index.js', 'dist/esm/index.js'),
+  nodeConfig('index.js', 'dist/cjs/index.cjs'),
+
+  // Keep legacy internal artifacts (not exported)
   ecmaConfig('internal-apis.js', 'internal-apis.js'),
   nodeConfig('internal-apis.js', 'internal-apis.cjs'),
+
+  // Keep legacy subpath packages for http/node (unchanged paths)
   ...pkgify('http/node', 'http/node'),
-  ...pkgify('http/web', 'http/web', 'GitHttp'),
+
+  // New ESM entry for http/web at dist/esm/http/web.js as required by exports
+  ecmaConfig('http/web/index.js', 'dist/esm/http/web.js'),
 ]

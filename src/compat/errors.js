@@ -5,7 +5,7 @@
  * @param {string} msg
  * @returns {"EINVALIDSPEC"|"ENONFASTFORWARD"|"EAUTH"|"ENOTFOUND"|"ECONNECTION"|"EPERM"|"ECONFLICT"|"EUNBORN"|"ESHORTREAD"|"EPROTOCOL"|"EUNSUPPORTED"|"EINTERNAL"}
  */
-function mapLegacyPushMessageToCode(msg) {
+export function mapLegacyPushMessageToCode(msg) {
   const m = String(msg).toLowerCase()
   if (m.includes('non-fast-forward') || m.includes('non fast forward')) return 'ENONFASTFORWARD'
   if (m.includes('failed to write') || m.includes('cannot lock ref')) return 'ECONFLICT'
@@ -23,6 +23,3 @@ function mapLegacyPushMessageToCode(msg) {
   return 'EINTERNAL'
 }
 
-module.exports = {
-  mapLegacyPushMessageToCode,
-}
