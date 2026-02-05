@@ -1,1 +1,1 @@
-export { FileSystem } from './FileSystem.js'
+export { FileSystem } from './FileSystem'

@@ -1,15 +1,15 @@
 import '../typedefs.js'
 
-import { _readCommit } from '../commands/readCommit.js'
-import { _writeCommit } from '../commands/writeCommit.js'
+import { _readCommit } from '../commands/readCommit'
+import { _writeCommit } from '../commands/writeCommit'
 import { InvalidRefNameError } from '../errors/InvalidRefNameError.js'
-import { MissingNameError } from '../errors/MissingNameError.js'
-import { GitRefStash } from '../models/GitRefStash.js'
-import { join } from '../utils/join.js'
-import { normalizeAuthorObject } from '../utils/normalizeAuthorObject.js'
-import { acquireLock } from '../utils/walkerToTreeEntryMap.js'
+import { MissingNameError } from '../errors/MissingNameError'
+import { GitRefStash } from '../models/GitRefStash'
+import { join } from '../utils/join'
+import { normalizeAuthorObject } from '../utils/normalizeAuthorObject'
+import { acquireLock } from '../utils/walkerToTreeEntryMap'
 
-import { GitRefManager } from './GitRefManager.js'
+import { GitRefManager } from './GitRefManager'
 
 export class GitStashManager {
   /**
@@ -208,7 +208,8 @@ export class GitStashManager {
       return []
     }
 
-    const reflogString = await this.fs.read(this.refLogsStashPath, 'utf8')
+    const reflogBuffer = await this.fs.read(this.refLogsStashPath)
+    const reflogString = reflogBuffer.toString()
 
     return GitRefStash.getStashReflogEntry(reflogString, parsed)
   }
