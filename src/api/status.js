@@ -82,7 +82,7 @@ export async function status({
     })
     const indexEntry = await GitIndexManager.acquire(
       { fs, gitdir: updatedGitdir, cache },
-      async function (index) {
+      async function(index) {
         for (const entry of index) {
           if (entry.path === filepath) return entry
         }
@@ -114,7 +114,7 @@ export async function status({
             // We don't await this so we can return faster for one-off cases.
             GitIndexManager.acquire(
               { fs, gitdir: updatedGitdir, cache },
-              async function (index) {
+              async function(index) {
                 index.insert({ filepath, stats, oid: workdirOid })
               }
             )

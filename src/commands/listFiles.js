@@ -27,12 +27,11 @@ export async function _listFiles({ fs, gitdir, ref, cache }) {
     })
     return filenames
   } else {
-    return GitIndexManager.acquire(
-      { fs, gitdir, cache },
-      async function (index) {
-        return index.entries.map(x => x.path)
-      }
-    )
+    return GitIndexManager.acquire({ fs, gitdir, cache }, async function(
+      index
+    ) {
+      return index.entries.map(x => x.path)
+    })
   }
 }
 

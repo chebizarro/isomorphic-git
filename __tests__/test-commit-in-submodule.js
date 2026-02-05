@@ -126,8 +126,9 @@ describe('commit', () => {
 
   it('without updating branch', async () => {
     // Setup
-    const { fs, gitdir, gitdirsmfullpath } =
-      await makeFixtureAsSubmodule('test-commit')
+    const { fs, gitdir, gitdirsmfullpath } = await makeFixtureAsSubmodule(
+      'test-commit'
+    )
     const { oid: originalOid } = (await log({ fs, gitdir, depth: 1 }))[0]
     // Test
     const sha = await commit({
@@ -157,8 +158,9 @@ describe('commit', () => {
 
   it('dry run', async () => {
     // Setup
-    const { fs, gitdir, gitdirsmfullpath } =
-      await makeFixtureAsSubmodule('test-commit')
+    const { fs, gitdir, gitdirsmfullpath } = await makeFixtureAsSubmodule(
+      'test-commit'
+    )
     const { oid: originalOid } = (await log({ fs, gitdir, depth: 1 }))[0]
     // Test
     const sha = await commit({

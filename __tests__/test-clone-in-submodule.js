@@ -24,8 +24,12 @@ describe('clone', () => {
   ;(process.browser ? xit : it)(
     'clone with noTags',
     async () => {
-      const { fs, dir, gitdir, gitdirsmfullpath } =
-        await makeFixtureAsSubmodule('isomorphic-git')
+      const {
+        fs,
+        dir,
+        gitdir,
+        gitdirsmfullpath,
+      } = await makeFixtureAsSubmodule('isomorphic-git')
       await clone({
         fs,
         http,
@@ -55,11 +59,12 @@ describe('clone', () => {
       expect(err).not.toBeNull()
       expect(err.code).toBe(Errors.NotFoundError.code)
     },
-    30_000
+    90000
   )
   it('clone with noCheckout', async () => {
-    const { fs, dir, gitdir, gitdirsmfullpath } =
-      await makeFixtureAsSubmodule('isomorphic-git')
+    const { fs, dir, gitdir, gitdirsmfullpath } = await makeFixtureAsSubmodule(
+      'isomorphic-git'
+    )
     await clone({
       fs,
       http,
@@ -83,8 +88,9 @@ describe('clone', () => {
     expect(await fs.exists(`${dir}/package.json`)).toBe(false)
   })
   it('clone a tag', async () => {
-    const { fs, dir, gitdir, gitdirsmfullpath } =
-      await makeFixtureAsSubmodule('isomorphic-git')
+    const { fs, dir, gitdir, gitdirsmfullpath } = await makeFixtureAsSubmodule(
+      'isomorphic-git'
+    )
     await clone({
       fs,
       http,
@@ -108,8 +114,9 @@ describe('clone', () => {
     expect(await fs.exists(`${dir}/package.json`)).toBe(true)
   })
   it('clone should not peel tag', async () => {
-    const { fs, dir, gitdir, gitdirsmfullpath } =
-      await makeFixtureAsSubmodule('isomorphic-git')
+    const { fs, dir, gitdir, gitdirsmfullpath } = await makeFixtureAsSubmodule(
+      'isomorphic-git'
+    )
     await clone({
       fs,
       http,
@@ -148,8 +155,9 @@ describe('clone', () => {
   })
 
   it('clone from git-http-mock-server', async () => {
-    const { fs, dir, gitdir, gitdirsmfullpath } =
-      await makeFixtureAsSubmodule('test-clone-karma')
+    const { fs, dir, gitdir, gitdirsmfullpath } = await makeFixtureAsSubmodule(
+      'test-clone-karma'
+    )
     await clone({
       fs,
       http,
@@ -181,8 +189,7 @@ describe('clone', () => {
         return http.request.apply(null, arguments).then(response => {
           const contentType = response.headers['content-type']
           if (contentType === 'application/x-git-upload-pack-result') {
-            const body =
-              `0034shallow 97c024f73eaab2781bf3691597bc7c833cb0e22f00000008NAK
+            const body = `0034shallow 97c024f73eaab2781bf3691597bc7c833cb0e22f00000008NAK
 0023\x02Enumerating objects: 5, done.
 0022\x02Counting objects:  20% (1/5)
 0022\x02Counting objects:  40% (2/5)
@@ -192,9 +199,9 @@ describe('clone', () => {
 002c\x02Compressing objects: 100% (2/2), done.
 0012\x01PACK\x00\x00\x00\x02\x00\x00\x00\x05
 0039\x02Total 5 (delta 0), reused 0 (delta 0), pack-reused 0`
-                .split('\n')
-                .map(it => Buffer.from(it + '\n'))
-                .values()
+              .split('\n')
+              .map(it => Buffer.from(it + '\n'))
+              .values()
             body.next = new Proxy(body.next, {
               apply(target, self, args) {
                 const result = target.apply(self, args)
@@ -305,8 +312,7 @@ describe('clone', () => {
         return http.request.apply(null, arguments).then(response => {
           const contentType = response.headers['content-type']
           if (contentType === 'application/x-git-upload-pack-result') {
-            const body =
-              `0034shallow 97c024f73eaab2781bf3691597bc7c833cb0e22f00000008NAK
+            const body = `0034shallow 97c024f73eaab2781bf3691597bc7c833cb0e22f00000008NAK
 0023\x02Enumerating objects: 5, done.
 0022\x02Counting objects:  20% (1/5)
 0022\x02Counting objects:  40% (2/5)
@@ -316,9 +322,9 @@ describe('clone', () => {
 002c\x02Compressing objects: 100% (2/2), done.
 0012\x01PACK\x00\x00\x00\x02\x00\x00\x00\x05
 0039\x02Total 5 (delta 0), reused 0 (delta 0), pack-reused 0`
-                .split('\n')
-                .map(it => Buffer.from(it + '\n'))
-                .values()
+              .split('\n')
+              .map(it => Buffer.from(it + '\n'))
+              .values()
             body.next = new Proxy(body.next, {
               apply(target, self, args) {
                 const result = target.apply(self, args)
@@ -431,8 +437,9 @@ describe('clone', () => {
   })
 
   it('clone empty repository from git-http-mock-server', async () => {
-    const { fs, dir, gitdir, gitdirsmfullpath } =
-      await makeFixtureAsSubmodule('test-clone-empty')
+    const { fs, dir, gitdir, gitdirsmfullpath } = await makeFixtureAsSubmodule(
+      'test-clone-empty'
+    )
     await clone({
       fs,
       http,
@@ -459,8 +466,9 @@ describe('clone', () => {
   })
 
   it('removes the gitdir when clone fails', async () => {
-    const { fs, dir, gitdir, gitdirsmfullpath } =
-      await makeFixtureAsSubmodule('isomorphic-git')
+    const { fs, dir, gitdir, gitdirsmfullpath } = await makeFixtureAsSubmodule(
+      'isomorphic-git'
+    )
     const url = `foobar://github.com/isomorphic-git/isomorphic-git`
     try {
       await clone({

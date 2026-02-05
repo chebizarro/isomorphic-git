@@ -101,15 +101,9 @@ export class GitWalkerFs {
       if ((await entry.type()) === 'tree') {
         entry._content = undefined
       } else {
-        let content
-        if ((await entry.mode()) >> 12 === 0b1010) {
-          // Handle symlinks - use readlink instead of read
-          content = await fs.readlink(`${dir}/${entry._fullpath}`)
-        } else {
-          const config = await this._getGitConfig(fs, gitdir)
-          const autocrlf = await config.get('core.autocrlf')
-          content = await fs.read(`${dir}/${entry._fullpath}`, { autocrlf })
-        }
+        const config = await this._getGitConfig(fs, gitdir)
+        const autocrlf = await config.get('core.autocrlf')
+        const content = await fs.read(`${dir}/${entry._fullpath}`, { autocrlf })
         // workaround for a BrowserFS edge case
         entry._actualSize = content.length
         if (entry._stat && entry._stat.size === -1) {
@@ -127,47 +121,46 @@ export class GitWalkerFs {
       const { fs, gitdir, cache } = this
       let oid
       // See if we can use the SHA1 hash in the index.
-      await GitIndexManager.acquire(
-        { fs, gitdir, cache },
-        async function (index) {
-          const stage = index.entriesMap.get(entry._fullpath)
-          const stats = await entry.stat()
-          const config = await self._getGitConfig(fs, gitdir)
-          const filemode = await config.get('core.filemode')
-          const trustino =
-            typeof process !== 'undefined'
-              ? !(process.platform === 'win32')
-              : true
-          if (!stage || compareStats(stats, stage, filemode, trustino)) {
-            const content = await entry.content()
-            if (content === undefined) {
-              oid = undefined
-            } else {
-              oid = await shasum(
-                GitObject.wrap({ type: 'blob', object: content })
-              )
-              // Update the stats in the index so we will get a "cache hit" next time
-              // 1) if we can (because the oid and mode are the same)
-              // 2) and only if we need to (because other stats differ)
-              if (
-                stage &&
-                oid === stage.oid &&
-                (!filemode || stats.mode === stage.mode) &&
-                compareStats(stats, stage, filemode, trustino)
-              ) {
-                index.insert({
-                  filepath: entry._fullpath,
-                  stats,
-                  oid,
-                })
-              }
-            }
+      await GitIndexManager.acquire({ fs, gitdir, cache }, async function(
+        index
+      ) {
+        const stage = index.entriesMap.get(entry._fullpath)
+        const stats = await entry.stat()
+        const config = await self._getGitConfig(fs, gitdir)
+        const filemode = await config.get('core.filemode')
+        const trustino =
+          typeof process !== 'undefined'
+            ? !(process.platform === 'win32')
+            : true
+        if (!stage || compareStats(stats, stage, filemode, trustino)) {
+          const content = await entry.content()
+          if (content === undefined) {
+            oid = undefined
           } else {
-            // Use the index SHA1 rather than compute it
-            oid = stage.oid
+            oid = await shasum(
+              GitObject.wrap({ type: 'blob', object: content })
+            )
+            // Update the stats in the index so we will get a "cache hit" next time
+            // 1) if we can (because the oid and mode are the same)
+            // 2) and only if we need to (because other stats differ)
+            if (
+              stage &&
+              oid === stage.oid &&
+              (!filemode || stats.mode === stage.mode) &&
+              compareStats(stats, stage, filemode, trustino)
+            ) {
+              index.insert({
+                filepath: entry._fullpath,
+                stats,
+                oid,
+              })
+            }
           }
+        } else {
+          // Use the index SHA1 rather than compute it
+          oid = stage.oid
         }
-      )
+      })
       entry._oid = oid
     }
     return entry._oid

@@ -56,7 +56,7 @@ export async function abortMerge({
     const updatedGitdir = await discoverGitdir({ fsp: fs, dotgit: gitdir })
     await GitIndexManager.acquire(
       { fs, gitdir: updatedGitdir, cache },
-      async function (index) {
+      async function(index) {
         unmergedPaths = index.unmergedPaths
       }
     )
@@ -67,7 +67,7 @@ export async function abortMerge({
       dir,
       gitdir: updatedGitdir,
       trees,
-      map: async function (path, [head, workdir, index]) {
+      map: async function(path, [head, workdir, index]) {
         const staged = !(await modified(workdir, index))
         const unmerged = unmergedPaths.includes(path)
         const unmodified = !(await modified(index, head))
@@ -91,7 +91,7 @@ export async function abortMerge({
 
     await GitIndexManager.acquire(
       { fs, gitdir: updatedGitdir, cache },
-      async function (index) {
+      async function(index) {
         // Reset paths in index and worktree, this can't be done in _walk because the
         // STAGE walker acquires its own index lock.
 

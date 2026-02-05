@@ -72,7 +72,7 @@ export async function updateIndex({
     if (remove) {
       return await GitIndexManager.acquire(
         { fs, gitdir: updatedGitdir, cache },
-        async function (index) {
+        async function(index) {
           if (!force) {
             // Check if the file is still present in the working directory
             const fileStats = await fs.lstat(join(dir, filepath))
@@ -117,7 +117,7 @@ export async function updateIndex({
 
     return await GitIndexManager.acquire(
       { fs, gitdir: updatedGitdir, cache },
-      async function (index) {
+      async function(index) {
         if (!add && !index.has({ filepath })) {
           // If the index does not contain the filepath yet and `add` is not set, we should throw
           throw new NotFoundError(

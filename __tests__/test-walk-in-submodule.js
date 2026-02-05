@@ -7,8 +7,9 @@ import { makeFixtureAsSubmodule } from './__helpers__/FixtureFSSubmodule.js'
 describe('walk', () => {
   it('can walk using WORKDIR, TREE, and STAGE', async () => {
     // Setup
-    const { fs, dir, gitdirsmfullpath } =
-      await makeFixtureAsSubmodule('test-walk')
+    const { fs, dir, gitdirsmfullpath } = await makeFixtureAsSubmodule(
+      'test-walk'
+    )
     // Test
     const matrix = await walk({
       fs,
@@ -38,8 +39,9 @@ describe('walk', () => {
 
   it('can populate type, mode, oid, and content', async () => {
     // Setup
-    const { fs, dir, gitdirsmfullpath } =
-      await makeFixtureAsSubmodule('test-walk')
+    const { fs, dir, gitdirsmfullpath } = await makeFixtureAsSubmodule(
+      'test-walk'
+    )
 
     // BrowserFS has a design quirk where HTTPRequestFS has a default mode of 555 for everything,
     // meaning that files have the executable bit set by default!
@@ -282,8 +284,9 @@ describe('walk', () => {
 
   it('autocrlf respected when gitconfig changes', async () => {
     // Setup
-    const { fs, dir, gitdirsmfullpath } =
-      await makeFixtureAsSubmodule('test-walk')
+    const { fs, dir, gitdirsmfullpath } = await makeFixtureAsSubmodule(
+      'test-walk'
+    )
     // BrowserFS has a design quirk where HTTPRequestFS has a default mode of 555 for everything,
     // meaning that files have the executable bit set by default!
 

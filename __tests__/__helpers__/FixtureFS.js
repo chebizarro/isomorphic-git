@@ -4,12 +4,12 @@ import { makeLightningFS } from './FixtureFS/makeLightningFS.js'
 import { makeNodeFixture } from './FixtureFS/makeNodeFixture.js'
 import { makeZenFS } from './FixtureFS/makeZenFS.js'
 
-if (globalThis.jest) {
+if (typeof jest !== 'undefined') {
   jest.useFakeTimers()
-  jest.setTimeout(60_000)
+  jest.setTimeout(60000)
 }
 
-if (globalThis.jasmine) jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000
+if (typeof jasmine !== 'undefined') jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000
 
 export async function makeFixture(dir) {
   return process.browser ? makeBrowserFixture(dir) : makeNodeFixture(dir)

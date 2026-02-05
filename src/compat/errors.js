@@ -121,10 +121,10 @@ export function mapThrownErrorToCode(e) {
     e instanceof Error
       ? e.message
       : e === null || e === undefined
-        ? ''
-        : typeof e === 'string'
-          ? e
-          : String(e)
+      ? ''
+      : typeof e === 'string'
+      ? e
+      : String(e)
 
   const m = message.toLowerCase()
 

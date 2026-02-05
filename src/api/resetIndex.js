@@ -106,7 +106,7 @@ export async function resetIndex({
     }
     await GitIndexManager.acquire(
       { fs, gitdir: updatedGitdir, cache },
-      async function (index) {
+      async function(index) {
         index.delete({ filepath })
         if (oid) {
           index.insert({ filepath, stats, oid })

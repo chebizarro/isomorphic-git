@@ -8,7 +8,11 @@ import { makeFixtureAsSubmodule } from './__helpers__/FixtureFSSubmodule.js'
 const localhost =
   typeof window === 'undefined' ? 'localhost' : window.location.hostname
 
-const reverse = t => t.split('').reverse().join('')
+const reverse = t =>
+  t
+    .split('')
+    .reverse()
+    .join('')
 
 describe('Hosting Providers', () => {
   describe('AWS CodeCommit', () => {

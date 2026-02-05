@@ -6,8 +6,9 @@ import { makeFixtureAsSubmodule } from './__helpers__/FixtureFSSubmodule.js'
 describe('deleteRemote', () => {
   it('deleteRemote', async () => {
     // Setup
-    const { fs, dir, gitdir } =
-      await makeFixtureAsSubmodule('test-deleteRemote')
+    const { fs, dir, gitdir } = await makeFixtureAsSubmodule(
+      'test-deleteRemote'
+    )
     const remote = 'foo'
     // Test
     await deleteRemote({ fs, dir, gitdir, remote })

@@ -2,6 +2,7 @@ export default function commonConfig(outputName) {
   return {
     modulePathIgnorePatterns: ['<rootDir>/website'],
     testRegex: '/__tests__/(server-only\\.)?test-[^\\/]+\\.js',
+    setupFiles: ['<rootDir>/__tests__/jest.setup.js'],
     moduleNameMapper: {
       '^isomorphic-git$': '<rootDir>/src',
       '^isomorphic-git/http$': '<rootDir>/http/node',

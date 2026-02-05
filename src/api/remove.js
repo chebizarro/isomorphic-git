@@ -42,7 +42,7 @@ export async function remove({
     const updatedGitdir = await discoverGitdir({ fsp, dotgit: gitdir })
     await GitIndexManager.acquire(
       { fs: fsp, gitdir: updatedGitdir, cache },
-      async function (index) {
+      async function(index) {
         index.delete({ filepath })
       }
     )

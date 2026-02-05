@@ -17,9 +17,7 @@ function normalizeFetchPhase(input) {
     lower === 'indexing' ||
     lower === 'resolving'
   ) {
-    return /** @type {'negotiation'|'receiving'|'indexing'|'resolving'} */ (
-      lower
-    )
+    return /** @type {'negotiation'|'receiving'|'indexing'|'resolving'} */ (lower)
   }
 
   // Map common git-like progress strings to canonical phases
@@ -63,7 +61,9 @@ function validateFetchArgs(opts) {
     if (typeof depth !== 'number' || !Number.isFinite(depth) || depth < 0) {
       throw new CompatError(
         'EINVALIDSPEC',
-        `Invalid fetch options: depth must be null/undefined or a number >= 0 (got ${String(depth)})`
+        `Invalid fetch options: depth must be null/undefined or a number >= 0 (got ${String(
+          depth
+        )})`
       )
     }
   }
