@@ -64,26 +64,20 @@ export const pushTransport = {
     } catch (e) {
       if (e instanceof GitPushError) {
         const data = /** @type {any} */ (e).data
+        const result = (data && data.result) || data
 
         // Treat overall unpack failures as hard errors (throw), not per-ref status updates.
-        const unpackFailed =
-          (data && typeof data.ok === 'boolean' && data.ok === false) ||
-          (data &&
-            Array.isArray(data.ok) &&
-            data.ok.length > 0 &&
-            String(data.ok[0]).startsWith('unpack ') &&
-            String(data.ok[0]) !== 'unpack')
-
-        if (unpackFailed) {
+        // In isomorphic-git PushResult, `ok === false` indicates an unpack failure.
+        if (result && typeof result.ok === 'boolean' && result.ok === false) {
           throw new CompatError(
             'EPROTOCOL',
-            'Remote failed to unpack the sent packfile',
-            data
+            (result && result.error) || 'Remote failed to unpack the sent packfile',
+            result
           )
         }
 
         // Per-ref rejections: return structured statuses instead of throwing.
-        return legacyPushResultToCompat(data || {})
+        return legacyPushResultToCompat(result || {})
       }
 
       // Transport / protocol / network errors: rethrow as CompatError using taxonomy mapping.

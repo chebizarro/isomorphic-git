@@ -42,7 +42,9 @@ function normalizeFetchPhase(input) {
 
 function validateFetchArgs(opts) {
   if (!opts || typeof opts !== 'object') {
-    throw new CompatError('EINVALIDSPEC', 'Invalid fetch options: expected an options object')
+    throw new CompatError('EINVALIDSPEC', 'Invalid fetch options: expected an options object', {
+      opts,
+    })
   }
 
   const depth = opts.depth
@@ -66,7 +68,16 @@ function validateFetchArgs(opts) {
         'EINVALIDSPEC',
         `Invalid fetch options: since must be null/undefined or a Date (got ${Object.prototype.toString.call(
           since
-        )})`
+        )})`,
+        { since }
+      )
+    }
+
+    if (!Number.isFinite(since.getTime())) {
+      throw new CompatError(
+        'EINVALIDSPEC',
+        'Invalid fetch options: since must be a valid Date',
+        { since }
       )
     }
   }
@@ -75,12 +86,20 @@ function validateFetchArgs(opts) {
   if (!depthIsNullish && !sinceIsNullish) {
     throw new CompatError(
       'EINVALIDSPEC',
-      'Invalid fetch options: depth and since are mutually exclusive'
+      'Invalid fetch options: depth and since are mutually exclusive',
+      { depth, since }
     )
   }
 }
 
 export function createFetchCompat(transport) {
+  if (!transport || typeof transport.performFetch !== 'function') {
+    throw new CompatError(
+      'EINVALIDSPEC',
+      'Invalid fetch transport: expected an object with a performFetch function'
+    )
+  }
+
   async function fetch(opts) {
     // Pass through to transport which returns the standard FetchResult
     validateFetchArgs(opts)
@@ -104,6 +123,10 @@ export function createFetchCompat(transport) {
 
         const idx = phaseIndex(normalized)
         if (idx < 0) return
+
+        if (idx < lastEmittedIndex) {
+          return
+        }
 
         // Enforce ordering by emitting missing earlier phases (placeholder events)
         for (let i = lastEmittedIndex + 1; i < idx; i++) {

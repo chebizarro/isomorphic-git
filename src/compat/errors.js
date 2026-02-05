@@ -56,17 +56,29 @@ export function mapLegacyPushMessageToCode(msg) {
   ) return 'EPERM'
 
   // Authentication
-  if (m.includes('authentication') || m.includes('auth failed') || m.includes('unauthorized')) return 'EAUTH'
+  if (
+    m.includes('authentication') ||
+    m.includes('auth failed') ||
+    m.includes('unauthorized') ||
+    m.includes('credential')
+  ) return 'EAUTH'
 
   // Missing remote refs / targets
-  if (m.includes('not found') || m.includes('does not exist')) return 'ENOTFOUND'
+  if (
+    m.includes('remote: not found') ||
+    m.includes('remote ref not found') ||
+    (m.includes('remote ref') && m.includes('does not exist')) ||
+    m.includes('unknown ref') ||
+    m.includes('no such')
+  ) return 'ENOTFOUND'
 
   // Network / connection-ish failures
   if (
-    m.includes('connection') ||
-    m.includes('network') ||
+    m.includes('connection reset') ||
+    m.includes('connection refused') ||
     m.includes('timed out') ||
-    m.includes('timeout')
+    m.includes('timeout') ||
+    m.includes('network')
   ) return 'ECONNECTION'
 
   // Unsupported shallow push behavior
