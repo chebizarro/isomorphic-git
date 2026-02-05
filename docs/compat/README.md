@@ -68,10 +68,4 @@ Error codes and example triggers:
 - `EUNSUPPORTED` — `shallow update not allowed` or unsupported shallow push.
 - `EINTERNAL` — fallback when no known pattern matches.
 
-This taxonomy is validated by golden tests under `__tests__/`, including JSON truth fixtures at `__tests__/__truth__/push-errors.json` exercised by `__tests__/golden.compat.push.errors.truth.json.jasmine.js`. We will continue expanding fixtures gathered from git CLI/libgit2 outputs.
-
-## Tests and CI
-
-- Golden entry: `__tests__/golden.index.webpack.js` includes remote-info, fetch (including matrix), push, and push-error tests.
-- Karma + ChromeHeadless, Webpack 4. Requires `NODE_OPTIONS=--openssl-legacy-provider`.
-- CI workflow: `.github/workflows/compat-tests.yml` runs compat-only and golden suites.
+This taxonomy is validated by golden tests under `__tests__/`, including JSON truth fixtures at `__tests__/__truth__/push-errors.json`. We will continue expanding fixtures gathered from git CLI/libgit2 outputs.
