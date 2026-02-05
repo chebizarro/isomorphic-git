@@ -33,7 +33,7 @@ import { FileSystem } from '../../models/FileSystem.js'
 export const fetchTransport = {
   async performFetch(opts) {
     // Delegate directly to legacy _fetch to preserve behavior while compat evolves
-    return await _fetch({
+    const res = await _fetch({
       fs: new FileSystem(opts.fs),
       cache: opts.cache || {},
       http: opts.http,
@@ -58,5 +58,12 @@ export const fetchTransport = {
       prune: !!opts.prune,
       pruneTags: !!opts.pruneTags,
     })
+
+    // Compat result-shape stability: legacy _fetch only includes `pruned` when prune=true.
+    // In compat mode, always return `pruned` as an array.
+    return {
+      ...res,
+      pruned: Array.isArray(res && res.pruned) ? res.pruned : [],
+    }
   },
 }

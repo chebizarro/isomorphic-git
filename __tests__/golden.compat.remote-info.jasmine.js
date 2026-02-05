@@ -28,7 +28,10 @@ Object {
     "ls-refs": true,
     "symref": "HEAD:refs/heads/main",
   },
-  "head": undefined,
+  "head": Object {
+    "oid": null,
+    "symbolic": "refs/heads/main",
+  },
   "protocol": "v2",
   "refs": Array [],
 }
@@ -71,7 +74,6 @@ Object {
       "oid": "0000000000000000000000000000000000000000",
       "peeled": null,
       "symbolic": "refs/heads/main",
-      "target": null,
     },
     Object {
       "annotated": false,
@@ -79,7 +81,6 @@ Object {
       "oid": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
       "peeled": null,
       "symbolic": null,
-      "target": null,
     },
     Object {
       "annotated": true,
@@ -87,7 +88,6 @@ Object {
       "oid": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
       "peeled": "cccccccccccccccccccccccccccccccccccccccc",
       "symbolic": null,
-      "target": "cccccccccccccccccccccccccccccccccccccccc",
     },
   ],
 }

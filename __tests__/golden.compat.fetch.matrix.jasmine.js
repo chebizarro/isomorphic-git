@@ -33,8 +33,8 @@ describe('golden: compat fetch matrix', () => {
 
     const { fetch } = createFetchCompat(transport)
     const variants = [
-      { depth: 1, since: new Date(0), singleBranch: true, tags: false, prune: false },
-      { depth: undefined, since: undefined, singleBranch: false, tags: true, prune: true },
+      { depth: 1, since: undefined, singleBranch: true, tags: false, prune: false },
+      { depth: undefined, since: new Date(0), singleBranch: false, tags: true, prune: true },
       { depth: 3, since: undefined, singleBranch: true, tags: true, prune: false },
     ]
 
@@ -57,15 +57,15 @@ Array [
   Object {
     "depth": 1,
     "prune": false,
-    "since": "date",
+    "since": null,
     "singleBranch": true,
     "tags": false,
     "url": "https://example.com/repo.git",
   },
   Object {
-    "depth": undefined,
+    "depth": null,
     "prune": true,
-    "since": undefined,
+    "since": "date",
     "singleBranch": false,
     "tags": true,
     "url": "https://example.com/repo.git",
@@ -73,7 +73,7 @@ Array [
   Object {
     "depth": 3,
     "prune": false,
-    "since": undefined,
+    "since": null,
     "singleBranch": true,
     "tags": true,
     "url": "https://example.com/repo.git",

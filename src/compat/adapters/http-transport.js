@@ -50,27 +50,31 @@ export const httpTransport = {
     /** @type {CompatRef[]} */
     const refs = []
     if (protocol === 'v1' && remote.refs) {
-      for (const [ref, oid] of remote.refs) {
-        refs.push({ name: ref, oid })
+      /** @type {Map<string, CompatRef>} */
+      const refsByName = new Map()
+
+      // 1) Build base refs from remote.refs (single pass, no duplicates)
+      for (const [name, oid] of remote.refs) {
+        const ref = { name: String(name), oid: String(oid) }
+        refs.push(ref)
+        refsByName.set(ref.name, ref)
       }
-      // symrefs map if available
+
+      // 2) Enrich existing refs with symref targets from remote.symrefs
       if (remote.symrefs) {
-        for (const [sym, target] of remote.symrefs) {
-          refs.push({
-            name: sym,
-            oid: '0000000000000000000000000000000000000000',
-            symbolic: target,
-          })
+        for (const [name, target] of remote.symrefs) {
+          const ref = refsByName.get(String(name))
+          if (!ref) continue
+          ref.symbolic = String(target)
         }
       }
-      // peeled map if available
+
+      // 3) Enrich existing refs with peeled OIDs from remote.peeled
       if (remote.peeled) {
-        for (const [ref, peeled] of remote.peeled) {
-          {
-            const baseOid = remote.refs.get(ref)
-            // Only include peeled when baseOid exists and peeled is a string
-            refs.push({ name: ref, oid: String(baseOid), peeled: String(peeled) })
-          }
+        for (const [name, peeled] of remote.peeled) {
+          const ref = refsByName.get(String(name))
+          if (!ref) continue
+          ref.peeled = String(peeled)
         }
       }
     } else if (protocol === 'v2') {

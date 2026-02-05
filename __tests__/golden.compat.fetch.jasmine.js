@@ -34,7 +34,6 @@ describe('golden: compat fetch', () => {
     const res = await fetch({
       url: 'https://example.com/repo.git',
       depth: 1,
-      since: new Date(0),
       onProgress: e => events.push(e),
       singleBranch: true,
       tags: false,
@@ -45,7 +44,7 @@ Object {
   "calls": Array [
     Object {
       "depth": 1,
-      "since": "date",
+      "since": null,
       "singleBranch": true,
       "tags": false,
       "url": "https://example.com/repo.git",

@@ -18,6 +18,7 @@ See `docs/compat/README.md` for detailed behavior notes.
 ## Compatibility Modes and Feature Flag
 
 - The new behavior is implemented under `src/compat/` and can be toggled with the environment flag `LIBGIT2_COMPAT`.
+- Truthy values are `1`, `true`, `yes`, or `on` (case-insensitive). In browsers, compat can also be forced by setting `globalThis.__LIBGIT2_COMPAT__ = true`.
 - Public API is preserved; the compat layer adapts internal behavior and result shapes to match libgit2 semantics.
 - Entry points affected when flag is enabled:
   - `getRemoteInfo2` → `src/compat/remote-info.js`
@@ -38,20 +39,27 @@ Karma/CI use this flag where appropriate in the golden suites.
 - Protocol detection returns literal protocol versions: `1` or `2` via a `protocolVersion` field.
 - v2: `{ protocolVersion: 2, capabilities }`.
 - v1: `{ protocolVersion: 1, capabilities, refs }` where refs are JSON-safe objects with fields:
-  - `ref` (name), `oid`, `target` (symref target if any), `peeled` (peeled tag OID if any).
+  - `ref` (name), `oid`, `symbolic` (symref target refname if any), `peeled` (peeled tag OID if any).
 - `HEAD` symref precedence and peeled tag mapping mirror libgit2’s rules.
+- In protocol v2, `symref=HEAD:refs/heads/<name>` (when present) is surfaced as `head.symbolic`. Compat does not guess a default branch without explicit symref information.
 
 ### Fetch
 - Options forwarded: `depth`, `since`, `singleBranch`, `tags`, `prune`, `pruneTags`, `relative`, `exclude`.
+- Validation (compat-only, libgit2-like):
+  - `depth` must be `null`/`undefined` or a finite number `>= 0`.
+  - `since` must be `null`/`undefined` or a `Date`.
+  - `depth` and `since` are mutually exclusive (throws `EINVALIDSPEC` when both are provided).
 - Normalization: `undefined` values for `depth`/`since` are passed as `null` to maintain legacy compatibility.
-- Progress phases are standardized as strings and emitted in order:
-  - `negotiation` → `receiving` → `indexing`.
+- Progress phases are standardized as canonical strings and emitted in order:
+  - `negotiation` → `receiving` → `indexing` → `resolving`.
 - Result can include additional optional fields exposed by transports: `defaultBranch`, `fetchHead`, `fetchHeadDescription`, `headers`, `pruned`.
 
 ### Push
 - Result is normalized to:
   - `updates`: Array of `{ ref, ok, message?, code? }` where `code` is a normalized error code when `ok === false`.
   - `rejected`: Array of `ref` names rejected by the remote.
+- Per-ref rejections are returned in `{ updates, rejected }` and do not throw in compat mode.
+- Only protocol/transport/unpack failures throw (eg authentication/network failures, malformed protocol responses, or remote unpack failure).
 - Progress events are forwarded unchanged.
 
 ## Standardized Push Error Taxonomy
@@ -63,10 +71,13 @@ Push failures are mapped heuristically to stable codes for easier handling and p
 Codes and common triggers:
 
 - `ENONFASTFORWARD` — messages containing `non-fast-forward`, `fetch first`.
+- `EINVALIDSPEC` — `invalid refspec`, `does not match any`, `not a valid reference`.
+- `EUNBORN` — `unborn`, `does not have any commits yet`.
+- `ESHORTREAD` — `short read`, `unexpected EOF`, `premature end of pack file`.
 - `EPERM` — `hook declined`, `pre-receive hook declined`, `protected branch`.
 - `ECONFLICT` — `cannot lock ref`, `lock … exists`, ref lock conflicts.
 - `EAUTH` — `Authentication failed`, credential denied/unauthorized.
-- `ENOTFOUND` — `not found`, `unknown ref`, `no such`.
+- `ENOTFOUND` — `not found`, `unknown ref`, `no such`, `does not exist`.
 - `ECONNECTION` — `connection reset`, `timed out`, other network failures.
 - `EPROTOCOL` — `protocol error`, malformed pkt-line, protocol mismatches.
 - `EUNSUPPORTED` — `shallow update not allowed` or unsupported shallow push.
@@ -80,7 +91,7 @@ Truth fixtures and golden tests validate this mapping:
 
 - Enable `LIBGIT2_COMPAT` in staging to validate behavior in your environment.
 - Review any code that relied on parsing raw push error messages; prefer branching on `update.code`.
-- If you surface progress, expect phases `negotiation`, `receiving`, `indexing` during fetch.
+- If you surface progress, expect phases `negotiation`, `receiving`, `indexing`, `resolving` during fetch.
 - If you consume `getRemoteInfo2`, account for JSON-safe ref objects and explicit `protocolVersion`.
 - Update tests to accept normalized shapes (e.g., optional fetch result fields) if you asserted strict object equality.
 

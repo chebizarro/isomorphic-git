@@ -3,5 +3,26 @@
   { "message": "remote: error: GH006: Protected branch update failed for refs/heads/main. hook declined", "code": "EPERM" },
   { "message": "! [rejected]  v1.2.3 -> v1.2.3 (cannot lock ref refs/tags/v1.2.3: is at abcdef0 but expected 1234567)", "code": "ECONFLICT" },
   { "message": "fatal: Authentication failed for https://example.com/repo.git", "code": "EAUTH" },
-  { "message": "! [remote rejected] feature -> feature (shallow update not allowed)", "code": "EUNSUPPORTED" }
+  { "message": "! [remote rejected] feature -> feature (shallow update not allowed)", "code": "EUNSUPPORTED" },
+
+  { "message": "rejected non-fast-forward (fetch first)", "code": "ENONFASTFORWARD" },
+
+  { "message": "fatal: invalid refspec 'main::main'", "code": "EINVALIDSPEC" },
+  { "message": "src refspec 'main' does not match any", "code": "EINVALIDSPEC" },
+  { "message": "not a valid reference 'refs/heads//bad'", "code": "EINVALIDSPEC" },
+
+  { "message": "fatal: refusing to update unborn branch", "code": "EUNBORN" },
+  { "message": "error: does not have any commits yet", "code": "EUNBORN" },
+
+  { "message": "fatal: short read while indexing pack", "code": "ESHORTREAD" },
+  { "message": "fatal: unexpected EOF", "code": "ESHORTREAD" },
+  { "message": "fatal: premature end of pack file", "code": "ESHORTREAD" },
+
+  { "message": "remote: not found", "code": "ENOTFOUND" },
+  { "message": "remote ref does not exist", "code": "ENOTFOUND" },
+
+  { "message": "connection reset by peer", "code": "ECONNECTION" },
+  { "message": "fatal: operation timed out", "code": "ECONNECTION" },
+
+  { "message": "protocol error: unexpected pkt-line", "code": "EPROTOCOL" }
 ]

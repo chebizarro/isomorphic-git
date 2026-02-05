@@ -25,16 +25,28 @@ export function createRemoteInfoCompat(transport) {
       peeled: (r.peeled === undefined || r.peeled === null) ? null : r.peeled,
       symbolic: (r.symbolic === undefined || r.symbolic === null) ? null : r.symbolic,
       annotated: !!r.peeled,
-      target: (r.peeled === undefined || r.peeled === null) ? null : r.peeled,
     }))
 
     const head = refs.find(r => r.name === 'HEAD')
-    const headInfo = head
+    const headInfoFromV1 = head
       ? {
           symbolic: (head.symbolic === undefined || head.symbolic === null) ? null : head.symbolic,
           oid: (head.oid === undefined || head.oid === null) ? null : head.oid,
         }
       : undefined
+
+    let headInfoFromV2 = undefined
+    if (disc.protocol === 'v2') {
+      const symref = capabilities.symref
+      if (typeof symref === 'string' && symref.startsWith('HEAD:')) {
+        headInfoFromV2 = {
+          symbolic: symref.slice('HEAD:'.length) || null,
+          oid: null,
+        }
+      }
+    }
+
+    const headInfo = headInfoFromV2 || headInfoFromV1
 
     return { protocol: disc.protocol, capabilities, refs, head: headInfo }
   }

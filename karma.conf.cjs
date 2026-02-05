@@ -1,5 +1,18 @@
 // Karma configuration
-process.env.CHROME_BIN = require('puppeteer').executablePath()
+const fs = require('fs')
+try {
+  const puppeteerPath = require('puppeteer').executablePath()
+  // Check if the puppeteer Chromium binary actually exists
+  if (fs.existsSync(puppeteerPath)) {
+    process.env.CHROME_BIN = puppeteerPath
+  } else {
+    // Fallback to system Chromium if puppeteer's bundled Chromium isn't available
+    process.env.CHROME_BIN = process.env.CHROME_BIN || '/opt/homebrew/bin/chromium'
+  }
+} catch (e) {
+  // Fallback to system Chromium if puppeteer isn't available
+  process.env.CHROME_BIN = process.env.CHROME_BIN || '/opt/homebrew/bin/chromium'
+}
 const path = require('path')
 
 const webpack = require('webpack')
@@ -179,7 +192,7 @@ module.exports = function (config) {
       'karma-firefox-launcher',
       'karma-jasmine',
       'karma-junit-reporter',
-      'karma-sauce-launcher',
+      // 'karma-sauce-launcher', // Commented out - not installed locally, only needed for SauceLabs CI
       'karma-verbose-reporter',
       'karma-webpack',
       {
