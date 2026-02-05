@@ -8,14 +8,21 @@ describe('golden: compat push errors taxonomy', () => {
       async performPush() {
         return {
           updates: [
-            { ref: 'refs/heads/main', ok: false, message: 'rejected non-fast-forward' },
+            {
+              ref: 'refs/heads/main',
+              ok: false,
+              message: 'rejected non-fast-forward',
+            },
           ],
           rejected: ['refs/heads/main'],
         }
       },
     }
     const { push } = createPushCompat(/** @type {any} */ (transport))
-    const res = await push({ url: 'https://example.com/repo.git', refspecs: [] })
+    const res = await push({
+      url: 'https://example.com/repo.git',
+      refspecs: [],
+    })
     expect(res).toMatchInlineSnapshot(`
 Object {
   "rejected": Array [
@@ -38,14 +45,21 @@ Object {
       async performPush() {
         return {
           updates: [
-            { ref: 'refs/heads/feat', ok: false, message: 'pre-receive hook declined' },
+            {
+              ref: 'refs/heads/feat',
+              ok: false,
+              message: 'pre-receive hook declined',
+            },
           ],
           rejected: ['refs/heads/feat'],
         }
       },
     }
     const { push } = createPushCompat(/** @type {any} */ (transport))
-    const res = await push({ url: 'https://example.com/repo.git', refspecs: [] })
+    const res = await push({
+      url: 'https://example.com/repo.git',
+      refspecs: [],
+    })
     expect(res.updates[0]).toEqual(jasmine.objectContaining({ code: 'EPERM' }))
   })
 
@@ -54,14 +68,23 @@ Object {
       async performPush() {
         return {
           updates: [
-            { ref: 'refs/heads/x', ok: false, message: 'cannot lock ref refs/heads/x' },
+            {
+              ref: 'refs/heads/x',
+              ok: false,
+              message: 'cannot lock ref refs/heads/x',
+            },
           ],
           rejected: ['refs/heads/x'],
         }
       },
     }
     const { push } = createPushCompat(/** @type {any} */ (transport))
-    const res = await push({ url: 'https://example.com/repo.git', refspecs: [] })
-    expect(res.updates[0]).toEqual(jasmine.objectContaining({ code: 'ECONFLICT' }))
+    const res = await push({
+      url: 'https://example.com/repo.git',
+      refspecs: [],
+    })
+    expect(res.updates[0]).toEqual(
+      jasmine.objectContaining({ code: 'ECONFLICT' })
+    )
   })
 })

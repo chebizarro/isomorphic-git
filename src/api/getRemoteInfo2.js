@@ -1,12 +1,12 @@
 // @ts-check
 import '../typedefs.js'
 
+import { httpTransport as _compatHttpTransport } from '../compat/adapters/http-transport.js'
+import { LIBGIT2_COMPAT } from '../compat/flag.js'
+import { createRemoteInfoCompat } from '../compat/runtime-remote-info.js'
 import { GitRemoteManager } from '../managers/GitRemoteManager.js'
 import { assertParameter } from '../utils/assertParameter.js'
 import { formatInfoRefs } from '../utils/formatInfoRefs.js'
-import { LIBGIT2_COMPAT } from '../compat/flag.js'
-import { createRemoteInfoCompat } from '../compat/runtime-remote-info.js'
-import { httpTransport as _compatHttpTransport } from '../compat/adapters/http-transport.js'
 
 /**
  * @typedef {Object} GetRemoteInfo2Result - This object has the following schema:

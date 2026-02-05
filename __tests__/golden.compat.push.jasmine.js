@@ -8,7 +8,11 @@ describe('golden: compat push', () => {
     const calls = []
     const transport = {
       async performPush(opts) {
-        calls.push({ url: opts.url, refspecs: opts.refspecs, force: !!opts.force })
+        calls.push({
+          url: opts.url,
+          refspecs: opts.refspecs,
+          force: !!opts.force,
+        })
         if (opts.onProgress) {
           opts.onProgress({ writtenObjects: 1, totalObjects: 2 })
           opts.onProgress({ writtenObjects: 2, totalObjects: 2 })
@@ -16,7 +20,11 @@ describe('golden: compat push', () => {
         return {
           updates: [
             { ref: 'refs/heads/main', ok: true },
-            { ref: 'refs/tags/v1.0.0', ok: false, message: 'rejected non-fast-forward' },
+            {
+              ref: 'refs/tags/v1.0.0',
+              ok: false,
+              message: 'rejected non-fast-forward',
+            },
           ],
           rejected: ['refs/tags/v1.0.0'],
         }

@@ -48,8 +48,10 @@ export const fetchTransport = {
       remoteRef: opts.remoteRef,
       url: opts.url,
       corsProxy: opts.corsProxy,
-      depth: (opts.depth === undefined || opts.depth === null) ? null : opts.depth,
-      since: (opts.since === undefined || opts.since === null) ? null : opts.since,
+      depth:
+        opts.depth === undefined || opts.depth === null ? null : opts.depth,
+      since:
+        opts.since === undefined || opts.since === null ? null : opts.since,
       exclude: opts.exclude || [],
       relative: !!opts.relative,
       tags: !!opts.tags,

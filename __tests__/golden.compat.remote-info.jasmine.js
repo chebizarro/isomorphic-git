@@ -18,7 +18,9 @@ describe('golden: compat remote-info', () => {
         }
       },
     }
-    const { getRemoteInfo2 } = createRemoteInfoCompat(/** @type {any} */ (transport))
+    const { getRemoteInfo2 } = createRemoteInfoCompat(
+      /** @type {any} */ (transport)
+    )
     const info = await getRemoteInfo2('https://example.com/repo.git')
     expect(info).toMatchInlineSnapshot(`
 Object {
@@ -54,7 +56,9 @@ Object {
         }
       },
     }
-    const { getRemoteInfo2 } = createRemoteInfoCompat(/** @type {any} */ (transport))
+    const { getRemoteInfo2 } = createRemoteInfoCompat(
+      /** @type {any} */ (transport)
+    )
     const info = await getRemoteInfo2('https://example.com/repo.git')
     expect(info).toMatchInlineSnapshot(`
 Object {

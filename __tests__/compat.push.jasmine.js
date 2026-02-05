@@ -33,7 +33,9 @@ describe('compat push (jasmine)', () => {
       onProgress: e => events.push(e),
     })
 
-    expect(res.updates.some(u => u.ref === 'refs/heads/main' && u.ok)).toBe(true)
+    expect(res.updates.some(u => u.ref === 'refs/heads/main' && u.ok)).toBe(
+      true
+    )
     expect(events.length).toBe(1)
     expect(calls[0].refspecs).toEqual(['main:main'])
   })

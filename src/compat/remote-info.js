@@ -16,26 +16,30 @@ export function createRemoteInfoCompat(transport) {
     const capabilities = {}
     for (const cap of disc.capabilities) {
       const [k, v] = cap.split('=')
-      capabilities[k] = (v === undefined || v === null) ? true : v
+      capabilities[k] = v === undefined || v === null ? true : v
     }
 
     const refs = (disc.refs || []).map(r => ({
       name: r.name,
       oid: r.oid,
-      peeled: (r.peeled === undefined || r.peeled === null) ? null : r.peeled,
-      symbolic: (r.symbolic === undefined || r.symbolic === null) ? null : r.symbolic,
+      peeled: r.peeled === undefined || r.peeled === null ? null : r.peeled,
+      symbolic:
+        r.symbolic === undefined || r.symbolic === null ? null : r.symbolic,
       annotated: !!r.peeled,
     }))
 
     const head = refs.find(r => r.name === 'HEAD')
     const headInfoFromV1 = head
       ? {
-          symbolic: (head.symbolic === undefined || head.symbolic === null) ? null : head.symbolic,
-          oid: (head.oid === undefined || head.oid === null) ? null : head.oid,
+          symbolic:
+            head.symbolic === undefined || head.symbolic === null
+              ? null
+              : head.symbolic,
+          oid: head.oid === undefined || head.oid === null ? null : head.oid,
         }
       : undefined
 
-    let headInfoFromV2 = undefined
+    let headInfoFromV2
     if (disc.protocol === 'v2') {
       const symref = capabilities.symref
       if (typeof symref === 'string' && symref.startsWith('HEAD:')) {

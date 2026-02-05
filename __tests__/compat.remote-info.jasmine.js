@@ -15,7 +15,9 @@ describe('compat remote-info (jasmine)', () => {
     }
 
     // Cast transport to any to satisfy TS types in allowJs mode
-    const { getRemoteInfo2 } = createRemoteInfoCompat(/** @type {any} */ (transport))
+    const { getRemoteInfo2 } = createRemoteInfoCompat(
+      /** @type {any} */ (transport)
+    )
     const info = await getRemoteInfo2('https://example.com/repo.git')
 
     expect(info.protocol).toBe('v2')
@@ -41,7 +43,9 @@ describe('compat remote-info (jasmine)', () => {
       },
     }
 
-    const { getRemoteInfo2 } = createRemoteInfoCompat(/** @type {any} */ (transport))
+    const { getRemoteInfo2 } = createRemoteInfoCompat(
+      /** @type {any} */ (transport)
+    )
     const info = await getRemoteInfo2('https://example.com/repo.git')
 
     expect(info.protocol).toBe('v1')

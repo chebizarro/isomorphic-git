@@ -1,10 +1,10 @@
 // @ts-check
 import '../typedefs.js'
 
+import { _push } from '../commands/push.js'
+import { pushTransport as _compatPushTransport } from '../compat/adapters/push-transport.js'
 import { LIBGIT2_COMPAT } from '../compat/flag.js'
 import { createPushCompat } from '../compat/push.js'
-import { pushTransport as _compatPushTransport } from '../compat/adapters/push-transport.js'
-import { _push } from '../commands/push.js'
 import { FileSystem } from '../models/FileSystem.js'
 import { assertParameter } from '../utils/assertParameter.js'
 import { join } from '../utils/join.js'

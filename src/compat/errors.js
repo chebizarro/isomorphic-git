@@ -22,30 +22,32 @@ export function mapLegacyPushMessageToCode(msg) {
     m.includes('non-fast-forward') ||
     m.includes('non fast forward') ||
     m.includes('fetch first')
-  ) return 'ENONFASTFORWARD'
+  )
+    return 'ENONFASTFORWARD'
 
   // Invalid refspec / invalid source
   if (
     m.includes('invalid refspec') ||
     m.includes('does not match any') ||
     m.includes('not a valid reference')
-  ) return 'EINVALIDSPEC'
+  )
+    return 'EINVALIDSPEC'
 
   // Unborn branch / empty repository references
-  if (
-    m.includes('unborn') ||
-    m.includes('does not have any commits yet')
-  ) return 'EUNBORN'
+  if (m.includes('unborn') || m.includes('does not have any commits yet'))
+    return 'EUNBORN'
 
   // Short reads / unexpected EOF while reading pack/protocol
   if (
     m.includes('short read') ||
     m.includes('unexpected eof') ||
     m.includes('premature end of pack file')
-  ) return 'ESHORTREAD'
+  )
+    return 'ESHORTREAD'
 
   // Ref lock conflicts / write failures
-  if (m.includes('failed to write') || m.includes('cannot lock ref')) return 'ECONFLICT'
+  if (m.includes('failed to write') || m.includes('cannot lock ref'))
+    return 'ECONFLICT'
 
   // Permission / protected refs / hook rejections
   if (
@@ -53,7 +55,8 @@ export function mapLegacyPushMessageToCode(msg) {
     m.includes('hooks declined') ||
     m.includes('hook declined') ||
     m.includes('protected branch')
-  ) return 'EPERM'
+  )
+    return 'EPERM'
 
   // Authentication
   if (
@@ -61,7 +64,8 @@ export function mapLegacyPushMessageToCode(msg) {
     m.includes('auth failed') ||
     m.includes('unauthorized') ||
     m.includes('credential')
-  ) return 'EAUTH'
+  )
+    return 'EAUTH'
 
   // Missing remote refs / targets
   if (
@@ -70,7 +74,8 @@ export function mapLegacyPushMessageToCode(msg) {
     (m.includes('remote ref') && m.includes('does not exist')) ||
     m.includes('unknown ref') ||
     m.includes('no such')
-  ) return 'ENOTFOUND'
+  )
+    return 'ENOTFOUND'
 
   // Network / connection-ish failures
   if (
@@ -79,7 +84,8 @@ export function mapLegacyPushMessageToCode(msg) {
     m.includes('timed out') ||
     m.includes('timeout') ||
     m.includes('network')
-  ) return 'ECONNECTION'
+  )
+    return 'ECONNECTION'
 
   // Unsupported shallow push behavior
   if (m.includes('shallow update not allowed')) return 'EUNSUPPORTED'
@@ -123,8 +129,18 @@ export function mapThrownErrorToCode(e) {
   const m = message.toLowerCase()
 
   // Auth / permission errors
-  if (m.includes('authentication') || m.includes('unauthorized') || m.includes('auth failed')) return 'EAUTH'
-  if (m.includes('forbidden') || m.includes('permission denied') || m.includes('protected branch')) return 'EPERM'
+  if (
+    m.includes('authentication') ||
+    m.includes('unauthorized') ||
+    m.includes('auth failed')
+  )
+    return 'EAUTH'
+  if (
+    m.includes('forbidden') ||
+    m.includes('permission denied') ||
+    m.includes('protected branch')
+  )
+    return 'EPERM'
 
   // Protocol-level parsing issues (pkt-line, malformed wire messages, etc)
   if (
@@ -133,7 +149,8 @@ export function mapThrownErrorToCode(e) {
     m.includes('protocol error') ||
     m.includes('unexpected pkt') ||
     m.includes('malformed pkt')
-  ) return 'EPROTOCOL'
+  )
+    return 'EPROTOCOL'
 
   // Short read / EOF while reading pack or response body
   if (
@@ -141,7 +158,8 @@ export function mapThrownErrorToCode(e) {
     m.includes('unexpected eof') ||
     m.includes('premature end of pack file') ||
     m.includes('unexpected end of file')
-  ) return 'ESHORTREAD'
+  )
+    return 'ESHORTREAD'
 
   // Network / connection failures (Node, browsers, and generic phrasing)
   if (
@@ -157,7 +175,8 @@ export function mapThrownErrorToCode(e) {
     m.includes('etimedout') ||
     m.includes('enotfound') ||
     m.includes('eai_again')
-  ) return 'ECONNECTION'
+  )
+    return 'ECONNECTION'
 
   return 'EINTERNAL'
 }

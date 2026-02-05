@@ -1,8 +1,12 @@
 // Adapter wrapping the legacy _push to provide a compat transport surface.
 import { _push } from '../../commands/push.js'
 import { GitPushError } from '../../errors/GitPushError.js'
-import { CompatError, mapLegacyPushMessageToCode, mapThrownErrorToCode } from '../errors'
 import { FileSystem } from '../../models/FileSystem.js'
+import {
+  CompatError,
+  mapLegacyPushMessageToCode,
+  mapThrownErrorToCode,
+} from '../errors.js'
 
 function legacyPushResultToCompat(res) {
   const updates = []
@@ -19,7 +23,8 @@ function legacyPushResultToCompat(res) {
   } else if (Array.isArray(res && res.ok)) {
     // Fallback: treat ok list as successful refs except the first 'unpack'
     for (const item of res.ok) {
-      if (item && item !== 'unpack') updates.push({ ref: String(item), ok: true })
+      if (item && item !== 'unpack')
+        updates.push({ ref: String(item), ok: true })
     }
     if (Array.isArray(res.errors)) {
       // errors may be formatted strings like "refs/heads/x reason"
@@ -28,7 +33,12 @@ function legacyPushResultToCompat(res) {
         // naive parse: split first space
         const sp = m.indexOf(' ')
         const ref = sp > 0 ? m.slice(0, sp) : m
-        updates.push({ ref, ok: false, message: m, code: mapLegacyPushMessageToCode(m) })
+        updates.push({
+          ref,
+          ok: false,
+          message: m,
+          code: mapLegacyPushMessageToCode(m),
+        })
       }
     }
   }
@@ -71,7 +81,8 @@ export const pushTransport = {
         if (result && typeof result.ok === 'boolean' && result.ok === false) {
           throw new CompatError(
             'EPROTOCOL',
-            (result && result.error) || 'Remote failed to unpack the sent packfile',
+            (result && result.error) ||
+              'Remote failed to unpack the sent packfile',
             result
           )
         }

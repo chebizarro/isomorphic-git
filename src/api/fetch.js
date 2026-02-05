@@ -1,10 +1,10 @@
 // @ts-check
 import '../typedefs.js'
 
-import { LIBGIT2_COMPAT } from '../compat/flag.js'
-import { createFetchCompat } from '../compat/fetch.js'
-import { fetchTransport as _compatFetchTransport } from '../compat/adapters/fetch-transport.js'
 import { _fetch } from '../commands/fetch.js'
+import { fetchTransport as _compatFetchTransport } from '../compat/adapters/fetch-transport.js'
+import { createFetchCompat } from '../compat/fetch.js'
+import { LIBGIT2_COMPAT } from '../compat/flag.js'
 import { FileSystem } from '../models/FileSystem.js'
 import { assertParameter } from '../utils/assertParameter.js'
 import { join } from '../utils/join.js'

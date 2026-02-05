@@ -1,5 +1,5 @@
 // Runtime compat push factory. Thin wrapper for progress/result mapping.
-import { mapLegacyPushMessageToCode } from './errors'
+import { mapLegacyPushMessageToCode } from './errors.js'
 
 export function createPushCompat(transport) {
   async function push(opts) {

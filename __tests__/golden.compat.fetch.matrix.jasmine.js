@@ -33,22 +33,42 @@ describe('golden: compat fetch matrix', () => {
 
     const { fetch } = createFetchCompat(transport)
     const variants = [
-      { depth: 1, since: undefined, singleBranch: true, tags: false, prune: false },
-      { depth: undefined, since: new Date(0), singleBranch: false, tags: true, prune: true },
-      { depth: 3, since: undefined, singleBranch: true, tags: true, prune: false },
+      {
+        depth: 1,
+        since: undefined,
+        singleBranch: true,
+        tags: false,
+        prune: false,
+      },
+      {
+        depth: undefined,
+        since: new Date(0),
+        singleBranch: false,
+        tags: true,
+        prune: true,
+      },
+      {
+        depth: 3,
+        since: undefined,
+        singleBranch: true,
+        tags: true,
+        prune: false,
+      },
     ]
 
     for (const v of variants) {
       phases.length = 0
-      await fetch(/** @type {any} */ ({
-        url: 'https://example.com/repo.git',
-        depth: v.depth,
-        since: v.since,
-        singleBranch: v.singleBranch,
-        tags: v.tags,
-        prune: v.prune,
-        onProgress: e => phases.push(e.phase),
-      }))
+      await fetch(
+        /** @type {any} */ ({
+          url: 'https://example.com/repo.git',
+          depth: v.depth,
+          since: v.since,
+          singleBranch: v.singleBranch,
+          tags: v.tags,
+          prune: v.prune,
+          onProgress: e => phases.push(e.phase),
+        })
+      )
       expect(phases).toEqual(['negotiation', 'receiving', 'indexing'])
     }
 

@@ -1,7 +1,7 @@
 // Runtime compat fetch factory. Currently a thin wrapper preparing for libgit2-like negotiation.
 // For now, this delegates progress mapping and returns the transport's response shape.
 
-import { CompatError } from './errors'
+import { CompatError } from './errors.js'
 
 function normalizeFetchPhase(input) {
   if (input === undefined || input === null) return undefined
@@ -17,7 +17,9 @@ function normalizeFetchPhase(input) {
     lower === 'indexing' ||
     lower === 'resolving'
   ) {
-    return /** @type {'negotiation'|'receiving'|'indexing'|'resolving'} */ (lower)
+    return /** @type {'negotiation'|'receiving'|'indexing'|'resolving'} */ (
+      lower
+    )
   }
 
   // Map common git-like progress strings to canonical phases
@@ -42,9 +44,13 @@ function normalizeFetchPhase(input) {
 
 function validateFetchArgs(opts) {
   if (!opts || typeof opts !== 'object') {
-    throw new CompatError('EINVALIDSPEC', 'Invalid fetch options: expected an options object', {
-      opts,
-    })
+    throw new CompatError(
+      'EINVALIDSPEC',
+      'Invalid fetch options: expected an options object',
+      {
+        opts,
+      }
+    )
   }
 
   const depth = opts.depth
@@ -104,7 +110,12 @@ export function createFetchCompat(transport) {
     // Pass through to transport which returns the standard FetchResult
     validateFetchArgs(opts)
 
-    const PHASES = /** @type {const} */ (['negotiation', 'receiving', 'indexing', 'resolving'])
+    const PHASES = /** @type {const} */ ([
+      'negotiation',
+      'receiving',
+      'indexing',
+      'resolving',
+    ])
     const phaseIndex = p => PHASES.indexOf(p)
 
     let lastEmittedIndex = -1
@@ -154,8 +165,10 @@ export function createFetchCompat(transport) {
     const normalizedOpts = {
       ...opts,
       onProgress,
-      depth: (opts.depth === undefined || opts.depth === null) ? null : opts.depth,
-      since: (opts.since === undefined || opts.since === null) ? null : opts.since,
+      depth:
+        opts.depth === undefined || opts.depth === null ? null : opts.depth,
+      since:
+        opts.since === undefined || opts.since === null ? null : opts.since,
     }
 
     return await transport.performFetch(normalizedOpts)

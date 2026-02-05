@@ -21,7 +21,9 @@ describe('golden: compat fetch validation', () => {
   it('invalid depth throws EINVALIDSPEC', async () => {
     const transport = {
       async performFetch() {
-        throw new Error('transport.performFetch should not be called for invalid inputs')
+        throw new Error(
+          'transport.performFetch should not be called for invalid inputs'
+        )
       },
     }
 
@@ -42,7 +44,9 @@ describe('golden: compat fetch validation', () => {
   it('NaN depth throws EINVALIDSPEC', async () => {
     const transport = {
       async performFetch() {
-        throw new Error('transport.performFetch should not be called for invalid inputs')
+        throw new Error(
+          'transport.performFetch should not be called for invalid inputs'
+        )
       },
     }
 
@@ -60,14 +64,19 @@ describe('golden: compat fetch validation', () => {
   it('Infinity depth throws EINVALIDSPEC', async () => {
     const transport = {
       async performFetch() {
-        throw new Error('transport.performFetch should not be called for invalid inputs')
+        throw new Error(
+          'transport.performFetch should not be called for invalid inputs'
+        )
       },
     }
 
     const { fetch } = createFetchCompat(transport)
 
     try {
-      await fetch({ url: 'https://example.com/repo.git', depth: Number.POSITIVE_INFINITY })
+      await fetch({
+        url: 'https://example.com/repo.git',
+        depth: Number.POSITIVE_INFINITY,
+      })
       fail('Expected fetch() to throw for Infinity depth')
     } catch (e) {
       expect(e && e.name).toBe('CompatError')
@@ -78,7 +87,9 @@ describe('golden: compat fetch validation', () => {
   it('invalid since throws EINVALIDSPEC', async () => {
     const transport = {
       async performFetch() {
-        throw new Error('transport.performFetch should not be called for invalid inputs')
+        throw new Error(
+          'transport.performFetch should not be called for invalid inputs'
+        )
       },
     }
 
@@ -99,7 +110,9 @@ describe('golden: compat fetch validation', () => {
   it('Invalid Date since throws EINVALIDSPEC', async () => {
     const transport = {
       async performFetch() {
-        throw new Error('transport.performFetch should not be called for invalid inputs')
+        throw new Error(
+          'transport.performFetch should not be called for invalid inputs'
+        )
       },
     }
 
@@ -120,7 +133,9 @@ describe('golden: compat fetch validation', () => {
   it('depth + since throws EINVALIDSPEC', async () => {
     const transport = {
       async performFetch() {
-        throw new Error('transport.performFetch should not be called for invalid inputs')
+        throw new Error(
+          'transport.performFetch should not be called for invalid inputs'
+        )
       },
     }
 
