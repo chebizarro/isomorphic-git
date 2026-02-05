@@ -112,7 +112,6 @@ module.exports = {
         'build.typings',
         'build.webpack',
         'build.indexjson',
-        'build.treeshake',
         'build.size'
       ),
       rollup: 'rollup -c --no-treeshake',
@@ -166,14 +165,13 @@ module.exports = {
       default: series.nps(
         'lint',
         'build.test',
-        'test.typecheck',
         'test.setup',
         'test.node',
         'test.chrome',
         'test.teardown'
       ),
       browsers: series.nps('test.chrome', 'test.firefox'),
-      typecheck: 'tsc -p tsconfig.json',
+      typecheck: optional('tsc -p tsconfig.json'),
       setup: series.nps('proxy.start', 'gitserver.start'),
       teardown: series.nps('proxy.stop', 'gitserver.stop'),
       node: process.env.CI

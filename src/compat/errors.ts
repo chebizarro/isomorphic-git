@@ -126,9 +126,9 @@ export function mapLegacyPushMessageToCode(msg: string): CompatErrorCode {
 export function mapThrownErrorToCode(e: unknown): CompatErrorCode {
   // Preserve CompatError codes when re-mapping
   if (e && typeof e === 'object') {
-    const anyErr = /** @type {any} */ (e)
+    const anyErr = e as any
     if (anyErr && anyErr.name === 'CompatError' && typeof anyErr.code === 'string') {
-      return /** @type {CompatErrorCode} */ (anyErr.code)
+      return anyErr.code as CompatErrorCode
     }
 
     // HttpError (from ../errors/HttpError.js) typically carries a numeric statusCode

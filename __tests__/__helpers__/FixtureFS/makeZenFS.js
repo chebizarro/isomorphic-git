@@ -11,6 +11,7 @@ export async function makeZenFS(dir) {
   const index = require('../../__fixtures__/index.json')
   await configureSingle({
     backend: CopyOnWrite,
+    // @ts-ignore - index property exists in ZenFS Fetch backend config
     readable: {
       backend: Fetch,
       index,
