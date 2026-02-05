@@ -7,6 +7,7 @@ import { createFetchCompat } from '../compat/fetch.js'
 import { LIBGIT2_COMPAT } from '../compat/flag.js'
 import { FileSystem } from '../models/FileSystem.js'
 import { assertParameter } from '../utils/assertParameter.js'
+import { discoverGitdir } from '../utils/discoverGitdir.js'
 import { join } from '../utils/join.js'
 
 /**
@@ -98,6 +99,9 @@ export async function fetch({
     assertParameter('http', http)
     assertParameter('gitdir', gitdir)
 
+    const fsp = new FileSystem(fs)
+    const updatedGitdir = await discoverGitdir({ fsp, dotgit: gitdir })
+
     // Compat flag: delegate via compat fetch factory using adapter over legacy internals.
     if (LIBGIT2_COMPAT) {
       const { fetch: compatFetch } = createFetchCompat(_compatFetchTransport)
@@ -110,7 +114,7 @@ export async function fetch({
         onAuth,
         onAuthSuccess,
         onAuthFailure,
-        gitdir,
+        gitdir: updatedGitdir,
         ref,
         remote,
         remoteRef,
@@ -129,7 +133,7 @@ export async function fetch({
     }
 
     return await _fetch({
-      fs: new FileSystem(fs),
+      fs: fsp,
       cache,
       http,
       onProgress,
@@ -137,7 +141,7 @@ export async function fetch({
       onAuth,
       onAuthSuccess,
       onAuthFailure,
-      gitdir,
+      gitdir: updatedGitdir,
       ref,
       remote,
       remoteRef,

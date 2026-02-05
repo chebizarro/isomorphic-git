@@ -7,6 +7,7 @@ import { LIBGIT2_COMPAT } from '../compat/flag.js'
 import { createPushCompat } from '../compat/push.js'
 import { FileSystem } from '../models/FileSystem.js'
 import { assertParameter } from '../utils/assertParameter.js'
+import { discoverGitdir } from '../utils/discoverGitdir.js'
 import { join } from '../utils/join.js'
 
 /**
@@ -83,6 +84,9 @@ export async function push({
     assertParameter('http', http)
     assertParameter('gitdir', gitdir)
 
+    const fsp = new FileSystem(fs)
+    const updatedGitdir = await discoverGitdir({ fsp, dotgit: gitdir })
+
     // Compat flag: delegate via compat push factory using adapter over legacy internals.
     if (LIBGIT2_COMPAT) {
       const { push: compatPush } = createPushCompat(_compatPushTransport)
@@ -96,7 +100,7 @@ export async function push({
         onAuthSuccess,
         onAuthFailure,
         onPrePush,
-        gitdir,
+        gitdir: updatedGitdir,
         ref,
         remoteRef,
         remote,
@@ -109,7 +113,7 @@ export async function push({
     }
 
     return await _push({
-      fs: new FileSystem(fs),
+      fs: fsp,
       cache,
       http,
       onProgress,
@@ -118,7 +122,7 @@ export async function push({
       onAuthSuccess,
       onAuthFailure,
       onPrePush,
-      gitdir,
+      gitdir: updatedGitdir,
       ref,
       remoteRef,
       remote,
