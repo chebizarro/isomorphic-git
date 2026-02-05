@@ -35,39 +35,35 @@ This document tracks the integration of upstream isomorphic-git changes into the
 - **Compatibility**: ✅ No conflicts with compat layer
 - **Tests**: ✅ All 45 tests passing
 
-## Deferred Changes 🔄
-
-### High Priority (Conflicts)
-
-#### Symlink Handling Fix (667be272)
+### 4. Symlink Handling Fix (667be272)
+- **Commit**: `23720555` (manually applied from upstream 667be272)
 - **Issue**: #2271
-- **Reason for Deferral**: Merge conflicts in submodule-related test files
-- **Conflicts**: 
-  - `.all-contributorsrc`
-  - `README.md`
-  - `__tests__/__helpers__/FixtureFS/makeNodeFixture.js`
-  - `__tests__/__helpers__/FixtureFSSubmodule.js` (deleted in fork)
-  - `__tests__/test-walk-in-submodule.js` (deleted in fork)
-  - `__tests__/test-walk.js`
-- **Recommendation**: Manual merge after submodule support evaluation
-- **Core Change**: `src/models/GitWalkerFs.js` - symlink content handling
+- **Impact**: Fixes `GitWalkerFs#content` to properly handle symlinks using `readlink`
+- **Files Modified**: `src/models/GitWalkerFs.js`
+- **Compatibility**: ✅ No conflicts with compat layer
+- **Conflicts Resolved**: Submodule test files (not present in fork)
+- **Tests**: ⏳ Awaiting test infrastructure update
 
-### Major Infrastructure (Requires Extensive Testing)
-
-#### BrowserFS → ZenFS Migration (2e3274dd)
+### 5. BrowserFS → ZenFS Migration (2e3274dd) 🎉
+- **Commit**: `4674f161` (cherry-picked from upstream 2e3274dd)
 - **Issue**: #1996
-- **Reason for Deferral**: Major infrastructure change requiring extensive testing
-- **Benefits**:
-  - Fixes OpenSSL error with webpack 4 (upgrades to webpack 5)
-  - Modernizes filesystem abstraction layer
-  - Updates Node.js requirement to v18+
-- **Impact**:
-  - 353 files changed (+39,538 -56,275 lines)
-  - Webpack 4 → 5
-  - Babel config updates
-  - Many dependency updates
-- **Recommendation**: Separate integration effort after v2.0.0-alpha stabilization
-- **Risk**: High - could introduce regressions in compat layer
+- **Impact**: Major infrastructure upgrade
+  - Webpack 4 → 5 (fixes OpenSSL error permanently)
+  - Node.js 18+ requirement
+  - Modern dependency versions
+  - Karma/Jasmine → Jest/Puppeteer
+- **Files Modified**: 190 files (+16,645 -47,938 lines)
+- **Compatibility**: ✅ Compat layer isolated, only import statements updated
+- **Conflicts Resolved**:
+  - `karma.conf.cjs`: Removed (replaced with jest-puppeteer)
+  - `package.json`, `package-lock.json`: Accepted upstream dependencies
+  - Stash files: Accepted upstream refactoring
+  - `src/models/index.js`: Restored from upstream
+- **Build Status**: ✅ Compiles successfully
+- **Tests**: ⏳ Test infrastructure needs conversion from Jasmine to Jest
+- **Documentation**: See `ZENFS_MIGRATION_STATUS.md` for details
+
+## Deferred Changes 🔄
 
 ### Feature Additions (Not Critical for v2.0.0-alpha)
 
