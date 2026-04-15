@@ -69,6 +69,12 @@ import { repositoryState, repositoryStateCleanup, isBare, isEmpty, isShallow, is
 import { indexHasConflicts, indexConflictGet, indexConflictAdd, indexConflictRemove, indexConflictIterator, indexConflictCleanup } from './api/indexConflicts.js'
 import { getAttr, getAttrMany, getAttrAll, ATTR_VALUE } from './api/getAttr.js'
 import { submoduleList, submoduleStatus, submoduleInit, submoduleDeinit, submoduleSync, submoduleAdd, SUBMODULE_STATUS } from './api/submodule.js'
+import { mergeAnalysis, MERGE_ANALYSIS, MERGE_PREFERENCE } from './api/mergeAnalysis.js'
+import { applyFilter, filterList, FILTER_MODE } from './api/filters.js'
+import { revwalk, SORT } from './api/revwalk.js'
+import { deleteConfigSection, listConfigSubsections, deleteConfig, appendConfig } from './api/configExt.js'
+import { commitNthAncestor, commitParent, commitHeaderField } from './api/commitExt.js'
+import { branchUpstream, setBranchUpstream, unsetBranchUpstream, branchNameIsValid, branchIsHead } from './api/branchExt.js'
 import { cherryPick } from './api/cherryPick.js'
 import { revert } from './api/revert.js'
 import { stash } from './api/stash.js'
@@ -200,6 +206,26 @@ export {
   submoduleSync,
   submoduleAdd,
   SUBMODULE_STATUS,
+  mergeAnalysis,
+  MERGE_ANALYSIS,
+  MERGE_PREFERENCE,
+  applyFilter,
+  filterList,
+  FILTER_MODE,
+  revwalk,
+  SORT,
+  deleteConfigSection,
+  listConfigSubsections,
+  deleteConfig,
+  appendConfig,
+  commitNthAncestor,
+  commitParent,
+  commitHeaderField,
+  branchUpstream,
+  setBranchUpstream,
+  unsetBranchUpstream,
+  branchNameIsValid,
+  branchIsHead,
 }
 
 // default export
@@ -316,4 +342,24 @@ export default {
   submoduleSync,
   submoduleAdd,
   SUBMODULE_STATUS,
+  mergeAnalysis,
+  MERGE_ANALYSIS,
+  MERGE_PREFERENCE,
+  applyFilter,
+  filterList,
+  FILTER_MODE,
+  revwalk,
+  SORT,
+  deleteConfigSection,
+  listConfigSubsections,
+  deleteConfig,
+  appendConfig,
+  commitNthAncestor,
+  commitParent,
+  commitHeaderField,
+  branchUpstream,
+  setBranchUpstream,
+  unsetBranchUpstream,
+  branchNameIsValid,
+  branchIsHead,
 }
