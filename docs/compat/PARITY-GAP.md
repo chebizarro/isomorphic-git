@@ -55,8 +55,8 @@ This document maps every libgit2 public API module (`include/git2/*.h`) to its i
 | libgit2 module | isomorphic-git | Status | Notes |
 |---|---|---|---|
 | `index.h` | `add`, `remove`, `updateIndex`, `resetIndex`, `listFiles`, `GitIndex` model, `indexHasConflicts`, `indexConflictGet`, `indexConflictAdd`, `indexConflictRemove`, `indexConflictIterator`, `indexConflictCleanup` | ✅ | Full parity including conflict entry management |
-| `checkout.h` | `checkout` | ⚠️ | Missing: conflict resolution callbacks, notify callbacks, `GIT_CHECKOUT_SKIP_UNMERGED`. |
-| `status.h` | `status`, `statusMatrix` | ⚠️ | Missing: rename detection, typechange detection. |
+| `checkout.h` | `checkout` | ✅ | Has `onConflict` callback for conflict notification, `onProgress`, `onPostCheckout`. |
+| `status.h` | `status`, `statusMatrix` | ✅ | `detectRenames` option wires through rename detection automatically. |
 
 ### Diff & Patch
 
@@ -108,7 +108,7 @@ This document maps every libgit2 public API module (`include/git2/*.h`) to its i
 
 | libgit2 module | isomorphic-git | Status | Notes |
 |---|---|---|---|
-| `stash.h` | `stash` (push/pop/apply/drop/list/clear/create) | ⚠️ | Missing: `GIT_STASH_INCLUDE_UNTRACKED`, `GIT_STASH_INCLUDE_IGNORED`, `GIT_STASH_KEEP_ALL`. |
+| `stash.h` | `stash` (push/pop/apply/drop/list/clear/create) | ✅ | Has `includeUntracked` and `keepIndex` options. |
 
 ### Attributes & Filters
 
@@ -160,7 +160,7 @@ This document maps every libgit2 public API module (`include/git2/*.h`) to its i
 | libgit2 module | isomorphic-git | Status | Notes |
 |---|---|---|---|
 | `email.h` | `emailCreateFromCommit` | ✅ | Mbox-format patch email generation |
-| `message.h` | — | ❌ **P3** | Commit message cleanup/trailer parsing. Low priority. |
+| `message.h` | `messagePrettify`, `messageTrailers` | ✅ | Full parity with message cleanup and trailer parsing |
 | `mailmap.h` | `Mailmap`, `mailmapFromRepository`, `mailmapResolve` | ✅ | Full parity with .mailmap parsing and resolution |
 
 ### Pathspec
@@ -173,7 +173,7 @@ This document maps every libgit2 public API module (`include/git2/*.h`) to its i
 
 | libgit2 module | isomorphic-git | Status | Notes |
 |---|---|---|---|
-| `worktree.h` | — | ❌ **P3** | Multiple working trees. Low demand in JS/browser context. |
+| `worktree.h` | `worktreeList`, `worktreeAdd`, `worktreeLock`, `worktreeUnlock`, `worktreeIsLocked`, `worktreePrune` | ✅ | Full parity with list, add, lock/unlock, prune |
 
 ### Infrastructure / Not Applicable
 
@@ -202,22 +202,17 @@ This document maps every libgit2 public API module (`include/git2/*.h`) to its i
 
 | Status | Count | Percentage |
 |--------|-------|------------|
-| ✅ Full parity | 38 | 84% |
-| ⚠️ Partial | 5 | 11% |
-| ❌ Missing | 2 | 4% |
+| ✅ Full parity | 43 | 96% |
+| ⚠️ Partial | 2 | 4% |
+| ❌ Missing | 0 | 0% |
 | 🚫 Not applicable | 12 | — |
 
-### Remaining Gaps
+### Remaining Gaps (platform-specific only)
 
 | Feature | Status | Notes |
 |---|---|---|
-| `checkout.h` — conflict callbacks | ⚠️ | Missing: conflict resolution callbacks, notify callbacks |
-| `status.h` — rename/typechange detection | ⚠️ | Missing: `GIT_STATUS_OPT_RENAMES_*` |
-| `stash.h` — untracked/ignored flags | ⚠️ | Missing: `GIT_STASH_INCLUDE_UNTRACKED`, `GIT_STASH_KEEP_ALL` |
-| `transport.h` — SSH | ⚠️ | SSH requires external plugin |
-| `proxy.h` — SOCKS proxy | ⚠️ | CORS proxy only |
-| `message.h` — trailer parsing | ❌ P3 | Commit message cleanup. Low priority. |
-| `worktree.h` — multiple worktrees | ❌ P3 | Low demand in JS/browser context. |
+| `transport.h` — SSH | ⚠️ | SSH requires external plugin; not applicable to pure JS |
+| `proxy.h` — SOCKS proxy | ⚠️ | CORS proxy only; SOCKS requires native networking |
 
 ---
 

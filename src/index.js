@@ -96,6 +96,8 @@ import { PackBuilder, packBuilderNew } from './api/packBuilder.js'
 import { Indexer, indexerNew } from './api/indexer.js'
 import { Mailmap, mailmapFromRepository, mailmapResolve } from './api/mailmap.js'
 import { odbAddBackend, odbClearBackends, odbListBackends, odbRead, odbWrite, odbExists } from './api/odbExt.js'
+import { messagePrettify, messageTrailers } from './api/message.js'
+import { worktreeList, worktreeAdd, worktreeLock, worktreeUnlock, worktreeIsLocked, worktreePrune } from './api/worktree.js'
 import { cherryPick } from './api/cherryPick.js'
 import { revert } from './api/revert.js'
 import { stash } from './api/stash.js'
@@ -310,6 +312,14 @@ export {
   odbRead,
   odbWrite,
   odbExists,
+  messagePrettify,
+  messageTrailers,
+  worktreeList,
+  worktreeAdd,
+  worktreeLock,
+  worktreeUnlock,
+  worktreeIsLocked,
+  worktreePrune,
 }
 
 // default export
@@ -509,4 +519,12 @@ export default {
   odbRead,
   odbWrite,
   odbExists,
+  messagePrettify,
+  messageTrailers,
+  worktreeList,
+  worktreeAdd,
+  worktreeLock,
+  worktreeUnlock,
+  worktreeIsLocked,
+  worktreePrune,
 }

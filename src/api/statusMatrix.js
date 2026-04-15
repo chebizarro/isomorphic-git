@@ -11,6 +11,10 @@ import { assertParameter } from '../utils/assertParameter.js'
 import { discoverGitdir } from '../utils/discoverGitdir.js'
 import { join } from '../utils/join.js'
 import { worthWalking } from '../utils/worthWalking.js'
+import { _readObject } from '../storage/readObject.js'
+import { GitRefManager } from '../managers/GitRefManager.js'
+import { GitIndexManager } from '../managers/GitIndexManager.js'
+import { resolveCommit } from '../utils/resolveCommit.js'
 
 /**
  * Efficiently get the status of multiple files at once.
@@ -242,13 +246,171 @@ export async function statusMatrix({
       },
     })
 
-    // detectRenames option: consumers can pass this matrix through
-    // git.findRenames() from the diff engine for rename detection.
-    // The statusMatrix itself stays backward-compatible.
+    // When detectRenames is enabled, find files that were deleted from HEAD
+    // and added to the index, then check if any additions match deletions
+    // by content (exact OID match or similarity). Augment matrix with renames.
+    if (detectRenames && matrix.length > 0) {
+      // head=1,stage=0 → deleted from HEAD; head=0,stage≠0 → added to index
+      const deleted = [] // {filepath, idx}
+      const added = []   // {filepath, idx}
+      for (let i = 0; i < matrix.length; i++) {
+        const [fp, h, w, s] = matrix[i]
+        if (h === 1 && s === 0) deleted.push({ filepath: fp, idx: i })
+        if (h === 0 && s !== 0) added.push({ filepath: fp, idx: i })
+      }
+
+      if (deleted.length > 0 && added.length > 0) {
+        // Collect OIDs for deleted (from HEAD tree) and added (from index)
+        let headTree = null
+        try {
+          const headOid = await GitRefManager.resolve({ fs, gitdir: updatedGitdir, ref })
+          const resolved = await resolveCommit({ fs, cache, gitdir: updatedGitdir, oid: headOid })
+          headTree = resolved.commit.parse().tree
+        } catch (e) { /* empty repo */ }
+        // headTree already set above
+
+        const renames = new Map() // newPath → oldPath
+
+        if (headTree) {
+          // Build a map of deleted paths to their OIDs from the HEAD tree
+          const deletedOids = new Map()
+          for (const del of deleted) {
+            try {
+              const oid = await _findOidInTree({ fs, cache, gitdir: updatedGitdir, tree: headTree, filepath: del.filepath })
+              if (oid) deletedOids.set(del.filepath, oid)
+            } catch (e) { /* skip */ }
+          }
+
+          // Build a map of added paths to their OIDs from the index
+          const addedOids = new Map()
+          await GitIndexManager.acquire({ fs, gitdir: updatedGitdir, cache }, async function(index) {
+            for (const add of added) {
+              const entry = index.entriesMap.get(add.filepath)
+              if (entry) addedOids.set(add.filepath, entry.oid)
+            }
+          })
+
+          // Phase 1: Exact OID match (100% similarity renames)
+          const matchedDeleted = new Set()
+          const matchedAdded = new Set()
+          for (const [delPath, delOid] of deletedOids) {
+            for (const [addPath, addOid] of addedOids) {
+              if (matchedAdded.has(addPath)) continue
+              if (delOid === addOid) {
+                renames.set(addPath, delPath)
+                matchedDeleted.add(delPath)
+                matchedAdded.add(addPath)
+                break
+              }
+            }
+          }
+
+          // Phase 2: Content similarity for remaining unmatched
+          const threshold = typeof detectRenames === 'number' ? detectRenames : 50
+          const unmatchedDel = [...deletedOids].filter(([p]) => !matchedDeleted.has(p))
+          const unmatchedAdd = [...addedOids].filter(([p]) => !matchedAdded.has(p))
+
+          if (unmatchedDel.length > 0 && unmatchedAdd.length > 0) {
+            // Read content for similarity comparison
+            const readBlob = async (oid) => {
+              try {
+                const { object } = await _readObject({ fs, cache, gitdir: updatedGitdir, oid })
+                return object
+              } catch (e) { return null }
+            }
+
+            for (const [delPath, delOid] of unmatchedDel) {
+              const delContent = await readBlob(delOid)
+              if (!delContent) continue
+              let bestMatch = null
+              let bestSim = threshold
+
+              for (const [addPath, addOid] of unmatchedAdd) {
+                if (matchedAdded.has(addPath)) continue
+                const addContent = await readBlob(addOid)
+                if (!addContent) continue
+                const sim = _computeSimilarity(delContent, addContent)
+                if (sim > bestSim) {
+                  bestSim = sim
+                  bestMatch = addPath
+                }
+              }
+
+              if (bestMatch) {
+                renames.set(bestMatch, delPath)
+                matchedDeleted.add(delPath)
+                matchedAdded.add(bestMatch)
+              }
+            }
+          }
+        }
+
+        // Augment matrix: add oldPath as 5th element for renamed files
+        if (renames.size > 0) {
+          // Remove deleted entries that were matched as renames
+          const deletedPaths = new Set(renames.values())
+          const filtered = matrix.filter(([fp]) => !deletedPaths.has(fp))
+          for (let i = 0; i < filtered.length; i++) {
+            const oldPath = renames.get(filtered[i][0])
+            if (oldPath) {
+              filtered[i] = [...filtered[i], oldPath]
+            }
+          }
+          return filtered
+        }
+      }
+    }
 
     return matrix
   } catch (err) {
     err.caller = 'git.statusMatrix'
     throw err
   }
+}
+
+/** @private Find a blob OID in a tree by filepath */
+async function _findOidInTree({ fs, cache, gitdir, tree, filepath }) {
+  const parts = filepath.split('/')
+  let currentTree = tree
+  for (let i = 0; i < parts.length; i++) {
+    const { object: treeBuf } = await _readObject({ fs, cache, gitdir, oid: currentTree })
+    let found = false
+    let idx = 0
+    while (idx < treeBuf.length) {
+      const spaceIdx = treeBuf.indexOf(0x20, idx)
+      if (spaceIdx === -1) break
+      const mode = treeBuf.slice(idx, spaceIdx).toString('utf8')
+      const nullIdx = treeBuf.indexOf(0x00, spaceIdx + 1)
+      if (nullIdx === -1) break
+      const name = treeBuf.slice(spaceIdx + 1, nullIdx).toString('utf8')
+      const oid = treeBuf.slice(nullIdx + 1, nullIdx + 21).toString('hex')
+      idx = nullIdx + 21
+
+      if (name === parts[i]) {
+        if (i === parts.length - 1) return oid
+        currentTree = oid
+        found = true
+        break
+      }
+    }
+    if (!found) return null
+  }
+  return null
+}
+
+/** @private Compute similarity between two buffers (0-100) */
+function _computeSimilarity(a, b) {
+  if (a.length === 0 && b.length === 0) return 100
+  if (a.length === 0 || b.length === 0) return 0
+  // Use line-based comparison
+  const aStr = a.toString('utf8')
+  const bStr = b.toString('utf8')
+  const aLines = new Set(aStr.split('\n'))
+  const bLines = new Set(bStr.split('\n'))
+  let common = 0
+  for (const line of aLines) {
+    if (bLines.has(line)) common++
+  }
+  const total = Math.max(aLines.size, bLines.size)
+  return total === 0 ? 0 : Math.round((common / total) * 100)
 }

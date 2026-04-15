@@ -100,6 +100,8 @@ sidebar_label: Alphabetical Index
 - [mailmapFromRepository](mailmapFromRepository)
 - [mailmapResolve](mailmapResolve)
 - [merge](merge)
+- [messagePrettify](messagePrettify)
+- [messageTrailers](messageTrailers)
 - [mergeAnalysis](mergeAnalysis)
 - [noteCreate](noteCreate)
 - [noteForeach](noteForeach)
@@ -182,6 +184,12 @@ sidebar_label: Alphabetical Index
 - [writeObject](writeObject)
 - [writeRef](writeRef)
 - [writeTag](writeTag)
+- [worktreeAdd](worktreeAdd)
+- [worktreeIsLocked](worktreeIsLocked)
+- [worktreeList](worktreeList)
+- [worktreeLock](worktreeLock)
+- [worktreePrune](worktreePrune)
+- [worktreeUnlock](worktreeUnlock)
 - [writeTree](writeTree)
 
 ### Classes & Constants

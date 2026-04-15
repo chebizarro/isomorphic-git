@@ -56,7 +56,7 @@ The following environments are tested in CI and will continue to be supported un
 
 This fork targets **100% feature parity with libgit2** — making isomorphic-git a complete, drop-in replacement for libgit2 in JavaScript/TypeScript environments. No native modules, no WASM, pure JS.
 
-### Coverage: 84% full parity (38/45 API modules)
+### Coverage: 96% full parity (43/45 API modules)
 
 | Category | APIs | Status |
 |---|---|---|
@@ -75,7 +75,9 @@ This fork targets **100% feature parity with libgit2** — making isomorphic-git
 | **Submodules** | list, status, init, deinit, sync, add | ✅ Full |
 | **Blame** | blame | ✅ Full |
 | **Other** | stash, pathspec, mailmap, sparse checkout, shallow | ✅ Full |
-| **Remaining gaps** | checkout conflict callbacks, status rename detection, SSH transport | ⚠️ Partial |
+| **Message** | commit message cleanup, trailer parsing | ✅ Full |
+| **Worktree** | list, add, lock/unlock, prune | ✅ Full |
+| **Remaining gaps** | SSH transport (plugin), SOCKS proxy | ⚠️ Platform-specific |
 
 For the full API-by-API mapping, see [`docs/compat/PARITY-GAP.md`](docs/compat/PARITY-GAP.md).
 
