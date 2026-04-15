@@ -75,6 +75,14 @@ import { revwalk, SORT } from './api/revwalk.js'
 import { deleteConfigSection, listConfigSubsections, deleteConfig, appendConfig } from './api/configExt.js'
 import { commitNthAncestor, commitParent, commitHeaderField } from './api/commitExt.js'
 import { branchUpstream, setBranchUpstream, unsetBranchUpstream, branchNameIsValid, branchIsHead } from './api/branchExt.js'
+import { diffTreeToIndex, diffIndexToIndex, diffBlobs, diffPatchId } from './api/diffExt.js'
+import { renameRemote, setRemoteUrl, setRemotePushUrl, remoteDefaultBranch } from './api/remoteExt.js'
+import { listShallowRoots, unshallow } from './api/shallowExt.js'
+import { sparseCheckoutInit, sparseCheckoutSet, sparseCheckoutAdd, sparseCheckoutList } from './api/sparseCheckout.js'
+import { foreachRef, refNameIsValid, symbolicRefTarget } from './api/refsExt.js'
+import { buildTree, walkTree, treeEntryByPath } from './api/treeExt.js'
+import { signatureFromBuffer, signatureCreate, signatureDefault } from './api/signature.js'
+import { ignoreAddRule, ignoreClearRules, ignorePathIsIgnored } from './api/ignoreExt.js'
 import { cherryPick } from './api/cherryPick.js'
 import { revert } from './api/revert.js'
 import { stash } from './api/stash.js'
@@ -226,6 +234,32 @@ export {
   unsetBranchUpstream,
   branchNameIsValid,
   branchIsHead,
+  diffTreeToIndex,
+  diffIndexToIndex,
+  diffBlobs,
+  diffPatchId,
+  renameRemote,
+  setRemoteUrl,
+  setRemotePushUrl,
+  remoteDefaultBranch,
+  listShallowRoots,
+  unshallow,
+  sparseCheckoutInit,
+  sparseCheckoutSet,
+  sparseCheckoutAdd,
+  sparseCheckoutList,
+  foreachRef,
+  refNameIsValid,
+  symbolicRefTarget,
+  buildTree,
+  walkTree,
+  treeEntryByPath,
+  signatureFromBuffer,
+  signatureCreate,
+  signatureDefault,
+  ignoreAddRule,
+  ignoreClearRules,
+  ignorePathIsIgnored,
 }
 
 // default export
@@ -362,4 +396,30 @@ export default {
   unsetBranchUpstream,
   branchNameIsValid,
   branchIsHead,
+  diffTreeToIndex,
+  diffIndexToIndex,
+  diffBlobs,
+  diffPatchId,
+  renameRemote,
+  setRemoteUrl,
+  setRemotePushUrl,
+  remoteDefaultBranch,
+  listShallowRoots,
+  unshallow,
+  sparseCheckoutInit,
+  sparseCheckoutSet,
+  sparseCheckoutAdd,
+  sparseCheckoutList,
+  foreachRef,
+  refNameIsValid,
+  symbolicRefTarget,
+  buildTree,
+  walkTree,
+  treeEntryByPath,
+  signatureFromBuffer,
+  signatureCreate,
+  signatureDefault,
+  ignoreAddRule,
+  ignoreClearRules,
+  ignorePathIsIgnored,
 }
