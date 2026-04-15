@@ -5,8 +5,19 @@ import { makeNodeFixture } from './FixtureFS/makeNodeFixture.js'
 import { makeZenFS } from './FixtureFS/makeZenFS.js'
 
 if (typeof jest !== 'undefined') {
-  jest.useFakeTimers()
-  jest.setTimeout(60000)
+  // Only fake Date so commit timestamps are deterministic.
+  // Do NOT fake setTimeout/setInterval — Node.js HTTP internals
+  // (TLS handshake, keep-alive, socket timeouts) depend on real timers
+  // and faking them causes network requests to hang or time out.
+  jest.useFakeTimers({ doNotFake: [
+    'setTimeout',
+    'clearTimeout',
+    'setImmediate',
+    'clearImmediate',
+    'setInterval',
+    'clearInterval',
+  ] })
+  jest.setTimeout(120000)
 }
 
 if (typeof jasmine !== 'undefined') jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000

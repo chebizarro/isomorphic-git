@@ -3,7 +3,7 @@
 import { createFetchCompat } from '../src/compat/fetch.js'
 
 describe('golden: compat fetch validation', () => {
-  it('valid depth=0 passes through', async () => {
+  it('depth=0 is normalized to null (no depth limit)', async () => {
     const calls = []
     const transport = {
       async performFetch(opts) {
@@ -15,7 +15,7 @@ describe('golden: compat fetch validation', () => {
     const { fetch } = createFetchCompat(transport)
     await fetch({ url: 'https://example.com/repo.git', depth: 0 })
     expect(calls.length).toBe(1)
-    expect(calls[0].depth).toBe(0)
+    expect(calls[0].depth).toBeNull()
   })
 
   it('invalid depth throws EINVALIDSPEC', async () => {

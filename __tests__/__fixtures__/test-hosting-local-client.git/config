@@ -1,0 +1,12 @@
+[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	ignorecase = true
+	precomposeunicode = true
+[remote "provider1"]
+	url = http://127.0.0.1:8888/test-hosting-local-server.git
+	fetch = +refs/heads/*:refs/remotes/origin/*
+[remote "provider2"]
+	url = http://127.0.0.1:8888/test-hosting-local-server.git
+	fetch = +refs/heads/*:refs/remotes/origin/*

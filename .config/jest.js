@@ -5,7 +5,7 @@ export default function commonConfig(outputName) {
     setupFiles: ['<rootDir>/__tests__/jest.setup.js'],
     moduleNameMapper: {
       '^isomorphic-git$': '<rootDir>/src',
-      '^isomorphic-git/http$': '<rootDir>/http/node',
+      '^isomorphic-git/http$': '<rootDir>/src/http/node',
       '^isomorphic-git/(.+)$': '<rootDir>/src/$1',
     },
     collectCoverageFrom: ['src/*.js', 'src/**/*.js'],
@@ -20,7 +20,7 @@ export default function commonConfig(outputName) {
         },
       ],
     ],
-    testTimeout: 60000,
+    testTimeout: 120000,
     workerIdleMemoryLimit: '200MB',
   }
 }

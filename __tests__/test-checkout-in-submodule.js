@@ -491,14 +491,7 @@ describe('checkout', () => {
   })
 
   it('should setup the remote tracking branch by default', async () => {
-    const { fs, dir, gitdir } = await makeFixtureAsSubmodule('test-fetch-cors')
-
-    await setConfig({
-      fs,
-      gitdir,
-      path: 'http.corsProxy',
-      value: `http://${localhost}:9999`,
-    })
+    const { fs, dir, gitdir } = await makeFixtureAsSubmodule('test-fetch-local-client')
 
     // fetch `test-branch` so `refs/remotes/test-branch` exists but `refs/heads/test-branch` does not
     await gitFetch({
@@ -538,14 +531,7 @@ describe('checkout', () => {
   })
 
   it('should setup the remote tracking branch with `track: true`', async () => {
-    const { fs, dir, gitdir } = await makeFixtureAsSubmodule('test-fetch-cors')
-
-    await setConfig({
-      fs,
-      gitdir,
-      path: 'http.corsProxy',
-      value: `http://${localhost}:9999`,
-    })
+    const { fs, dir, gitdir } = await makeFixtureAsSubmodule('test-fetch-local-client')
 
     // fetch `test-branch` so `refs/remotes/test-branch` exists but `refs/heads/test-branch` does not
     await gitFetch({
@@ -587,14 +573,7 @@ describe('checkout', () => {
   })
 
   it('should not setup the remote tracking branch with `track: false`', async () => {
-    const { fs, dir, gitdir } = await makeFixtureAsSubmodule('test-fetch-cors')
-
-    await setConfig({
-      fs,
-      gitdir,
-      path: 'http.corsProxy',
-      value: `http://${localhost}:9999`,
-    })
+    const { fs, dir, gitdir } = await makeFixtureAsSubmodule('test-fetch-local-client')
 
     // fetch `test-branch` so `refs/remotes/test-branch` exists but `refs/heads/test-branch` does not
     await gitFetch({

@@ -56,6 +56,13 @@ import { renameBranch } from './api/renameBranch.js'
 import { resetIndex } from './api/resetIndex.js'
 import { resolveRef } from './api/resolveRef.js'
 import { setConfig } from './api/setConfig.js'
+import { aheadBehind } from './api/aheadBehind.js'
+import { readReflog } from './api/readReflog.js'
+import { reset } from './api/reset.js'
+import { revparse } from './api/revparse.js'
+import { diffTrees, DELTA } from './api/diff.js'
+import { cherryPick } from './api/cherryPick.js'
+import { revert } from './api/revert.js'
 import { stash } from './api/stash.js'
 import { status } from './api/status.js'
 import { statusMatrix } from './api/statusMatrix.js'
@@ -77,7 +84,11 @@ export {
   STAGE,
   TREE,
   WORKDIR,
+  aheadBehind,
   abortMerge,
+  cherryPick,
+  DELTA,
+  diffTrees,
   add,
   addNote,
   addRemote,
@@ -123,12 +134,15 @@ export {
   readCommit,
   readNote,
   readObject,
+  readReflog,
   readTag,
   readTree,
   remove,
   removeNote,
   renameBranch,
+  reset,
   resetIndex,
+  revparse,
   updateIndex,
   resolveRef,
   status,
@@ -142,6 +156,7 @@ export {
   writeRef,
   writeTag,
   writeTree,
+  revert,
   stash,
 }
 
@@ -151,6 +166,7 @@ export default {
   STAGE,
   TREE,
   WORKDIR,
+  aheadBehind,
   add,
   abortMerge,
   addNote,
@@ -158,8 +174,11 @@ export default {
   annotatedTag,
   branch,
   checkout,
+  cherryPick,
   clone,
   commit,
+  DELTA,
+  diffTrees,
   getConfig,
   getConfigAll,
   setConfig,
@@ -197,12 +216,15 @@ export default {
   readCommit,
   readNote,
   readObject,
+  readReflog,
   readTag,
   readTree,
   remove,
   removeNote,
   renameBranch,
+  reset,
   resetIndex,
+  revparse,
   updateIndex,
   resolveRef,
   status,
@@ -216,5 +238,6 @@ export default {
   writeRef,
   writeTag,
   writeTree,
+  revert,
   stash,
 }

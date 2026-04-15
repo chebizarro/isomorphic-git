@@ -15,7 +15,9 @@ export function createRemoteInfoCompat(transport) {
 
     const capabilities = {}
     for (const cap of disc.capabilities) {
-      const [k, v] = cap.split('=')
+      const eqIdx = cap.indexOf('=')
+      const k = eqIdx < 0 ? cap : cap.slice(0, eqIdx)
+      const v = eqIdx < 0 ? undefined : cap.slice(eqIdx + 1)
       capabilities[k] = v === undefined || v === null ? true : v
     }
 

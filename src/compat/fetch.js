@@ -161,12 +161,12 @@ export function createFetchCompat(transport) {
         })
       })
 
-    // Normalize depth/since: undefined → null for consistency
+    // Normalize depth/since: undefined/0 → null for consistency
+    // In git protocol, depth=0 means "no depth limit" (same as omitting it)
     const normalizedOpts = {
       ...opts,
       onProgress,
-      depth:
-        opts.depth === undefined || opts.depth === null ? null : opts.depth,
+      depth: !opts.depth ? null : opts.depth,
       since:
         opts.since === undefined || opts.since === null ? null : opts.since,
     }

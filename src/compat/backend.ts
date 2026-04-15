@@ -30,11 +30,11 @@ export interface FetchOptions {
 }
 
 export interface FetchProgress {
-  receivedObjects: number;
-  receivedBytes: number;
-  indexedObjects: number;
-  totalObjects?: number;
-  totalDeltas?: number;
+  /** Bytes or items loaded so far */
+  loaded: number;
+  /** Total bytes or items expected (0 if unknown) */
+  total: number;
+  /** Current fetch phase (canonical, normalized by compat layer) */
   phase?: 'negotiation' | 'receiving' | 'indexing' | 'resolving';
 }
 

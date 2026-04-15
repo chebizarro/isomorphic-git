@@ -1,9 +1,24 @@
 import get from 'simple-get'
+import http from 'http'
+import https from 'https'
 
 import '../../typedefs-http.js'
 import { asyncIteratorToStream } from '../../utils/asyncIteratorToStream.js'
 import { collect } from '../../utils/collect.js'
 import { fromNodeStream } from '../../utils/fromNodeStream.js'
+
+// Node 19+ sets a default 5s timeout on the global HTTPS agent which causes
+// long-running git fetches to fail. Create agents with a generous timeout.
+let _httpAgent
+let _httpsAgent
+function getAgent(url) {
+  if (url.startsWith('https')) {
+    if (!_httpsAgent) _httpsAgent = new https.Agent({ timeout: 60000 })
+    return _httpsAgent
+  }
+  if (!_httpAgent) _httpAgent = new http.Agent({ timeout: 60000 })
+  return _httpAgent
+}
 
 /**
  * HttpClient
@@ -31,7 +46,7 @@ export async function request({
         url,
         method,
         headers,
-        agent,
+        agent: agent || getAgent(url),
         body,
       },
       (err, res) => {
