@@ -69,6 +69,7 @@ export async function _pull({
   author,
   committer,
   signingKey,
+  agent,
 }) {
   try {
     // If ref is undefined, use 'HEAD'
@@ -100,6 +101,7 @@ export async function _pull({
       headers,
       prune,
       pruneTags,
+      agent,
     })
     // Merge the remote tracking branch into the local one.
     await _merge({

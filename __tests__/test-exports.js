@@ -47,6 +47,7 @@ describe('exports', () => {
         "commitHeaderField",
         "commitNthAncestor",
         "commitParent",
+        "createProxyAgent",
         "currentBranch",
         "default",
         "deleteBranch",

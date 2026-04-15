@@ -3,6 +3,7 @@ import '../typedefs.js'
 
 import { GitRemoteManager } from '../managers/GitRemoteManager.js'
 import { assertParameter } from '../utils/assertParameter.js'
+import { resolveProxy } from '../utils/proxy.js'
 
 /**
  *
@@ -53,11 +54,13 @@ export async function getRemoteInfo({
   url,
   headers = {},
   forPush = false,
+  proxy,
 }) {
   try {
     assertParameter('http', http)
     assertParameter('url', url)
 
+    const agent = await resolveProxy(proxy)
     const GitRemoteHTTP = GitRemoteManager.getRemoteHelperFor({ url })
     const remote = await GitRemoteHTTP.discover({
       http,
@@ -69,6 +72,7 @@ export async function getRemoteInfo({
       url,
       headers,
       protocolVersion: 1,
+      agent,
     })
 
     // Note: remote.capabilities, remote.refs, and remote.symrefs are Set and Map objects,

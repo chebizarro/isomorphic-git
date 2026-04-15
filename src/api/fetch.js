@@ -9,6 +9,7 @@ import { FileSystem } from '../models/FileSystem.js'
 import { assertParameter } from '../utils/assertParameter.js'
 import { discoverGitdir } from '../utils/discoverGitdir.js'
 import { join } from '../utils/join.js'
+import { resolveProxy } from '../utils/proxy.js'
 
 /**
  *
@@ -48,6 +49,7 @@ import { join } from '../utils/join.js'
  * @param {boolean} [args.pruneTags = false] - Prune local tags that don’t exist on the remote, and force-update those tags that differ
  * @param {string} [args.corsProxy] - Optional [CORS proxy](https://www.npmjs.com/%40isomorphic-git/cors-proxy). Overrides value in repo config.
  * @param {Object<string, string>} [args.headers] - Additional headers to include in HTTP requests, similar to git's `extraHeader` config
+ * @param {string|object} [args.proxy] - SOCKS proxy URL (e.g. 'socks5://localhost:1080') or a custom http.Agent instance. Requires the `socks-proxy-agent` package if a string is provided.
  * @param {object} [args.cache] - a [cache](cache.md) object
  *
  * @returns {Promise<FetchResult>} Resolves successfully when fetch completes
@@ -90,6 +92,7 @@ export async function fetch({
   tags = false,
   singleBranch = false,
   headers = {},
+  proxy,
   prune = false,
   pruneTags = false,
   cache = {},
@@ -99,6 +102,7 @@ export async function fetch({
     assertParameter('http', http)
     assertParameter('gitdir', gitdir)
 
+    const agent = await resolveProxy(proxy)
     const fsp = new FileSystem(fs)
     const updatedGitdir = await discoverGitdir({ fsp, dotgit: gitdir })
 
@@ -129,6 +133,7 @@ export async function fetch({
         headers,
         prune,
         pruneTags,
+        agent,
       })
     }
 
@@ -156,6 +161,7 @@ export async function fetch({
       headers,
       prune,
       pruneTags,
+      agent,
     })
   } catch (err) {
     err.caller = 'git.fetch'

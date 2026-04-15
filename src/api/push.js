@@ -2,6 +2,7 @@
 import '../typedefs.js'
 
 import { _push } from '../commands/push.js'
+import { resolveProxy } from '../utils/proxy.js'
 import { pushTransport as _compatPushTransport } from '../compat/adapters/push-transport.js'
 import { LIBGIT2_COMPAT } from '../compat/flag.js'
 import { createPushCompat } from '../compat/push.js'
@@ -40,6 +41,7 @@ import { join } from '../utils/join.js'
  * @param {boolean} [args.delete = false] - If true, delete the remote ref
  * @param {string} [args.corsProxy] - Optional [CORS proxy](https://www.npmjs.com/%40isomorphic-git/cors-proxy). Overrides value in repo config.
  * @param {Object<string, string>} [args.headers] - Additional headers to include in HTTP requests, similar to git's `extraHeader` config
+ * @param {string|object} [args.proxy] - SOCKS proxy URL (e.g. 'socks5://localhost:1080') or a custom http.Agent instance. Requires the `socks-proxy-agent` package if a string is provided.
  * @param {object} [args.cache] - a [cache](cache.md) object
  *
  * @returns {Promise<PushResult>} Resolves successfully when push completes with a detailed description of the operation from the server.
@@ -77,6 +79,7 @@ export async function push({
   delete: _delete = false,
   corsProxy,
   headers = {},
+  proxy,
   cache = {},
 }) {
   try {
@@ -84,6 +87,7 @@ export async function push({
     assertParameter('http', http)
     assertParameter('gitdir', gitdir)
 
+    const agent = await resolveProxy(proxy)
     const fsp = new FileSystem(fs)
     const updatedGitdir = await discoverGitdir({ fsp, dotgit: gitdir })
 
@@ -109,6 +113,7 @@ export async function push({
         delete: _delete,
         corsProxy,
         headers,
+        agent,
       })
     }
 
@@ -131,6 +136,7 @@ export async function push({
       delete: _delete,
       corsProxy,
       headers,
+      agent,
     })
   } catch (err) {
     err.caller = 'git.push'

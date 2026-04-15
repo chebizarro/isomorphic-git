@@ -64,6 +64,7 @@ export async function _clone({
   headers,
   nonBlocking,
   batchSize = 100,
+  agent,
 }) {
   try {
     await _init({ fs, gitdir })
@@ -93,6 +94,7 @@ export async function _clone({
       singleBranch,
       headers,
       tags: !noTags,
+      agent,
     })
     if (fetchHead === null) return
     ref = ref || defaultBranch

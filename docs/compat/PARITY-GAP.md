@@ -212,7 +212,7 @@ This document maps every libgit2 public API module (`include/git2/*.h`) to its i
 | Feature | Status | Notes |
 |---|---|---|
 | `transport.h` — SSH | ✅ | SSH transport implemented via `ssh2` optional peer dependency |
-| `proxy.h` — SOCKS proxy | ⚠️ | CORS proxy only; SOCKS requires native networking |
+| `proxy.h` — SOCKS proxy | ✅ | SOCKS4/5 proxy via `socks-proxy-agent` optional peer dep; `proxy` param on clone/fetch/push/pull |
 
 ---
 

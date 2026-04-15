@@ -7,6 +7,7 @@ import { createRemoteInfoCompat } from '../compat/runtime-remote-info.js'
 import { GitRemoteManager } from '../managers/GitRemoteManager.js'
 import { assertParameter } from '../utils/assertParameter.js'
 import { formatInfoRefs } from '../utils/formatInfoRefs.js'
+import { resolveProxy } from '../utils/proxy.js'
 
 /**
  * @typedef {Object} GetRemoteInfo2Result - This object has the following schema:
@@ -64,10 +65,12 @@ export async function getRemoteInfo2({
   headers = {},
   forPush = false,
   protocolVersion = 2,
+  proxy,
 }) {
   try {
     assertParameter('http', http)
     assertParameter('url', url)
+    const agent = await resolveProxy(proxy)
 
     // Compat path: reuse existing HTTP discovery but normalize semantics
     if (LIBGIT2_COMPAT) {
@@ -117,6 +120,7 @@ export async function getRemoteInfo2({
       url,
       headers,
       protocolVersion,
+      agent,
     })
 
     if (remote.protocolVersion === 2) {

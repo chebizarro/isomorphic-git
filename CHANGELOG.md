@@ -54,6 +54,13 @@ The format is based on Keep a Changelog, and this project adheres to Semantic Ve
 - **Optional dependency**: `ssh2` is an optional peer dependency — only needed for SSH transport. Falls back to helpful error message if not installed.
 - **Auth callbacks**: Integrates with existing `onAuth`, `onAuthSuccess`, `onAuthFailure` callback pattern.
 
+#### libgit2 Parity — Phase 6: SOCKS Proxy
+- **SOCKS proxy**: `proxy` parameter on `clone`, `fetch`, `push`, `pull`, `getRemoteInfo`, `getRemoteInfo2` — routes HTTP traffic through a SOCKS4/5 proxy.
+- **Convenience helper**: `createProxyAgent(url)` — creates a `SocksProxyAgent` from a proxy URL string.
+- **Flexible input**: `proxy` accepts a URL string (auto-creates agent) or a pre-built `http.Agent` instance.
+- **Optional dependency**: `socks-proxy-agent` is an optional peer dependency — only needed for SOCKS proxy support.
+- **Wire-through**: Agent flows from public API → commands → `GitRemoteHTTP.discover()`/`.connect()` → `http.request()`.
+
 #### Compat Layer (from earlier in 2.0.0-alpha cycle)
 - JavaScript-only libgit2 compatibility layer under `src/compat/` behind `LIBGIT2_COMPAT` flag.
 - Golden test suite for compat behavior (remote-info, fetch including matrix variants, push, push error taxonomy).
@@ -70,9 +77,10 @@ The format is based on Keep a Changelog, and this project adheres to Semantic Ve
 - Consolidated push error taxonomy with heuristic mapping for common server messages.
 
 ### Test Coverage
-- 227 test suites, 1677 tests, 0 failures.
-- 190+ new tests specifically for libgit2 parity features across 5 phases.
+- 228 test suites, 1688 tests, 0 failures.
+- 200+ new tests specifically for libgit2 parity features across 6 phases.
 - 21 SSH transport tests with mock SSH server covering auth, discovery, and pack exchange.
+- 11 SOCKS proxy tests with mock SOCKS5 server covering agent creation, parameter flow, and end-to-end proxying.
 
 ### CI
 - Compat golden suites run under Karma + ChromeHeadless, Webpack 4, with `NODE_OPTIONS=--openssl-legacy-provider`.

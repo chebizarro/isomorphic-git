@@ -6,6 +6,7 @@ import { FileSystem } from '../models/FileSystem.js'
 import { assertParameter } from '../utils/assertParameter.js'
 import { discoverGitdir } from '../utils/discoverGitdir.js'
 import { join } from '../utils/join.js'
+import { resolveProxy } from '../utils/proxy.js'
 
 /**
  * Clone a repository
@@ -33,6 +34,7 @@ import { join } from '../utils/join.js'
  * @param {string[]} [args.exclude = []] - A list of branches or tags. Instructs the remote server not to send us any commits reachable from these refs.
  * @param {boolean} [args.relative = false] - Changes the meaning of `depth` to be measured from the current shallow depth rather than from the branch tip.
  * @param {Object<string, string>} [args.headers = {}] - Additional headers to include in HTTP requests, similar to git's `extraHeader` config
+ * @param {string|object} [args.proxy] - SOCKS proxy URL (e.g. 'socks5://localhost:1080') or a custom http.Agent instance. Requires the `socks-proxy-agent` package if a string is provided.
  * @param {object} [args.cache] - a [cache](cache.md) object
  * @param {boolean} [args.nonBlocking = false] - if true, checkout will happen non-blockingly (useful for long-running operations blocking the thread in browser environments)
  * @param {number} [args.batchSize = 100] - If args.nonBlocking is true, batchSize is the number of files to process at a time avoid blocking the executing thread. The default value of 100 is a good starting point.
@@ -75,6 +77,7 @@ export async function clone({
   noCheckout = false,
   noTags = false,
   headers = {},
+  proxy,
   cache = {},
   nonBlocking = false,
   batchSize = 100,
@@ -88,6 +91,7 @@ export async function clone({
     }
     assertParameter('url', url)
 
+    const agent = await resolveProxy(proxy)
     const fsp = new FileSystem(fs)
     const updatedGitdir = await discoverGitdir({ fsp, dotgit: gitdir })
     return await _clone({
@@ -116,6 +120,7 @@ export async function clone({
       headers,
       nonBlocking,
       batchSize,
+      agent,
     })
   } catch (err) {
     err.caller = 'git.clone'

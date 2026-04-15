@@ -97,6 +97,7 @@ import { Indexer, indexerNew } from './api/indexer.js'
 import { Mailmap, mailmapFromRepository, mailmapResolve } from './api/mailmap.js'
 import { odbAddBackend, odbClearBackends, odbListBackends, odbRead, odbWrite, odbExists } from './api/odbExt.js'
 import { messagePrettify, messageTrailers } from './api/message.js'
+import { createProxyAgent } from './utils/proxy.js'
 import { worktreeList, worktreeAdd, worktreeLock, worktreeUnlock, worktreeIsLocked, worktreePrune } from './api/worktree.js'
 import { cherryPick } from './api/cherryPick.js'
 import { revert } from './api/revert.js'
@@ -314,6 +315,7 @@ export {
   odbExists,
   messagePrettify,
   messageTrailers,
+  createProxyAgent,
   worktreeList,
   worktreeAdd,
   worktreeLock,
@@ -521,6 +523,7 @@ export default {
   odbExists,
   messagePrettify,
   messageTrailers,
+  createProxyAgent,
   worktreeList,
   worktreeAdd,
   worktreeLock,

@@ -8,6 +8,7 @@ import { assertParameter } from '../utils/assertParameter.js'
 import { discoverGitdir } from '../utils/discoverGitdir.js'
 import { join } from '../utils/join.js'
 import { normalizeAuthorObject } from '../utils/normalizeAuthorObject.js'
+import { resolveProxy } from '../utils/proxy.js'
 import { normalizeCommitterObject } from '../utils/normalizeCommitterObject.js'
 
 /**
@@ -81,6 +82,7 @@ export async function pull({
   corsProxy,
   singleBranch,
   headers = {},
+  proxy,
   author: _author,
   committer: _committer,
   signingKey,
@@ -89,6 +91,7 @@ export async function pull({
   try {
     assertParameter('fs', _fs)
     assertParameter('gitdir', gitdir)
+    const agent = await resolveProxy(proxy)
 
     const fs = new FileSystem(_fs)
     const updatedGitdir = await discoverGitdir({ fsp: fs, dotgit: gitdir })
@@ -133,6 +136,7 @@ export async function pull({
       signingKey,
       prune,
       pruneTags,
+      agent,
     })
   } catch (err) {
     err.caller = 'git.pull'

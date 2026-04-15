@@ -87,6 +87,7 @@ export async function _fetch({
   headers = {},
   prune = false,
   pruneTags = false,
+  agent,
 }) {
   const ref = _ref || (await _currentBranch({ fs, gitdir, test: true }))
   const config = await GitConfigManager.get({ fs, gitdir })
@@ -120,6 +121,7 @@ export async function _fetch({
     url,
     headers,
     protocolVersion: 1,
+    agent,
   })
   const auth = remoteHTTP.auth // hack to get new credentials from CredentialManager API
   const remoteRefs = remoteHTTP.refs
@@ -223,6 +225,7 @@ export async function _fetch({
     auth,
     body: [packbuffer],
     headers,
+    agent,
   })
   const response = await parseUploadPackResponse(raw.body)
   if (raw.headers) {

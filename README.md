@@ -56,7 +56,7 @@ The following environments are tested in CI and will continue to be supported un
 
 This fork targets **100% feature parity with libgit2** — making isomorphic-git a complete, drop-in replacement for libgit2 in JavaScript/TypeScript environments. No native modules, no WASM, pure JS.
 
-### Coverage: 98% full parity (44/45 API modules)
+### Coverage: 100% full parity (45/45 API modules)
 
 | Category | APIs | Status |
 |---|---|---|
@@ -78,7 +78,7 @@ This fork targets **100% feature parity with libgit2** — making isomorphic-git
 | **Message** | commit message cleanup, trailer parsing | ✅ Full |
 | **Worktree** | list, add, lock/unlock, prune | ✅ Full |
 | **SSH Transport** | clone, fetch, push over SSH (via ssh2) | ✅ Full |
-| **Remaining gaps** | SOCKS proxy | ⚠️ Platform-specific |
+| **SOCKS Proxy** | SOCKS4/5 proxy via socks-proxy-agent | ✅ Full |
 
 For the full API-by-API mapping, see [`docs/compat/PARITY-GAP.md`](docs/compat/PARITY-GAP.md).
 
@@ -116,6 +116,13 @@ await git.clone({
   fs, dir, http,
   url: 'git@github.com:user/repo.git',
   onAuth: () => ({ privateKey: fs.readFileSync('~/.ssh/id_ed25519', 'utf8') })
+})
+
+// SOCKS proxy (requires socks-proxy-agent package)
+await git.clone({
+  fs, dir, http,
+  url: 'https://github.com/user/repo.git',
+  proxy: 'socks5://localhost:1080',
 })
 ```
 

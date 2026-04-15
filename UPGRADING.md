@@ -244,6 +244,40 @@ await git.push({ fs, dir, http })  // uses SSH agent automatically
 - Registered automatically in `GitRemoteManager` for `ssh` transport
 - Reuses existing wire protocol handlers (pkt-line, pack format)
 
+## SOCKS Proxy Support (New in 2.0.0-alpha)
+
+All network operations (`clone`, `fetch`, `push`, `pull`, `getRemoteInfo`, `getRemoteInfo2`) now accept a `proxy` parameter for routing traffic through a SOCKS4/5 proxy.
+
+### Setup
+```bash
+npm install socks-proxy-agent
+```
+
+### Usage
+```js
+// Pass a SOCKS proxy URL string
+await git.clone({
+  fs, http, dir: '/repo',
+  url: 'https://github.com/user/repo.git',
+  proxy: 'socks5://localhost:1080',
+})
+
+// Or with authentication
+await git.fetch({
+  fs, http, dir: '/repo',
+  proxy: 'socks5://user:pass@proxy.example.com:1080',
+})
+
+// Or pass a pre-built agent
+import { createProxyAgent } from 'isomorphic-git'
+const agent = await createProxyAgent('socks5://localhost:1080')
+await git.push({ fs, http, dir: '/repo', proxy: agent })
+```
+
+The `proxy` parameter accepts:
+- A **string** — SOCKS proxy URL (`socks4://`, `socks4a://`, `socks5://`, `socks5h://`)
+- An **object** — any `http.Agent` instance (passed through as-is)
+
 ## Known Limitations / Notes
 
 - Error mapping is heuristic by design; additional phrases may be added as new truth fixtures are gathered.

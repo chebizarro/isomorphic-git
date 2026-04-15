@@ -166,6 +166,7 @@
     "rollup": "1.29.1",
     "rollup-plugin-node-resolve": "5.2.0",
     "semantic-release": "17.4.7",
+    "socks-proxy-agent": "^8.0.5",
     "ssh2": "^1.17.0",
     "standard": "13.1.0",
     "timeout-cli": "0.3.2",
@@ -189,10 +190,14 @@
     }
   },
   "peerDependencies": {
-    "ssh2": "^1.0.0"
+    "ssh2": "^1.0.0",
+    "socks-proxy-agent": "^8.0.0"
   },
   "peerDependenciesMeta": {
     "ssh2": {
+      "optional": true
+    },
+    "socks-proxy-agent": {
       "optional": true
     }
   },
