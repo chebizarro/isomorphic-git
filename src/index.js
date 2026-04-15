@@ -83,6 +83,19 @@ import { foreachRef, refNameIsValid, symbolicRefTarget } from './api/refsExt.js'
 import { buildTree, walkTree, treeEntryByPath } from './api/treeExt.js'
 import { signatureFromBuffer, signatureCreate, signatureDefault } from './api/signature.js'
 import { ignoreAddRule, ignoreClearRules, ignorePathIsIgnored } from './api/ignoreExt.js'
+import { deleteReflog, dropReflogEntry, renameReflog } from './api/reflogExt.js'
+import { refTransaction } from './api/transaction.js'
+import { Pathspec, pathspecNew, pathspecMatchesPath } from './api/pathspec.js'
+import { blobIsBinary, blobSize, blobCreateFromWorkdir } from './api/blobExt.js'
+import { emailCreateFromCommit } from './api/email.js'
+import { refspecParse, refspecTransform, refspecSrcMatches } from './api/refspecExt.js'
+import { graphAheadBehind, graphDescendantOf } from './api/graphExt.js'
+import { tagForeach, tagPeel, tagTarget, tagCreateFromBuffer } from './api/tagExt.js'
+import { noteForeach, noteRead, noteCreate, noteRemove } from './api/notesExt.js'
+import { PackBuilder, packBuilderNew } from './api/packBuilder.js'
+import { Indexer, indexerNew } from './api/indexer.js'
+import { Mailmap, mailmapFromRepository, mailmapResolve } from './api/mailmap.js'
+import { odbAddBackend, odbClearBackends, odbListBackends, odbRead, odbWrite, odbExists } from './api/odbExt.js'
 import { cherryPick } from './api/cherryPick.js'
 import { revert } from './api/revert.js'
 import { stash } from './api/stash.js'
@@ -260,6 +273,43 @@ export {
   ignoreAddRule,
   ignoreClearRules,
   ignorePathIsIgnored,
+  deleteReflog,
+  dropReflogEntry,
+  renameReflog,
+  refTransaction,
+  Pathspec,
+  pathspecNew,
+  pathspecMatchesPath,
+  blobIsBinary,
+  blobSize,
+  blobCreateFromWorkdir,
+  emailCreateFromCommit,
+  refspecParse,
+  refspecTransform,
+  refspecSrcMatches,
+  graphAheadBehind,
+  graphDescendantOf,
+  tagForeach,
+  tagPeel,
+  tagTarget,
+  tagCreateFromBuffer,
+  noteForeach,
+  noteRead,
+  noteCreate,
+  noteRemove,
+  PackBuilder,
+  packBuilderNew,
+  Indexer,
+  indexerNew,
+  Mailmap,
+  mailmapFromRepository,
+  mailmapResolve,
+  odbAddBackend,
+  odbClearBackends,
+  odbListBackends,
+  odbRead,
+  odbWrite,
+  odbExists,
 }
 
 // default export
@@ -422,4 +472,41 @@ export default {
   ignoreAddRule,
   ignoreClearRules,
   ignorePathIsIgnored,
+  deleteReflog,
+  dropReflogEntry,
+  renameReflog,
+  refTransaction,
+  Pathspec,
+  pathspecNew,
+  pathspecMatchesPath,
+  blobIsBinary,
+  blobSize,
+  blobCreateFromWorkdir,
+  emailCreateFromCommit,
+  refspecParse,
+  refspecTransform,
+  refspecSrcMatches,
+  graphAheadBehind,
+  graphDescendantOf,
+  tagForeach,
+  tagPeel,
+  tagTarget,
+  tagCreateFromBuffer,
+  noteForeach,
+  noteRead,
+  noteCreate,
+  noteRemove,
+  PackBuilder,
+  packBuilderNew,
+  Indexer,
+  indexerNew,
+  Mailmap,
+  mailmapFromRepository,
+  mailmapResolve,
+  odbAddBackend,
+  odbClearBackends,
+  odbListBackends,
+  odbRead,
+  odbWrite,
+  odbExists,
 }
