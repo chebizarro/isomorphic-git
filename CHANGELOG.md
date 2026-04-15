@@ -7,6 +7,47 @@ The format is based on Keep a Changelog, and this project adheres to Semantic Ve
 ## [2.0.0-alpha]
 
 ### Added
+
+#### libgit2 Parity — Phase 1: Core Infrastructure
+- **Repository introspection**: `repositoryState`, `repositoryStateCleanup`, `isBare`, `isEmpty`, `isShallow`, `isHeadDetached`, `isHeadUnborn`, `REPOSITORY_STATE` — detect merge/rebase/cherry-pick/revert/bisect in-progress states.
+- **Index conflict management**: `indexHasConflicts`, `indexConflictGet`, `indexConflictAdd`, `indexConflictRemove`, `indexConflictIterator`, `indexConflictCleanup` — full conflict entry CRUD.
+- **Gitattributes**: `getAttr`, `getAttrMany`, `getAttrAll`, `ATTR_VALUE` — `.gitattributes` parser with pattern matching.
+- **Submodule lifecycle**: `submoduleList`, `submoduleStatus`, `submoduleInit`, `submoduleDeinit`, `submoduleSync`, `submoduleAdd`, `SUBMODULE_STATUS` — complete submodule management.
+
+#### libgit2 Parity — Phase 2: Analysis & Traversal
+- **Merge analysis**: `mergeAnalysis`, `MERGE_ANALYSIS`, `MERGE_PREFERENCE` — determine merge type (fast-forward, normal, up-to-date, unborn) and ff preference.
+- **Content filters**: `applyFilter`, `filterList`, `FILTER_MODE` — smudge/clean filter pipeline with line ending conversion and custom callbacks.
+- **Configurable revwalk**: `revwalk`, `SORT` — commit traversal with topological/time/reverse sort, first-parent-only, include/exclude sets.
+- **Config extended**: `deleteConfigSection`, `listConfigSubsections`, `deleteConfig`, `appendConfig`.
+- **Commit extended**: `commitNthAncestor`, `commitParent`, `commitHeaderField`.
+- **Branch extended**: `branchUpstream`, `setBranchUpstream`, `unsetBranchUpstream`, `branchNameIsValid`, `branchIsHead`.
+
+#### libgit2 Parity — Phase 3: Diff, Remote & Refs
+- **Diff extended**: `diffTreeToIndex`, `diffIndexToIndex`, `diffBlobs`, `diffPatchId`.
+- **Remote extended**: `renameRemote`, `setRemoteUrl`, `setRemotePushUrl`, `remoteDefaultBranch`.
+- **Shallow management**: `listShallowRoots`, `unshallow`.
+- **Sparse checkout**: `sparseCheckoutInit`, `sparseCheckoutSet`, `sparseCheckoutAdd`, `sparseCheckoutList`.
+- **Refs extended**: `foreachRef`, `refNameIsValid`, `symbolicRefTarget`.
+- **Tree builder/walker**: `buildTree`, `walkTree`, `treeEntryByPath`.
+- **Signature API**: `signatureFromBuffer`, `signatureCreate`, `signatureDefault`.
+- **Ignore extended**: `ignoreAddRule`, `ignoreClearRules`, `ignorePathIsIgnored`.
+
+#### libgit2 Parity — Phase 4: Completeness
+- **Reflog management**: `deleteReflog`, `dropReflogEntry`, `renameReflog`.
+- **Atomic transactions**: `refTransaction` — apply multiple ref updates atomically with lock files.
+- **Pathspec matching**: `Pathspec` class, `pathspecNew`, `pathspecMatchesPath` — glob patterns with negation and prefix matching.
+- **Blob extended**: `blobIsBinary`, `blobSize`, `blobCreateFromWorkdir`.
+- **Email patches**: `emailCreateFromCommit` — RFC 2822 mbox-format patch generation.
+- **Refspec operations**: `refspecParse`, `refspecTransform`, `refspecSrcMatches`.
+- **Graph analysis**: `graphAheadBehind`, `graphDescendantOf`.
+- **Tag extended**: `tagForeach`, `tagPeel`, `tagTarget`, `tagCreateFromBuffer`.
+- **Notes extended**: `noteForeach`, `noteRead`, `noteCreate`, `noteRemove`.
+- **Pack builder**: `PackBuilder` class, `packBuilderNew` — incremental pack file construction.
+- **Streaming indexer**: `Indexer` class, `indexerNew` — streaming packfile indexer.
+- **Mailmap**: `Mailmap` class, `mailmapFromRepository`, `mailmapResolve` — author identity mapping.
+- **Custom ODB backends**: `odbAddBackend`, `odbClearBackends`, `odbListBackends`, `odbRead`, `odbWrite`, `odbExists`.
+
+#### Compat Layer (from earlier in 2.0.0-alpha cycle)
 - JavaScript-only libgit2 compatibility layer under `src/compat/` behind `LIBGIT2_COMPAT` flag.
 - Golden test suite for compat behavior (remote-info, fetch including matrix variants, push, push error taxonomy).
 - JSON truth fixtures for push error mapping at `__tests__/__truth__/push-errors.json`.
@@ -20,6 +61,10 @@ The format is based on Keep a Changelog, and this project adheres to Semantic Ve
 ### Fixed
 - TypeScript/JSDoc alignment for compat transports (remote-info protocol literals, widened fetch result shapes).
 - Consolidated push error taxonomy with heuristic mapping for common server messages.
+
+### Test Coverage
+- 225 test suites, 1628 tests, 0 failures.
+- 170+ new tests specifically for libgit2 parity features across 4 phases.
 
 ### CI
 - Compat golden suites run under Karma + ChromeHeadless, Webpack 4, with `NODE_OPTIONS=--openssl-legacy-provider`.

@@ -87,6 +87,105 @@ Truth fixtures and golden tests validate this mapping:
 - JSON truth: `__tests__/__truth__/push-errors.json`
 - Tests: `__tests__/golden.compat.push.errors.truth.json.jasmine.js` and `__tests__/golden.compat.push.errors.more.jasmine.js`
 
+## New APIs — libgit2 Parity
+
+The 2.0.0-alpha release adds **100+ new exported functions and classes** to achieve near-complete parity with libgit2. These are available immediately without the `LIBGIT2_COMPAT` flag — they are standard API additions.
+
+### Repository Introspection
+- `repositoryState({ fs, dir })` — Returns current repo state: `'NONE'`, `'MERGE'`, `'REBASE_INTERACTIVE'`, `'REBASE_MERGE'`, `'REBASE'`, `'APPLY_MAILBOX'`, `'APPLY_MAILBOX_OR_REBASE'`, `'CHERRY_PICK'`, `'REVERT'`, `'BISECT'`
+- `repositoryStateCleanup({ fs, dir })` — Clean up in-progress state files
+- `isBare({ fs, dir })`, `isEmpty({ fs, dir })`, `isShallow({ fs, dir })`, `isHeadDetached({ fs, dir })`, `isHeadUnborn({ fs, dir })`
+
+### Index Conflicts
+- `indexHasConflicts({ fs, dir })` — Check if index has unresolved conflicts
+- `indexConflictGet({ fs, dir, filepath })` — Get conflict entries (ancestor, ours, theirs)
+- `indexConflictAdd/Remove/Iterator/Cleanup` — Full conflict management
+
+### Diff & Patch
+- `diffTreeToIndex`, `diffIndexToIndex`, `diffBlobs`, `diffPatchId` — Extended diff operations
+- `emailCreateFromCommit({ fs, dir, oid })` — RFC 2822 mbox-format patch generation
+
+### Merge Analysis
+- `mergeAnalysis({ fs, dir, theirs })` — Returns `MERGE_ANALYSIS` flags (NORMAL, UP_TO_DATE, FASTFORWARD, UNBORN) and `MERGE_PREFERENCE`
+
+### Content Filters
+- `applyFilter({ fs, dir, filepath, mode })` — Apply smudge/clean filter
+- `filterList({ fs, dir, filepath })` — List applicable filters for a path
+
+### Configurable Revision Walking
+- `revwalk({ fs, dir, include, exclude, sort, firstParentOnly, count, map })` — Full revwalk with `SORT.TOPOLOGICAL`, `SORT.TIME`, `SORT.REVERSE`
+
+### Branch Extended
+- `branchUpstream`, `setBranchUpstream`, `unsetBranchUpstream` — Tracking branch management
+- `branchNameIsValid`, `branchIsHead` — Validation and checks
+
+### Config Extended
+- `deleteConfigSection`, `listConfigSubsections`, `deleteConfig`, `appendConfig`
+
+### Commit Extended
+- `commitNthAncestor`, `commitParent`, `commitHeaderField`
+
+### Remote Extended
+- `renameRemote`, `setRemoteUrl`, `setRemotePushUrl`, `remoteDefaultBranch`
+
+### Refs Extended
+- `foreachRef({ fs, dir, glob, callback })` — Iterate over refs
+- `refNameIsValid(name)`, `symbolicRefTarget({ fs, dir, ref })`
+
+### Graph Analysis
+- `graphAheadBehind({ fs, dir, local, upstream })` — Ahead/behind counts
+- `graphDescendantOf({ fs, dir, oid, ancestor })` — Ancestry check
+
+### Gitattributes
+- `getAttr`, `getAttrMany`, `getAttrAll` — Attribute resolution from `.gitattributes`
+
+### Submodule Lifecycle
+- `submoduleList`, `submoduleStatus`, `submoduleInit`, `submoduleDeinit`, `submoduleSync`, `submoduleAdd`
+
+### Shallow & Sparse
+- `listShallowRoots`, `unshallow` — Shallow repository management
+- `sparseCheckoutInit`, `sparseCheckoutSet`, `sparseCheckoutAdd`, `sparseCheckoutList`
+
+### Tree Operations
+- `buildTree`, `walkTree`, `treeEntryByPath`
+
+### Signature API
+- `signatureFromBuffer`, `signatureCreate`, `signatureDefault`
+
+### Ignore Extended
+- `ignoreAddRule`, `ignoreClearRules`, `ignorePathIsIgnored` — Runtime ignore rules
+
+### Reflog Management
+- `deleteReflog`, `dropReflogEntry`, `renameReflog`
+
+### Atomic Transactions
+- `refTransaction({ fs, dir, updates })` — Atomic multi-ref updates
+
+### Pathspec Matching
+- `Pathspec` class, `pathspecNew`, `pathspecMatchesPath` — Glob patterns with negation
+
+### Blob Extended
+- `blobIsBinary`, `blobSize`, `blobCreateFromWorkdir`
+
+### Tag Extended
+- `tagForeach`, `tagPeel`, `tagTarget`, `tagCreateFromBuffer`
+
+### Notes Extended
+- `noteForeach`, `noteRead`, `noteCreate`, `noteRemove`
+
+### Refspec Operations
+- `refspecParse`, `refspecTransform`, `refspecSrcMatches`
+
+### Pack Builder & Indexer
+- `PackBuilder` class + `packBuilderNew` — Incremental pack construction
+- `Indexer` class + `indexerNew` — Streaming packfile indexer
+
+### Mailmap
+- `Mailmap` class + `mailmapFromRepository` + `mailmapResolve` — Author identity mapping
+
+### Custom ODB Backends
+- `odbAddBackend`, `odbClearBackends`, `odbListBackends`, `odbRead`, `odbWrite`, `odbExists`
+
 ## Migration Checklist
 
 - Enable `LIBGIT2_COMPAT` in staging to validate behavior in your environment.

@@ -52,6 +52,63 @@ The following environments are tested in CI and will continue to be supported un
 </tr>
 </table>
 
+## libgit2 Feature Parity
+
+This fork targets **100% feature parity with libgit2** — making isomorphic-git a complete, drop-in replacement for libgit2 in JavaScript/TypeScript environments. No native modules, no WASM, pure JS.
+
+### Coverage: 84% full parity (38/45 API modules)
+
+| Category | APIs | Status |
+|---|---|---|
+| **Core Objects** | blob, commit, tree, tag, object, oid, signature | ✅ Full |
+| **References** | refs, branch, refspec, reflog, transaction | ✅ Full |
+| **Repository** | init, state, config, ignore | ✅ Full |
+| **Index** | add, remove, update, conflicts | ✅ Full |
+| **Diff & Patch** | tree-to-tree, index-to-workdir, stat, rename detection, patch, apply, email | ✅ Full |
+| **Merge** | merge, merge analysis, merge base | ✅ Full |
+| **History** | cherry-pick, rebase, revert, reset (soft/mixed/hard) | ✅ Full |
+| **Remote** | clone, fetch, push, pull, remote management | ✅ Full |
+| **Traversal** | log, walk, revwalk, revparse, describe, graph | ✅ Full |
+| **Attributes** | gitattributes query, content filters | ✅ Full |
+| **ODB** | read, write, exists, custom backends, pack builder, indexer | ✅ Full |
+| **Notes** | add, remove, read, list, foreach | ✅ Full |
+| **Submodules** | list, status, init, deinit, sync, add | ✅ Full |
+| **Blame** | blame | ✅ Full |
+| **Other** | stash, pathspec, mailmap, sparse checkout, shallow | ✅ Full |
+| **Remaining gaps** | checkout conflict callbacks, status rename detection, SSH transport | ⚠️ Partial |
+
+For the full API-by-API mapping, see [`docs/compat/PARITY-GAP.md`](docs/compat/PARITY-GAP.md).
+
+### New APIs (highlights)
+
+```js
+import git from 'isomorphic-git'
+
+// Repository state detection
+const state = await git.repositoryState({ fs, dir })  // 'MERGE', 'REBASE_INTERACTIVE', etc.
+
+// Merge analysis
+const { analysis } = await git.mergeAnalysis({ fs, dir, theirs: 'feature' })
+
+// Configurable revision walking
+await git.revwalk({ fs, dir, include: ['HEAD'], sort: git.SORT.TOPOLOGICAL | git.SORT.TIME })
+
+// Graph analysis
+const { ahead, behind } = await git.graphAheadBehind({ fs, dir, local: 'main', upstream: 'origin/main' })
+
+// Pack builder
+const builder = await git.packBuilderNew({ fs, dir })
+await builder.insertCommit(oid)
+const { packfile } = await builder.write()
+
+// Mailmap resolution
+const mm = await git.mailmapFromRepository({ fs, dir })
+const { name, email } = mm.resolve('Old Name', 'old@email.com')
+
+// Custom ODB backends
+git.odbAddBackend({ gitdir, backend: myCustomStorage, priority: 10 })
+```
+
 ## Upgrading from version 0.x to version 1.x?
 
 See the full [Release Notes](https://github.com/isomorphic-git/isomorphic-git/releases/tag/v1.0.0) on GitHub and the release [Blog Post](https://isomorphic-git.org/blog/2020/02/25/version-1-0-0).
