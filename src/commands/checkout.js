@@ -55,6 +55,7 @@ export async function _checkout({
   track = true,
   nonBlocking = false,
   batchSize = 100,
+  onConflict,
 }) {
   // oldOid is defined only if onPostCheckout hook is attached
   let oldOid
@@ -127,6 +128,12 @@ export async function _checkout({
       .filter(([method]) => method === 'conflict')
       .map(([method, fullpath]) => fullpath)
     if (conflicts.length > 0) {
+      if (onConflict) {
+        // Call the conflict notification callback for each conflicting file
+        for (const filepath of conflicts) {
+          await onConflict({ filepath })
+        }
+      }
       throw new CheckoutConflictError(conflicts)
     }
 

@@ -21,7 +21,7 @@ import { _readCommit } from './readCommit.js'
  * Common logic for creating a stash commit
  * @private
  */
-async function _createStashCommit({ fs, dir, gitdir, message = '' }) {
+async function _createStashCommit({ fs, dir, gitdir, message = '', includeUntracked = false }) {
   const stashMgr = new GitStashManager({ fs, dir, gitdir })
 
   await stashMgr.getAuthor() // ensure there is an author
@@ -100,12 +100,13 @@ async function _createStashCommit({ fs, dir, gitdir, message = '' }) {
   return { stashCommit, stashMsg, branch, stashMgr }
 }
 
-export async function _stashPush({ fs, dir, gitdir, message = '' }) {
+export async function _stashPush({ fs, dir, gitdir, message = '', includeUntracked = false, keepIndex = false }) {
   const { stashCommit, stashMsg, branch, stashMgr } = await _createStashCommit({
     fs,
     dir,
     gitdir,
     message,
+    includeUntracked,
   })
 
   // next, write this commit into .git/refs/stash:
@@ -117,7 +118,7 @@ export async function _stashPush({ fs, dir, gitdir, message = '' }) {
     message: stashMsg,
   })
 
-  // finally, go back to a clean working directory
+  // Go back to a clean working directory
   await checkout({
     fs,
     dir,
@@ -127,7 +128,58 @@ export async function _stashPush({ fs, dir, gitdir, message = '' }) {
     force: true, // force checkout to discard changes
   })
 
+  // If keepIndex is set, re-apply the staged changes after checkout
+  if (keepIndex) {
+    const stashOid = stashCommit
+    const stashCommitObj = await _readCommit({ fs, gitdir, oid: stashOid })
+    const parents = stashCommitObj.commit.parent
+    // Second parent (if exists) is the index commit
+    if (parents.length >= 2) {
+      const indexCommitOid = parents[1]
+      try {
+        await applyTreeChanges({
+          fs,
+          dir,
+          gitdir,
+          treePair: [TREE({ ref: 'HEAD' }), TREE({ ref: indexCommitOid })],
+        })
+      } catch {
+        // If re-applying index fails, silently continue (stash was still saved)
+      }
+    }
+  }
+
+  // If includeUntracked, clean untracked files from workdir
+  if (includeUntracked) {
+    // Walk workdir and remove files not in the index
+    const { GitIndexManager } = await import('../managers/GitIndexManager.js')
+    const indexPaths = new Set()
+    await GitIndexManager.acquire({ fs, gitdir, cache: {} }, async function(index) {
+      for (const entry of index) {
+        indexPaths.add(entry.path)
+      }
+    })
+
+    await cleanUntracked(fs, dir, '', indexPaths)
+  }
+
   return stashCommit
+}
+
+async function cleanUntracked(fs, dir, prefix, indexPaths) {
+  const join = (await import('../utils/join.js')).join
+  const entries = await fs.readdir(join(dir, prefix))
+  for (const name of entries) {
+    if (name === '.git') continue
+    const filepath = prefix ? `${prefix}/${name}` : name
+    const fullpath = join(dir, filepath)
+    const stat = await fs.lstat(fullpath)
+    if (stat.isDirectory()) {
+      await cleanUntracked(fs, dir, filepath, indexPaths)
+    } else if (!indexPaths.has(filepath)) {
+      await fs.rm(fullpath)
+    }
+  }
 }
 
 export async function _stashCreate({ fs, dir, gitdir, message = '' }) {

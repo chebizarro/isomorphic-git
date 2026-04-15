@@ -1,0 +1,9 @@
+# pack-refs with: peeled fully-peeled sorted 
+4b7508fc21e91ffde18f7730234d1393ea07ce3f refs/heads/master
+706210d0beb4c651a237f47be38380d04126c161 refs/heads/similar-rename-branch
+6cfe03924125bd111497d24cc056d3e95889ffb1 refs/tags/after-rename
+706210d0beb4c651a237f47be38380d04126c161 refs/tags/after-similar-rename
+abb6815a1b99ac906c22dcb07f68b460f622e069 refs/tags/before-rename
+5c57c8b7045d391718524c7e55e7464d6e8295fd refs/tags/first-commit
+6e8a28543be6ed99b4662b7df670944e310a5100 refs/tags/second-commit
+90d579f533aa18e0d441d92c6f082e630895ebfb refs/tags/with-delete

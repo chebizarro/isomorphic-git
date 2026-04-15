@@ -60,7 +60,11 @@ import { aheadBehind } from './api/aheadBehind.js'
 import { readReflog } from './api/readReflog.js'
 import { reset } from './api/reset.js'
 import { revparse } from './api/revparse.js'
-import { diffTrees, DELTA } from './api/diff.js'
+import { diffTrees, diffFile, diffIndexToWorkdir, diffStat, formatPatch, findRenames, DELTA } from './api/diff.js'
+import { blame } from './api/blame.js'
+import { applyPatch } from './api/applyPatch.js'
+import { describe } from './api/describe.js'
+import { rebase } from './api/rebase.js'
 import { cherryPick } from './api/cherryPick.js'
 import { revert } from './api/revert.js'
 import { stash } from './api/stash.js'
@@ -86,9 +90,17 @@ export {
   WORKDIR,
   aheadBehind,
   abortMerge,
+  applyPatch,
+  blame,
   cherryPick,
+  describe,
   DELTA,
+  diffFile,
+  diffIndexToWorkdir,
+  diffStat,
   diffTrees,
+  findRenames,
+  formatPatch,
   add,
   addNote,
   addRemote,
@@ -140,6 +152,7 @@ export {
   remove,
   removeNote,
   renameBranch,
+  rebase,
   reset,
   resetIndex,
   revparse,
@@ -169,16 +182,24 @@ export default {
   aheadBehind,
   add,
   abortMerge,
+  applyPatch,
   addNote,
   addRemote,
   annotatedTag,
   branch,
   checkout,
+  blame,
   cherryPick,
   clone,
   commit,
   DELTA,
+  describe,
+  diffFile,
+  diffIndexToWorkdir,
+  diffStat,
   diffTrees,
+  findRenames,
+  formatPatch,
   getConfig,
   getConfigAll,
   setConfig,
@@ -222,6 +243,7 @@ export default {
   remove,
   removeNote,
   renameBranch,
+  rebase,
   reset,
   resetIndex,
   revparse,

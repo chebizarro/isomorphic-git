@@ -80,6 +80,7 @@ export async function checkout({
   cache = {},
   nonBlocking = false,
   batchSize = 100,
+  onConflict,
 }) {
   try {
     assertParameter('fs', fs)
@@ -106,6 +107,7 @@ export async function checkout({
       track,
       nonBlocking,
       batchSize,
+      onConflict,
     })
   } catch (err) {
     err.caller = 'git.checkout'

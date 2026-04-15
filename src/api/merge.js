@@ -141,6 +141,8 @@ export async function merge({
   cache = {},
   mergeDriver,
   allowUnrelatedHistories = false,
+  detectRenames = false,
+  renameThreshold = 50,
 }) {
   try {
     assertParameter('fs', _fs)
@@ -188,6 +190,8 @@ export async function merge({
       onSign,
       mergeDriver,
       allowUnrelatedHistories,
+      detectRenames,
+      renameThreshold,
     })
   } catch (err) {
     err.caller = 'git.merge'

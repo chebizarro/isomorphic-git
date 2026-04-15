@@ -78,6 +78,8 @@ export async function stash({
   op = 'push',
   message = '',
   refIdx = 0,
+  includeUntracked = false,
+  keepIndex = false,
 }) {
   assertParameter('fs', fs)
   assertParameter('dir', dir)
@@ -122,6 +124,8 @@ export async function stash({
         gitdir: updatedGitdir,
         message,
         refIdx,
+        includeUntracked,
+        keepIndex,
       })
     }
     throw new Error(`To be implemented: ${op}`)

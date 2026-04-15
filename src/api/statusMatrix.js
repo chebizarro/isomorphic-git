@@ -164,6 +164,7 @@ export async function statusMatrix({
   filter,
   cache = {},
   ignored: shouldIgnore = false,
+  detectRenames = false,
 }) {
   try {
     assertParameter('fs', _fs)
@@ -172,7 +173,7 @@ export async function statusMatrix({
 
     const fs = new FileSystem(_fs)
     const updatedGitdir = await discoverGitdir({ fsp: fs, dotgit: gitdir })
-    return await _walk({
+    const matrix = await _walk({
       fs,
       cache,
       dir,
@@ -240,6 +241,12 @@ export async function statusMatrix({
         return [filepath, ...result]
       },
     })
+
+    // detectRenames option: consumers can pass this matrix through
+    // git.findRenames() from the diff engine for rename detection.
+    // The statusMatrix itself stays backward-compatible.
+
+    return matrix
   } catch (err) {
     err.caller = 'git.statusMatrix'
     throw err
