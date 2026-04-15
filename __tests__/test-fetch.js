@@ -75,9 +75,9 @@ describe('fetch', () => {
     expect(shallow.trim()).toEqual('5ed28967a81d39ebbbb22ad5d61f04c9a6702b17')
   })
 
-  it('throws UnknownTransportError if using shorter scp-like syntax', async () => {
+  it('recognizes SSH URLs (scp-like syntax) without throwing UnknownTransportError', async () => {
     const { fs, gitdir } = await makeFixture('test-fetch-local-client')
-    // Test
+    // SSH URLs are now supported — they throw SSH connection errors, not UnknownTransportError
     let err
     try {
       await fetch({
@@ -93,12 +93,13 @@ describe('fetch', () => {
       err = e
     }
     expect(err).toBeDefined()
-    expect(err.code).toEqual(Errors.UnknownTransportError.code)
+    // Should NOT be UnknownTransportError — SSH is now a recognized transport
+    expect(err.code).not.toEqual(Errors.UnknownTransportError.code)
   })
 
-  it('the SSH -> HTTPS UnknownTransportError suggestion feature', async () => {
+  it('SSH URLs no longer produce HTTPS suggestions (transport is supported)', async () => {
     const { fs, gitdir } = await makeFixture('test-fetch-local-client')
-    // Test
+    // SSH is now a recognized transport, so no suggestion is needed
     let err
     try {
       await fetch({
@@ -114,10 +115,8 @@ describe('fetch', () => {
       err = e
     }
     expect(err).toBeDefined()
-    expect(err.code).toBe(Errors.UnknownTransportError.code)
-    expect(err.data.suggestion).toBe(
-      'https://github.com/isomorphic-git/isomorphic-git.git'
-    )
+    // Error should be an SSH connection error, not UnknownTransportError
+    expect(err.code).not.toBe(Errors.UnknownTransportError.code)
   })
 
   it('shallow fetch single commit by hash (from local mock server)', async () => {

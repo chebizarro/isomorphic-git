@@ -47,6 +47,13 @@ The format is based on Keep a Changelog, and this project adheres to Semantic Ve
 - **Mailmap**: `Mailmap` class, `mailmapFromRepository`, `mailmapResolve` — author identity mapping.
 - **Custom ODB backends**: `odbAddBackend`, `odbClearBackends`, `odbListBackends`, `odbRead`, `odbWrite`, `odbExists`.
 
+#### libgit2 Parity — Phase 5: SSH Transport
+- **SSH transport**: `GitRemoteSSH` — full SSH transport via the `ssh2` package, enabling `clone`, `fetch`, and `push` over SSH URLs (`ssh://` and `git@host:path` syntax).
+- **Authentication**: password, private key (with optional passphrase), and SSH agent forwarding (via `SSH_AUTH_SOCK`).
+- **Wire protocol**: Reuses existing pack protocol handlers; SSH channels speak the same binary format as HTTP smart transport.
+- **Optional dependency**: `ssh2` is an optional peer dependency — only needed for SSH transport. Falls back to helpful error message if not installed.
+- **Auth callbacks**: Integrates with existing `onAuth`, `onAuthSuccess`, `onAuthFailure` callback pattern.
+
 #### Compat Layer (from earlier in 2.0.0-alpha cycle)
 - JavaScript-only libgit2 compatibility layer under `src/compat/` behind `LIBGIT2_COMPAT` flag.
 - Golden test suite for compat behavior (remote-info, fetch including matrix variants, push, push error taxonomy).
@@ -63,8 +70,9 @@ The format is based on Keep a Changelog, and this project adheres to Semantic Ve
 - Consolidated push error taxonomy with heuristic mapping for common server messages.
 
 ### Test Coverage
-- 225 test suites, 1628 tests, 0 failures.
-- 170+ new tests specifically for libgit2 parity features across 4 phases.
+- 227 test suites, 1677 tests, 0 failures.
+- 190+ new tests specifically for libgit2 parity features across 5 phases.
+- 21 SSH transport tests with mock SSH server covering auth, discovery, and pack exchange.
 
 ### CI
 - Compat golden suites run under Karma + ChromeHeadless, Webpack 4, with `NODE_OPTIONS=--openssl-legacy-provider`.

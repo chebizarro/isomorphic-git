@@ -90,7 +90,7 @@ This document maps every libgit2 public API module (`include/git2/*.h`) to its i
 | `clone.h` | `clone` | ✅ | |
 | `fetch.h` (via remote) | `fetch`, `pull`, `fastForward` | ✅ | Compat layer adds libgit2-like validation/progress. |
 | `push.h` (via remote) | `push` | ✅ | Compat layer adds error taxonomy. |
-| `transport.h` | HTTP node/web transports | ⚠️ | SSH transport not built-in (requires plugin). libgit2 has native SSH. |
+| `transport.h` | HTTP node/web transports, SSH via `ssh2` | ✅ | SSH transport via `GitRemoteSSH` class using `ssh2` package. Supports `ssh://` and `git@` URLs. |
 | `credential.h` | `onAuth` callbacks | ✅ | |
 | `net.h` | — | 🚫 | Low-level network types; not applicable to JS. |
 | `proxy.h` | `corsProxy` | ⚠️ | CORS proxy only; no SOCKS/HTTP CONNECT proxy support. |
@@ -211,7 +211,7 @@ This document maps every libgit2 public API module (`include/git2/*.h`) to its i
 
 | Feature | Status | Notes |
 |---|---|---|
-| `transport.h` — SSH | ⚠️ | SSH requires external plugin; not applicable to pure JS |
+| `transport.h` — SSH | ✅ | SSH transport implemented via `ssh2` optional peer dependency |
 | `proxy.h` — SOCKS proxy | ⚠️ | CORS proxy only; SOCKS requires native networking |
 
 ---

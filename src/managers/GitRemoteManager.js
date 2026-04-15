@@ -3,6 +3,7 @@ import { UrlParseError } from '../errors/UrlParseError.js'
 import { translateSSHtoHTTP } from '../utils/translateSSHtoHTTP.js'
 
 import { GitRemoteHTTP } from './GitRemoteHTTP.js'
+import { GitRemoteSSH } from './GitRemoteSSH.js'
 
 /**
  * A class for managing Git remotes and determining the appropriate remote helper for a given URL.
@@ -22,6 +23,7 @@ export class GitRemoteManager {
     const remoteHelpers = new Map()
     remoteHelpers.set('http', GitRemoteHTTP)
     remoteHelpers.set('https', GitRemoteHTTP)
+    remoteHelpers.set('ssh', GitRemoteSSH)
 
     const parts = parseRemoteUrl({ url })
     if (!parts) {

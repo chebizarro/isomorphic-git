@@ -71,8 +71,7 @@ describe('getRemoteInfo2', () => {
     }
   )
 
-  it('throws UnknownTransportError if using shorter scp-like syntax', async () => {
-    // Test
+  it('recognizes SSH URLs (scp-like syntax) without throwing UnknownTransportError', async () => {
     let err
     try {
       await getRemoteInfo2({
@@ -83,6 +82,6 @@ describe('getRemoteInfo2', () => {
       err = e
     }
     expect(err).toBeDefined()
-    expect(err.code).toEqual(Errors.UnknownTransportError.code)
+    expect(err.code).not.toEqual(Errors.UnknownTransportError.code)
   })
 })

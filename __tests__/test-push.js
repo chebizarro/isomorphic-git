@@ -294,7 +294,7 @@ describe('push', () => {
       },
     ])
   })
-  it('throws UnknownTransportError if using shorter scp-like syntax', async () => {
+  it('recognizes SSH URLs (scp-like syntax) without throwing UnknownTransportError', async () => {
     // Setup
     const { fs, gitdir } = await makeFixture('test-push')
     await setConfig({
@@ -303,7 +303,7 @@ describe('push', () => {
       path: 'remote.ssh.url',
       value: `git@${localhost}:8888/test-push-server.git`,
     })
-    // Test
+    // SSH URLs are now supported — they throw SSH connection errors, not UnknownTransportError
     let err
     try {
       await push({
@@ -317,7 +317,8 @@ describe('push', () => {
       err = e
     }
     expect(err).toBeDefined()
-    expect(err.code).toEqual(Errors.UnknownTransportError.code)
+    // Should NOT be UnknownTransportError — SSH is now a recognized transport
+    expect(err.code).not.toEqual(Errors.UnknownTransportError.code)
   })
 
   it('push with Basic Auth', async () => {

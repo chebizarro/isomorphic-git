@@ -202,11 +202,54 @@ The 2.0.0-alpha release adds **100+ new exported functions and classes** to achi
 - Node 17+ requires `NODE_OPTIONS=--openssl-legacy-provider` when bundling tests.
 - CI workflow: `.github/workflows/compat-tests.yml` runs compat-only and golden suites.
 
+## SSH Transport (New in 2.0.0-alpha)
+
+SSH URLs (`ssh://user@host/path` and `git@host:path`) are now natively supported for `clone`, `fetch`, `push`, and `getRemoteInfo`.
+
+### Setup
+```bash
+npm install ssh2
+```
+
+`ssh2` is an **optional peer dependency** — only required if you use SSH URLs. HTTP/HTTPS remotes work without it.
+
+### Authentication
+
+The same `onAuth` callback pattern used for HTTP works for SSH:
+
+```js
+// Private key auth
+await git.clone({
+  fs, dir, http,
+  url: 'git@github.com:user/repo.git',
+  onAuth: () => ({
+    privateKey: fs.readFileSync('/path/to/id_ed25519', 'utf8'),
+    passphrase: 'optional',  // only if key is encrypted
+  })
+})
+
+// Password/token auth
+await git.fetch({
+  fs, dir, http,
+  url: 'ssh://git@example.com/repo.git',
+  onAuth: () => ({ username: 'git', password: 'token' })
+})
+
+// SSH agent (auto-detected from SSH_AUTH_SOCK if no explicit auth)
+await git.push({ fs, dir, http })  // uses SSH agent automatically
+```
+
+### Internals
+- `GitRemoteSSH` class in `src/managers/GitRemoteSSH.js` — same interface as `GitRemoteHTTP`
+- Registered automatically in `GitRemoteManager` for `ssh` transport
+- Reuses existing wire protocol handlers (pkt-line, pack format)
+
 ## Known Limitations / Notes
 
 - Error mapping is heuristic by design; additional phrases may be added as new truth fixtures are gathered.
-- No native modules or WASM are introduced; this is a JS-only change.
+- No native modules or WASM are introduced; this is a JS-only change (ssh2 is also pure JS).
 - Public API remains stable; internal shapes may carry extra optional fields from transports.
+- SSH transport is Node.js-only (ssh2 requires Node APIs). Browser environments should continue using HTTP/HTTPS.
 
 ## Timeline for Flag Promotion
 
