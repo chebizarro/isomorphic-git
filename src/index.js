@@ -65,6 +65,10 @@ import { blame } from './api/blame.js'
 import { applyPatch } from './api/applyPatch.js'
 import { describe } from './api/describe.js'
 import { rebase } from './api/rebase.js'
+import { repositoryState, repositoryStateCleanup, isBare, isEmpty, isShallow, isHeadDetached, isHeadUnborn, REPOSITORY_STATE } from './api/repository.js'
+import { indexHasConflicts, indexConflictGet, indexConflictAdd, indexConflictRemove, indexConflictIterator, indexConflictCleanup } from './api/indexConflicts.js'
+import { getAttr, getAttrMany, getAttrAll, ATTR_VALUE } from './api/getAttr.js'
+import { submoduleList, submoduleStatus, submoduleInit, submoduleDeinit, submoduleSync, submoduleAdd, SUBMODULE_STATUS } from './api/submodule.js'
 import { cherryPick } from './api/cherryPick.js'
 import { revert } from './api/revert.js'
 import { stash } from './api/stash.js'
@@ -171,6 +175,31 @@ export {
   writeTree,
   revert,
   stash,
+  repositoryState,
+  repositoryStateCleanup,
+  isBare,
+  isEmpty,
+  isShallow,
+  isHeadDetached,
+  isHeadUnborn,
+  REPOSITORY_STATE,
+  indexHasConflicts,
+  indexConflictGet,
+  indexConflictAdd,
+  indexConflictRemove,
+  indexConflictIterator,
+  indexConflictCleanup,
+  getAttr,
+  getAttrMany,
+  getAttrAll,
+  ATTR_VALUE,
+  submoduleList,
+  submoduleStatus,
+  submoduleInit,
+  submoduleDeinit,
+  submoduleSync,
+  submoduleAdd,
+  SUBMODULE_STATUS,
 }
 
 // default export
@@ -262,4 +291,29 @@ export default {
   writeTree,
   revert,
   stash,
+  repositoryState,
+  repositoryStateCleanup,
+  isBare,
+  isEmpty,
+  isShallow,
+  isHeadDetached,
+  isHeadUnborn,
+  REPOSITORY_STATE,
+  indexHasConflicts,
+  indexConflictGet,
+  indexConflictAdd,
+  indexConflictRemove,
+  indexConflictIterator,
+  indexConflictCleanup,
+  getAttr,
+  getAttrMany,
+  getAttrAll,
+  ATTR_VALUE,
+  submoduleList,
+  submoduleStatus,
+  submoduleInit,
+  submoduleDeinit,
+  submoduleSync,
+  submoduleAdd,
+  SUBMODULE_STATUS,
 }
