@@ -17,21 +17,29 @@ See `docs/compat/README.md` for detailed behavior notes.
 
 ## Compatibility Modes and Feature Flag
 
-- The new behavior is implemented under `src/compat/` and can be toggled with the environment flag `LIBGIT2_COMPAT`.
-- Truthy values are `1`, `true`, `yes`, or `on` (case-insensitive). In browsers, compat can also be forced by setting `globalThis.__LIBGIT2_COMPAT__ = true`.
+**libgit2-compatible behavior is the default** as of 2.0.0-alpha. The compat layer (`src/compat/`) is always active unless explicitly opted out.
+
 - Public API is preserved; the compat layer adapts internal behavior and result shapes to match libgit2 semantics.
-- Entry points affected when flag is enabled:
+- Entry points always active:
   - `getRemoteInfo2` → `src/compat/remote-info.js`
   - `fetch` → `src/compat/fetch.js` (via compat transport/adapters)
   - `push` → `src/compat/push.js` (via compat transport/adapters)
 
-To run tests or your app with the compat layer:
+### Opting out (legacy mode)
+
+If you need the old pre-2.0 behavior, opt out via:
 
 ```sh
-LIBGIT2_COMPAT=1 node your-script.js
+# Preferred — explicit legacy flag
+ISOGIT_LEGACY=1 node your-script.js
+
+# Backward compat — disable via old flag
+LIBGIT2_COMPAT=false node your-script.js
 ```
 
-Karma/CI use this flag where appropriate in the golden suites.
+In browser environments: `globalThis.__ISOGIT_LEGACY__ = true`
+
+Karma/CI golden suites run with compat active (the default). No flag is needed.
 
 ## Behavioral Changes by Area
 
@@ -188,7 +196,7 @@ The 2.0.0-alpha release adds **100+ new exported functions and classes** to achi
 
 ## Migration Checklist
 
-- Enable `LIBGIT2_COMPAT` in staging to validate behavior in your environment.
+- Test in staging — libgit2-compat behavior is now on by default, no flag needed.
 - Review any code that relied on parsing raw push error messages; prefer branching on `update.code`.
 - If you surface progress, expect phases `negotiation`, `receiving`, `indexing`, `resolving` during fetch.
 - If you consume `getRemoteInfo2`, account for JSON-safe ref objects and explicit `protocolVersion`.
@@ -287,9 +295,10 @@ The `proxy` parameter accepts:
 
 ## Timeline for Flag Promotion
 
-- Phase 1: Compat behind `LIBGIT2_COMPAT` (current).
-- Phase 2: Dogfood compat as default in CI; keep flag to disable.
-- Phase 3: Make compat default behavior; deprecate the flag.
+- ~~Phase 1: Compat behind `LIBGIT2_COMPAT`~~ ✅ Done
+- ~~Phase 2: Dogfood compat as default in CI~~ ✅ Done
+- **Phase 3: Compat is the default** ✅ **Current** — `ISOGIT_LEGACY=1` opts out
+- Phase 4 (future): Remove legacy code paths entirely
 
 We will announce timelines in release notes and keep the flag available for at least one minor release after defaulting.
 

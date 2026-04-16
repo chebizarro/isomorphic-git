@@ -6,14 +6,25 @@ This document captures the target semantics mirrored from libgit2, the rationale
 - Fetch: wants/haves negotiation ordering; shallow/deepen mapping; progress event phases.
 - Push: refspec normalization; non-FF handling; remote status aggregation.
 
-All implementations live under `src/compat/` and are wired via a temporary feature flag until promoted to default.
+All implementations live under `src/compat/`. **libgit2-compatible behavior is the default** as of 2.0.0-alpha.
 
 ## Feature flag
 
-- `LIBGIT2_COMPAT` toggles the compat runtime paths.
-- Truthy values are `1`, `true`, `yes`, or `on` (case-insensitive).
-- In browser-like environments, compat can also be forced by setting `globalThis.__LIBGIT2_COMPAT__ = true`.
-- Discovery entry: `src/api/getRemoteInfo2.js` routes via `createRemoteInfoCompat()` when the flag is enabled.
+The libgit2-compatible behavior is **on by default**. To opt out and use legacy (pre-2.0) behavior:
+
+- **Node.js**: Set `ISOGIT_LEGACY=1` (or `ISOGIT_LEGACY=true/yes/on`)
+- **Backward compat**: `LIBGIT2_COMPAT=false` (or `0/no/off`) also disables compat for continuity with pre-promotion scripts
+- **Browser**: Set `globalThis.__ISOGIT_LEGACY__ = true` before importing
+
+```sh
+# Opt out (Node)
+ISOGIT_LEGACY=1 node your-script.js
+
+# Backward-compat opt out
+LIBGIT2_COMPAT=false node your-script.js
+```
+
+- Discovery entry: `src/api/getRemoteInfo2.js` routes via `createRemoteInfoCompat()` (always active now).
 - Fetch/Push entries: factories and adapters under `src/compat/` wrap legacy commands and adapt shapes.
 
 ## Remote Discovery

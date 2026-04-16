@@ -59,6 +59,7 @@ export const fetchTransport = {
       headers: opts.headers || {},
       prune: !!opts.prune,
       pruneTags: !!opts.pruneTags,
+      agent: opts.agent,
     })
 
     // Compat result-shape stability: legacy _fetch only includes `pruned` when prune=true.

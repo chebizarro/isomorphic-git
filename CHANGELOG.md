@@ -61,8 +61,15 @@ The format is based on Keep a Changelog, and this project adheres to Semantic Ve
 - **Optional dependency**: `socks-proxy-agent` is an optional peer dependency — only needed for SOCKS proxy support.
 - **Wire-through**: Agent flows from public API → commands → `GitRemoteHTTP.discover()`/`.connect()` → `http.request()`.
 
+#### libgit2 Compat Promoted to Default
+- **Breaking change**: libgit2-compatible behavior is now **on by default**. No flag needed.
+- **Opt-out**: `ISOGIT_LEGACY=1` (or `globalThis.__ISOGIT_LEGACY__ = true` in browsers) restores legacy behavior.
+- **Backward compat**: `LIBGIT2_COMPAT=false/0/no/off` also disables compat for pre-existing scripts.
+- **Push result**: Compat push result now includes backward-compatible `ok` and `refs` fields alongside the new `updates`/`rejected` fields, so existing push consumers continue to work unchanged.
+- **Proxy**: `agent` now correctly flows through compat fetch/push adapters.
+
 #### Compat Layer (from earlier in 2.0.0-alpha cycle)
-- JavaScript-only libgit2 compatibility layer under `src/compat/` behind `LIBGIT2_COMPAT` flag.
+- JavaScript-only libgit2 compatibility layer under `src/compat/` (now always active).
 - Golden test suite for compat behavior (remote-info, fetch including matrix variants, push, push error taxonomy).
 - JSON truth fixtures for push error mapping at `__tests__/__truth__/push-errors.json`.
 - Documentation: `docs/compat/README.md` detailing compat semantics and `UPGRADING.md` with migration guidance.

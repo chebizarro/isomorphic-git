@@ -8,12 +8,12 @@
 
 > Compatibility Upgrade (2.0.0-alpha)
 >
-> A JavaScript-only libgit2-compatibility layer is available behind a feature flag. See `UPGRADING.md` for migration details and `CHANGELOG.md` for the latest notes.
+> libgit2-compatible behavior is now the **default**. If you need the old legacy behavior, opt out with the `ISOGIT_LEGACY` flag. See `UPGRADING.md` for details.
 >
-> Enable the compat layer at runtime:
+> To restore legacy (pre-2.0) behavior:
 >
 > ```sh
-> LIBGIT2_COMPAT=1 node your-script.js
+> ISOGIT_LEGACY=1 node your-script.js
 > ```
 
 ## Goals

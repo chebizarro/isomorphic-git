@@ -43,7 +43,16 @@ function legacyPushResultToCompat(res) {
     }
   }
   const rejected = updates.filter(u => !u.ok).map(u => u.ref)
-  return { updates, rejected }
+
+  // Backward-compatible fields: legacy code expects res.ok (boolean) and
+  // res.refs ({ [ref]: { ok, message } }). These mirror the pre-compat
+  // PushResult shape so existing consumers continue to work unchanged.
+  const overallOk = updates.length > 0 && updates.every(u => u.ok)
+  const refsMap = Object.fromEntries(
+    updates.map(u => [u.ref, { ok: u.ok, message: u.message }])
+  )
+
+  return { updates, rejected, ok: overallOk, refs: refsMap }
 }
 
 export const pushTransport = {
@@ -68,6 +77,7 @@ export const pushTransport = {
         delete: !!opts.delete,
         corsProxy: opts.corsProxy,
         headers: opts.headers || {},
+        agent: opts.agent,
       })
 
       return legacyPushResultToCompat(res)

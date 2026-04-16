@@ -39,16 +39,21 @@ describe('getRemoteInfo2', () => {
         [
           {
             "oid": "97c024f73eaab2781bf3691597bc7c833cb0e22f",
+            "peeled": undefined,
             "ref": "HEAD",
             "target": "refs/heads/master",
           },
           {
             "oid": "97c024f73eaab2781bf3691597bc7c833cb0e22f",
+            "peeled": undefined,
             "ref": "refs/heads/master",
+            "target": undefined,
           },
           {
             "oid": "5a8905a02e181fe1821068b8c0f48cb6633d5b81",
+            "peeled": undefined,
             "ref": "refs/heads/test",
+            "target": undefined,
           },
         ]
       `)

@@ -7,10 +7,15 @@ describe('compat flag import', () => {
     expect(typeof LIBGIT2_COMPAT).toBe('boolean')
   })
 
-  it('is false by default in test environment', () => {
-    // Unless LIBGIT2_COMPAT env var is set, should be false
-    if (!process.env.LIBGIT2_COMPAT || !['true', '1', 'yes', 'on'].includes(process.env.LIBGIT2_COMPAT.toLowerCase())) {
-      expect(LIBGIT2_COMPAT).toBe(false)
+  it('is true by default (compat is the default behavior)', () => {
+    // LIBGIT2_COMPAT should be true unless ISOGIT_LEGACY or LIBGIT2_COMPAT=false/0/no/off is set
+    const legacyVal = String(process.env.ISOGIT_LEGACY ?? '').toLowerCase()
+    const compatVal = String(process.env.LIBGIT2_COMPAT ?? '').toLowerCase()
+    const isLegacy =
+      ['true', '1', 'yes', 'on'].includes(legacyVal) ||
+      ['false', '0', 'no', 'off'].includes(compatVal)
+    if (!isLegacy) {
+      expect(LIBGIT2_COMPAT).toBe(true)
     }
   })
 })
