@@ -10,7 +10,7 @@ import {
   listFiles,
   readCommit,
   readTree,
-} from 'isomorphic-git'
+} from 'dimorphic-git'
 
 import { makeFixture } from './__helpers__/FixtureFS.js'
 

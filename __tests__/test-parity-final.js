@@ -1,11 +1,11 @@
 /* eslint-env jest */
-import * as git from 'isomorphic-git'
+import * as git from 'dimorphic-git'
 import * as fs from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 
 function makeTmpDir() {
-  return fs.mkdtempSync(join(tmpdir(), 'isogit-parity-final-'))
+  return fs.mkdtempSync(join(tmpdir(), 'dimogit-parity-final-'))
 }
 
 async function initRepo() {

@@ -1,4 +1,4 @@
-# ⊱⋅──────⋅⊱ Contributing to isomorphic-git ⊰⋅──────⋅⊰
+# ⊱⋅──────⋅⊱ Contributing to dimorphic-git ⊰⋅──────⋅⊰
 
 Oh wow! Thanks for opening up the contributing file! :grin: :tada:
 

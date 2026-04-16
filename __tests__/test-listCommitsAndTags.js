@@ -1,5 +1,5 @@
 /* eslint-env node, browser, jasmine */
-import { listCommitsAndTags } from 'isomorphic-git/internal-apis'
+import { listCommitsAndTags } from 'dimorphic-git/internal-apis'
 
 import { makeFixture } from './__helpers__/FixtureFS.js'
 

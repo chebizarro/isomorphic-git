@@ -25,8 +25,8 @@ const timeout15 = timeout(15)
 const bundlewatchEnvironmentVariables = () => {
   const options = [
     `BUNDLEWATCH_GITHUB_TOKEN='${process.env.BUNDLEWATCH_GITHUB_TOKEN}'`,
-    `CI_REPO_OWNER='isomorphic-git'`,
-    `CI_REPO_NAME='isomorphic-git'`,
+    `CI_REPO_OWNER='dimorphic-git'`,
+    `CI_REPO_NAME='dimorphic-git'`,
   ]
 
   // Azure DevOps Pipeline is not detected by bundlewatch (which uses ci-env).

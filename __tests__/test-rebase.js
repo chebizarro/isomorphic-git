@@ -1,6 +1,6 @@
 import { makeFixture } from './__helpers__/FixtureFS.js'
 
-const { rebase, log, resolveRef, commit, add, branch } = await import('isomorphic-git')
+const { rebase, log, resolveRef, commit, add, branch } = await import('dimorphic-git')
 
 describe('rebase', () => {
   it('rebases a branch onto another (non-interactive)', async () => {

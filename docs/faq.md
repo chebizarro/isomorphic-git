@@ -85,7 +85,7 @@ I haven't had time to review them all.
 
 ## Why is there no `default` export in the ES module?
 
-> I've noticed that ES6 import of the the module requires import * as git from 'isomorphic-git'.
+> I've noticed that ES6 import of the the module requires import * as git from 'dimorphic-git'.
 > It seems that there's no default export which should just contain all the functions
 > I'm suggesting to have a default export that gathers all the functions together.
 
@@ -93,13 +93,13 @@ In 0.x.x I withheld adding a `default` export for the reasons explained below. H
 The CommonJS format does _not_ have a default export. This actually makes the most sense because it means this Just Works (TM):
 
 ```js
-const git = require('isomorphic-git')
+const git = require('dimorphic-git')
 ```
 
 If you have a default export _and_ a named export, Rollup spits out a file that has to be consumed like this...
 
 ```js
-const git = require('isomorphic-git').default
+const git = require('dimorphic-git').default
 ```
 
 which nobody wants.
@@ -107,9 +107,9 @@ which nobody wants.
 To benefit from tree-shaking, you still should use named exports. But for convenience there is a default export now! So either of these work:
 
 ```js
-import git from 'isomorphic-git'
+import git from 'dimorphic-git'
 // or
-import * as git from 'isomorphic-git'
+import * as git from 'dimorphic-git'
 ```
 
 which strays from my usual Pythonic "there should only be one way to do it, and that way should be the best way" attitude... but having a default export also makes using the library _simpler_ because you don't have to think about whether to use a namespace import or a default import. And it looks nicer.
@@ -118,8 +118,8 @@ Old Answer preserved for posterity:
 
 _Answer by Will Hilton (@wmhilton):_
 
-Default exports are actually really bad for tree-shaking. If you do `import * as git from 'isomorphic-git'` and only use `git.log`, rollup and webpack are smart enough to only bundle `git.log`.
-But if you do `import git from 'isomorphic-git'` then they can't do any tree-shaking, because you're importing an Object that could have interdependent functions and side effects.
+Default exports are actually really bad for tree-shaking. If you do `import * as git from 'dimorphic-git'` and only use `git.log`, rollup and webpack are smart enough to only bundle `git.log`.
+But if you do `import git from 'dimorphic-git'` then they can't do any tree-shaking, because you're importing an Object that could have interdependent functions and side effects.
 Plus, if you export a default then the commonjs usage gets weird, because then you have to do `const git = require('git').default`
 So I've concluded that `default` exports are simply a bad pattern, and I don't think anyone should ever use them.
 
@@ -144,7 +144,7 @@ for (const filepath of paths) {
 }
 ```
 
-Long answer including a browser solution by @jcubic: [#187](https://github.com/isomorphic-git/isomorphic-git/issues/187)
+Long answer including a browser solution by @jcubic: [#187](https://github.com/dimorphic-git/dimorphic-git/issues/187)
 
 ## How to add all untracked files with git.add?
 
@@ -176,7 +176,7 @@ A slightly more efficient way of telling if you have the full history, would be 
 
 ## Does it support wire protocol version 2?
 
-Not yet, but you can go [upvote the issue](https://github.com/isomorphic-git/isomorphic-git/issues/585)
+Not yet, but you can go [upvote the issue](https://github.com/dimorphic-git/dimorphic-git/issues/585)
 As soon as GitHub supports the [fetch filter feature](https://git-scm.com/docs/protocol-v2#_fetch) I'll have a reason to work on it, because that would be extremely useful in browser environments!
 But until then, there's no advantage to using the new protocol.
 
@@ -186,8 +186,8 @@ But until then, there's no advantage to using the new protocol.
 
 _Answer by Dan Allen (@mojavelinux):_
 
-isomorphic-git only supports a CORS proxy out of the box. However, all HTTP requests are handled by the http plugin. Therefore, you can swap out the http plugin with a wrapper to inject an HTTP or HTTPS agent that routes requests through the proxy.
-This technique only works when using isomorphic-git on Node.js.
+dimorphic-git only supports a CORS proxy out of the box. However, all HTTP requests are handled by the http plugin. Therefore, you can swap out the http plugin with a wrapper to inject an HTTP or HTTPS agent that routes requests through the proxy.
+This technique only works when using dimorphic-git on Node.js.
 
 First, add the following dependencies to your project (or any HTTP agent that supports proxies that you prefer):
 
@@ -198,7 +198,7 @@ Next, create a file named http-plugin.js and populate it with the following code
 ```js
 'use strict'
 
-const { request: delegate } = require('isomorphic-git/http/node')
+const { request: delegate } = require('dimorphic-git/http/node')
 const { HttpProxyAgent, HttpsProxyAgent } = require('hpagent')
 
 async function request ({ url, method, headers, body }) {
@@ -212,7 +212,7 @@ async function request ({ url, method, headers, body }) {
 module.exports = { request }
 ```
 
-Next, assign this plugin to the http variable instead of isomorphic-git/http/node:
+Next, assign this plugin to the http variable instead of dimorphic-git/http/node:
 
 ```js
 const http = require('./http-plugin.js')
@@ -224,6 +224,6 @@ Finally, pass this http variable to any command that requires the http keyword, 
 await git.clone({ ...repo, url, http })
 ```
 
-With this code in place, isomorphic-git will honor the `http_proxy` and `https_proxy` environment variables.
+With this code in place, dimorphic-git will honor the `http_proxy` and `https_proxy` environment variables.
 Those environment variables specify a URL through which to route HTTP and HTTPS connections, respectively.
 The URL may contain a username and password if the proxy requires authentication.

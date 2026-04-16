@@ -3,8 +3,8 @@ title: http
 sidebar_label: http
 ---
 
-You need to pass an HTTP client into `isomorphic-git` functions that make HTTP requests.
-Both a node client (`isomorphic-git/http/node`) and a browser client (`isomorphic-git/http/web`) are included in the npm package, but you have to pick which one to use.
+You need to pass an HTTP client into `dimorphic-git` functions that make HTTP requests.
+Both a node client (`dimorphic-git/http/node`) and a browser client (`dimorphic-git/http/web`) are included in the npm package, but you have to pick which one to use.
 Or you can provide your own!
 
 (In the past, we tried to be clever and automatically select the client for you. But that can be really hard to determine in edge cases like Electron.)
@@ -14,9 +14,9 @@ Or you can provide your own!
 The Node client uses the [`simple-get`](https://npm.im/simple-get) package under the hood.
 
 ```js
-const git = require("isomorphic-git");
-const http = require("isomorphic-git/http/node");
-git.getRemoteInfo({ http, url: 'https://github.com/isomorphic-git/isomorphic-git' })
+const git = require("dimorphic-git");
+const http = require("dimorphic-git/http/node");
+git.getRemoteInfo({ http, url: 'https://github.com/dimorphic-git/dimorphic-git' })
   .then(console.log)
 ```
 
@@ -28,22 +28,22 @@ wrap this client or implement your own HTTP client. (See section below.)
 The Browser client uses the [`Fetch API`](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) under the hood.
 
 ```js
-import git from "isomorphic-git";
-import http from "isomorphic-git/http/web";
-git.getRemoteInfo({ http, url: 'https://github.com/isomorphic-git/isomorphic-git' })
+import git from "dimorphic-git";
+import http from "dimorphic-git/http/web";
+git.getRemoteInfo({ http, url: 'https://github.com/dimorphic-git/dimorphic-git' })
   .then(console.log)
 ```
 
 If you are using ES modules directly, you can import it like this:
 ```js
-import http from 'https://unpkg.com/isomorphic-git/http/web/index.js'
+import http from 'https://unpkg.com/dimorphic-git/http/web/index.js'
 ```
 
 If you need to use a script tag (such as in a [WebWorker](./guide-webworker)), then use the UMD build. But note that the global var is called `GitHttp` not `http` because I was worried that would be too generic:
 ```html
-<script src="https://unpkg.com/isomorphic-git/http/web/index.umd.js">
+<script src="https://unpkg.com/dimorphic-git/http/web/index.umd.js">
 <script>
-git.getRemoteInfo({ http: GitHttp, url: 'https://github.com/isomorphic-git/isomorphic-git' })
+git.getRemoteInfo({ http: GitHttp, url: 'https://github.com/dimorphic-git/dimorphic-git' })
   .then(console.log)
 ```
 
@@ -106,5 +106,5 @@ You don't _have_ to support streaming (and in some cases, like uploads in the br
 If you are not streaming responses, you can simply fake it by returning an array with a single `Uint8Array` inside it.
 This works because the async iteration protocol (`for await ... of`) will fallback to the sync iteration protocol, which is supported by plain Arrays.
 
-To get started, you might want to look at [`src/http/node/index.js`](https://github.com/isomorphic-git/isomorphic-git/blob/main/src/http/node/index.js)
-and [`src/http/web/index.js`](https://github.com/isomorphic-git/isomorphic-git/blob/main/src/http/web/index.js).
+To get started, you might want to look at [`src/http/node/index.js`](https://github.com/dimorphic-git/dimorphic-git/blob/main/src/http/node/index.js)
+and [`src/http/web/index.js`](https://github.com/dimorphic-git/dimorphic-git/blob/main/src/http/web/index.js).

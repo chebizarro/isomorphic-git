@@ -87,7 +87,7 @@ export const pushTransport = {
         const result = (data && data.result) || data
 
         // Treat overall unpack failures as hard errors (throw), not per-ref status updates.
-        // In isomorphic-git PushResult, `ok === false` indicates an unpack failure.
+        // In dimorphic-git PushResult, `ok === false` indicates an unpack failure.
         if (result && typeof result.ok === 'boolean' && result.ok === false) {
           throw new CompatError(
             'EPROTOCOL',

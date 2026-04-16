@@ -277,7 +277,7 @@ await git.fetch({
 })
 
 // Or pass a pre-built agent
-import { createProxyAgent } from 'isomorphic-git'
+import { createProxyAgent } from 'dimorphic-git'
 const agent = await createProxyAgent('socks5://localhost:1080')
 await git.push({ fs, http, dir: '/repo', proxy: agent })
 ```

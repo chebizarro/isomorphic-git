@@ -296,7 +296,7 @@ async function sshExec({
 }
 
 /**
- * GitRemoteSSH - SSH transport for isomorphic-git.
+ * GitRemoteSSH - SSH transport for dimorphic-git.
  *
  * Implements the same interface as GitRemoteHTTP:
  *   - capabilities()

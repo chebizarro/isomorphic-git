@@ -1,7 +1,7 @@
 /* eslint-env node, browser, jasmine */
 import * as path from 'path'
 
-import { GitPackIndex, GitObject, shasum } from 'isomorphic-git/internal-apis'
+import { GitPackIndex, GitObject, shasum } from 'dimorphic-git/internal-apis'
 
 import { makeFixture } from './__helpers__/FixtureFS.js'
 

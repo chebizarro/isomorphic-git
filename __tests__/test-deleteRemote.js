@@ -1,5 +1,5 @@
 /* eslint-env node, browser, jasmine */
-import { Errors, deleteRemote, listRemotes } from 'isomorphic-git'
+import { Errors, deleteRemote, listRemotes } from 'dimorphic-git'
 
 import { makeFixture } from './__helpers__/FixtureFS.js'
 

@@ -39,7 +39,7 @@ import { join } from '../utils/join.js'
  * @param {string} [args.remoteRef] - The name of the receiving branch on the remote. By default this is the configured remote tracking branch.
  * @param {boolean} [args.force = false] - If true, behaves the same as `git push --force`
  * @param {boolean} [args.delete = false] - If true, delete the remote ref
- * @param {string} [args.corsProxy] - Optional [CORS proxy](https://www.npmjs.com/%40isomorphic-git/cors-proxy). Overrides value in repo config.
+ * @param {string} [args.corsProxy] - Optional [CORS proxy](https://www.npmjs.com/%40dimorphic-git/cors-proxy). Overrides value in repo config.
  * @param {Object<string, string>} [args.headers] - Additional headers to include in HTTP requests, similar to git's `extraHeader` config
  * @param {string|object} [args.proxy] - SOCKS proxy URL (e.g. 'socks5://localhost:1080') or a custom http.Agent instance. Requires the `socks-proxy-agent` package if a string is provided.
  * @param {object} [args.cache] - a [cache](cache.md) object

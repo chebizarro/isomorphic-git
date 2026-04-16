@@ -1,7 +1,7 @@
 /* eslint-env node, browser, jasmine */
 import * as path from 'path'
 
-import { status, add, remove } from 'isomorphic-git'
+import { status, add, remove } from 'dimorphic-git'
 
 import { makeFixture } from './__helpers__/FixtureFS.js'
 

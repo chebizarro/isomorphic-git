@@ -2,8 +2,8 @@
 
 import * as path from 'path'
 
-import { setConfig, pull, log, add, commit, Errors } from 'isomorphic-git'
-import http from 'isomorphic-git/http'
+import { setConfig, pull, log, add, commit, Errors } from 'dimorphic-git'
+import http from 'dimorphic-git/http'
 
 import { makeFixture } from './__helpers__/FixtureFS.js'
 

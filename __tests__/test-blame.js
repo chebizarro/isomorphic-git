@@ -1,6 +1,6 @@
 import { makeFixture } from './__helpers__/FixtureFS.js'
 
-const { blame } = await import('isomorphic-git')
+const { blame } = await import('dimorphic-git')
 
 describe('blame', () => {
   it('attributes all lines of a single-commit file to that commit', async () => {

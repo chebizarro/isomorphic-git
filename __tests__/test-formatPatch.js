@@ -1,6 +1,6 @@
 import { makeFixture } from './__helpers__/FixtureFS.js'
 
-const { formatPatch } = await import('isomorphic-git')
+const { formatPatch } = await import('dimorphic-git')
 
 describe('formatPatch', () => {
   it('generates unified diff output', async () => {

@@ -74,13 +74,13 @@ await git.clone({ ...repo, onAuth })
 // website/scripts/deploy-gh-pages.js
 const path = require('path')
 const fs = require('fs')
-const git = require('isomorphic-git')
-const http = require('isomorphic-git/http/node')
+const git = require('dimorphic-git')
+const http = require('dimorphic-git/http/node')
 
 // PARAMETERS - CHANGE THESE FOR YOUR CODE
-const url = 'https://github.com/isomorphic-git/isomorphic-git.github.io'
+const url = 'https://github.com/dimorphic-git/dimorphic-git.github.io'
 const sourceDir = path.join(__dirname, '../..')
-const buildDir = path.join(sourceDir, 'website/build/isomorphic-git.github.io')
+const buildDir = path.join(sourceDir, 'website/build/dimorphic-git.github.io')
 
 ;(async () => {
   let dir = sourceDir

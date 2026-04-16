@@ -1,5 +1,5 @@
 import { jest } from '@jest/globals'
-import * as git from 'isomorphic-git'
+import * as git from 'dimorphic-git'
 import fs from 'fs'
 import path from 'path'
 import os from 'os'
@@ -522,11 +522,11 @@ describe('SSH Transport', () => {
     }, 10000)
   })
 
-  describe('SSH transport with isomorphic-git API', () => {
+  describe('SSH transport with dimorphic-git API', () => {
     let tmpDir
 
     beforeEach(() => {
-      tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'isogit-ssh-test-'))
+      tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'dimogit-ssh-test-'))
     })
 
     afterEach(() => {

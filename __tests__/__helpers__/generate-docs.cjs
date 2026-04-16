@@ -126,8 +126,8 @@ try {
 function writeExample(text, filepath) {
   const exampleFilepath = path.join(__dirname, '..', '__examples__', filepath)
   text = `import * as fs from 'fs'
-import git from 'isomorphic-git'
-import http from 'isomorphic-git/http'
+import git from 'dimorphic-git'
+import http from 'dimorphic-git/http'
 const { pgp } = require('@isomorphic-git/pgp-plugin')
 
 export {};
@@ -167,7 +167,7 @@ const jsdocConfig = () => {
     // Write the config to a temporary directory inside node_modules.
     const outputDir = path.resolve(
       path.dirname(require.resolve('jsdoc-api')),
-      '../.cache/isomorphic-git/tmp'
+      '../.cache/dimorphic-git/tmp'
     )
     fs.mkdirSync(outputDir, { recursive: true })
 
@@ -333,7 +333,7 @@ console.log('done')
 (function rewriteEditLink() {
   const el = document.querySelector('a.edit-page-link.button');
   if (el) {
-    el.href = 'https://github.com/isomorphic-git/isomorphic-git/edit/main/src/api/${obj.name}.js';
+    el.href = 'https://github.com/dimorphic-git/dimorphic-git/edit/main/src/api/${obj.name}.js';
   }
 })();
 </script>`
@@ -453,7 +453,7 @@ ${docs
 
 ${docs
   .map(doc => doc.replace(/^docs\/(.*)\.md$/, '$1'))
-  .map(doc => `- [${doc}](https://isomorphic-git.github.io/docs/${doc}.html)`)
+  .map(doc => `- [${doc}](https://dimorphic-git.github.io/docs/${doc}.html)`)
   .join('\n')}
 
 <!-- markdownlint-enable -->

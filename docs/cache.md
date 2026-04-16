@@ -27,7 +27,7 @@ const test = async () => {
 test().catch(err => console.log(err))
 ```
 
-Running this code on the `isomorphic-git` repo on my 2018 Macbook Pro takes over 2 minutes!
+Running this code on the `dimorphic-git` repo on my 2018 Macbook Pro takes over 2 minutes!
 
 It is slow because every time you call `git.status` it has to re-read and re-parse one or more packfiles in `.git/objects/pack`.
 Each individual status may take relatively little time (10ms to 100ms) but if you have thousands of files that quickly adds up.
@@ -73,9 +73,9 @@ This runs in 843ms on my machine.
 
 ## The `cache` parameter
 
-As you can see, you can easily write yourself into a performance trap using `isomorphic-git` commands in isolation.
+As you can see, you can easily write yourself into a performance trap using `dimorphic-git` commands in isolation.
 
-Unlike canonical `git` commands however, there is a way for `isomorphic-git` commands to cache intermediate results
+Unlike canonical `git` commands however, there is a way for `dimorphic-git` commands to cache intermediate results
 and reuse them between commands.
 It used to do this by default, but that results in a memory leak if you never clear the cache.
 
@@ -85,7 +85,7 @@ There is no single best caching strategy:
 
 Instead of compromising, I've placed a powerful tool in your hands:
 1. You pass in an ordinary `cache` object.
-2. isomorphic-git stores data on it by setting Symbol properties.
+2. dimorphic-git stores data on it by setting Symbol properties.
 3. Manipulating the `cache` directly will void your warranty ⚠️.
 4. To clear the cache, remove any references to it so it is garbage collected.
 
@@ -109,7 +109,7 @@ test().catch(err => console.log(err))
 
 This code runs in under 8 seconds on my machine.
 (Compare with over 2 minutes without the `cache` argument.)
-Still nowhere as good as `statusMatrix`, but not everything you might want to do with isomorphic-git can be described by a [`walk`](./walk.html).
+Still nowhere as good as `statusMatrix`, but not everything you might want to do with dimorphic-git can be described by a [`walk`](./walk.html).
 
 The catch of course, is you have to decide when (if ever) to get rid of that cache.
 It is just a JavaScript object, so all you need to do is eliminate any references to it and it will be garbage collected.

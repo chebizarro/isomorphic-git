@@ -9,7 +9,7 @@ import {
   resolveRef,
   init,
   add,
-} from 'isomorphic-git'
+} from 'dimorphic-git'
 
 import { makeFixture } from './__helpers__/FixtureFS.js'
 

@@ -1,6 +1,6 @@
 import { makeFixture } from './__helpers__/FixtureFS.js'
 
-const { describe: gitDescribe } = await import('isomorphic-git')
+const { describe: gitDescribe } = await import('dimorphic-git')
 
 describe('describe', () => {
   it('returns tag name when commit is directly tagged (lightweight)', async () => {

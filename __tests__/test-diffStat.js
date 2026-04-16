@@ -1,6 +1,6 @@
 import { makeFixture } from './__helpers__/FixtureFS.js'
 
-const { diffStat } = await import('isomorphic-git')
+const { diffStat } = await import('dimorphic-git')
 const { fs: _fs } = await import('fs')
 
 describe('diffStat', () => {

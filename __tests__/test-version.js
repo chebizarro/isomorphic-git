@@ -3,7 +3,7 @@ import { readFileSync } from 'fs'
 import { join } from 'path'
 import { fileURLToPath } from 'url'
 
-import { version } from 'isomorphic-git'
+import { version } from 'dimorphic-git'
 
 /**
  * @todo Use `import ... with { type: 'json' }` when development uses Node.js 20+.

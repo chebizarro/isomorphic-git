@@ -104,7 +104,7 @@ export async function emailCreateFromCommit({
     mbox += `---\n`
     mbox += diffText
     mbox += `-- \n`
-    mbox += `isomorphic-git\n`
+    mbox += `dimorphic-git\n`
 
     return mbox
   } catch (err) {

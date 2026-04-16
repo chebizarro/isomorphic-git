@@ -13,7 +13,7 @@ They are particularly useful if the remote server has custom git-hooks that prin
 You are writing a console application, and you want to simply print any server messages to standard out.
 
 ```js
-const git = require('isomorphic-git')
+const git = require('dimorphic-git')
 git.clone({
   ...,
   onMessage: console.log

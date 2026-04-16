@@ -1,7 +1,7 @@
 /* eslint-env node, browser, jasmine */
-import { Errors, setConfig, fetch } from 'isomorphic-git'
-import http from 'isomorphic-git/http'
-import { sleep } from 'isomorphic-git/internal-apis'
+import { Errors, setConfig, fetch } from 'dimorphic-git'
+import http from 'dimorphic-git/http'
+import { sleep } from 'dimorphic-git/internal-apis'
 
 import { makeFixture } from './__helpers__/FixtureFS.js'
 

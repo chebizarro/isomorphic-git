@@ -25,7 +25,7 @@ import { join } from '../utils/join.js'
  *   fs,
  *   dir: '/tutorial',
  *   remote: 'upstream',
- *   url: 'https://github.com/isomorphic-git/isomorphic-git'
+ *   url: 'https://github.com/dimorphic-git/dimorphic-git'
  * })
  * console.log('done')
  *

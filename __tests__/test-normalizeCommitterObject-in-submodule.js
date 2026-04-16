@@ -1,7 +1,7 @@
 /* eslint-env node, browser, jasmine */
 
-import { setConfig } from 'isomorphic-git'
-import { normalizeCommitterObject } from 'isomorphic-git/internal-apis'
+import { setConfig } from 'dimorphic-git'
+import { normalizeCommitterObject } from 'dimorphic-git/internal-apis'
 
 import { makeFixtureAsSubmodule } from './__helpers__/FixtureFSSubmodule.js'
 

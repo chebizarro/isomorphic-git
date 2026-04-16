@@ -1,6 +1,6 @@
 import { jest } from '@jest/globals'
-import * as git from 'isomorphic-git'
-import http from 'isomorphic-git/http'
+import * as git from 'dimorphic-git'
+import http from 'dimorphic-git/http'
 import fs from 'fs'
 import path from 'path'
 import os from 'os'
@@ -196,7 +196,7 @@ describe('SOCKS Proxy Support', () => {
     })
 
     beforeEach(() => {
-      tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'isogit-proxy-test-'))
+      tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'dimogit-proxy-test-'))
       socksProxy.connections.length = 0 // Clear connections
     })
 
@@ -205,7 +205,7 @@ describe('SOCKS Proxy Support', () => {
     })
 
     test('getRemoteInfo routes through SOCKS proxy', async () => {
-      // Use the local HTTP git mock server that isomorphic-git tests use
+      // Use the local HTTP git mock server that dimorphic-git tests use
       const localhost =
         typeof window === 'undefined' ? 'localhost' : window.location.hostname
       try {
@@ -285,7 +285,7 @@ describe('SOCKS Proxy Support', () => {
 
     test('clone routes through SOCKS proxy', async () => {
       const cloneDir = fs.mkdtempSync(
-        path.join(os.tmpdir(), 'isogit-proxy-clone-')
+        path.join(os.tmpdir(), 'dimogit-proxy-clone-')
       )
       const localhost =
         typeof window === 'undefined' ? 'localhost' : window.location.hostname
@@ -312,7 +312,7 @@ describe('SOCKS Proxy Support', () => {
     }, 30000)
   })
 
-  describe('createProxyAgent is exported from isomorphic-git', () => {
+  describe('createProxyAgent is exported from dimorphic-git', () => {
     test('createProxyAgent is available as named export', () => {
       expect(typeof git.createProxyAgent).toBe('function')
     })

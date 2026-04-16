@@ -14,8 +14,8 @@
 // That's what discoverGitdir.js solves for. The way to run git
 // commands inside a submodule is to be aware of the remote location of the .git folder.
 
-import { clone } from 'isomorphic-git'
-import http from 'isomorphic-git/http'
+import { clone } from 'dimorphic-git'
+import http from 'dimorphic-git/http'
 
 import { join } from '../../src/utils/join.js'
 

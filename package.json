@@ -1,5 +1,5 @@
 {
-  "name": "isomorphic-git",
+  "name": "dimorphic-git",
   "version": "2.0.0-alpha",
   "description": "A pure JavaScript reimplementation of git for node and browsers",
   "type": "module",
@@ -54,7 +54,7 @@
   },
   "unpkg": "./index.umd.min.js",
   "bin": {
-    "isogit": "./cli.cjs"
+    "dimogit": "./cli.cjs"
   },
   "sideEffects": false,
   "engines": {
@@ -72,7 +72,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/isomorphic-git/isomorphic-git.git"
+    "url": "https://github.com/dimorphic-git/dimorphic-git.git"
   },
   "keywords": [
     "git",
@@ -81,9 +81,9 @@
   "author": "William Hilton <wmhilton@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/isomorphic-git/isomorphic-git/issues"
+    "url": "https://github.com/dimorphic-git/dimorphic-git/issues"
   },
-  "homepage": "https://isomorphic-git.org/",
+  "homepage": "https://dimorphic-git.org/",
   "files": [
     "cli.cjs",
     "browser-tests.json",
@@ -203,7 +203,7 @@
   },
   "collective": {
     "type": "opencollective",
-    "url": "https://opencollective.com/isomorphic-git",
-    "logo": "https://opencollective.com/isomorphic-git/logo.txt"
+    "url": "https://opencollective.com/dimorphic-git",
+    "logo": "https://opencollective.com/dimorphic-git/logo.txt"
   }
 }

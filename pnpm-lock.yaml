@@ -57,13 +57,13 @@ importers:
       '@babel/runtime':
         specifier: 7.5.5
         version: 7.5.5
-      '@isomorphic-git/cors-proxy':
+      '@dimorphic-git/cors-proxy':
         specifier: 2.7.1
         version: 2.7.1
-      '@isomorphic-git/lightning-fs':
+      '@dimorphic-git/lightning-fs':
         specifier: ^3.3.0
         version: 3.4.2
-      '@isomorphic-git/pgp-plugin':
+      '@dimorphic-git/pgp-plugin':
         specifier: 0.0.7
         version: 0.0.7
       '@semantic-release/exec':
@@ -701,18 +701,18 @@ packages:
   '@hapi/topo@6.0.2':
     resolution: {integrity: sha512-KR3rD5inZbGMrHmgPxsJ9dbi6zEK+C3ZwUwTa+eMwWLz7oijWUTWD2pMSNNYJAU6Qq+65NkxXjqHr/7LM2Xkqg==}
 
-  '@isomorphic-git/cors-proxy@2.7.1':
+  '@dimorphic-git/cors-proxy@2.7.1':
     resolution: {integrity: sha512-5P4bcOiwCJoYi6lf3pkTtFz6eQWaJsJD3IS75VQBgAoFFfNUlMw5Ufqd/UMFeqy6FJNgGCbuSHdfoKUx+pAlhA==}
     hasBin: true
 
-  '@isomorphic-git/idb-keyval@3.3.2':
+  '@dimorphic-git/idb-keyval@3.3.2':
     resolution: {integrity: sha512-r8/AdpiS0/WJCNR/t/gsgL+M8NMVj/ek7s60uz3LmpCaTF2mEVlZJlB01ZzalgYzRLXwSPC92o+pdzjM7PN/pA==}
 
-  '@isomorphic-git/lightning-fs@3.4.2':
+  '@dimorphic-git/lightning-fs@3.4.2':
     resolution: {integrity: sha512-hz1nDDhtRlGSe9xUaAUtz91LKWurpVgzshWigKIHwQkbVBpwtDA3zEziK+FdwrJg/1XgfryRphJPMCnFCjdcVw==}
     hasBin: true
 
-  '@isomorphic-git/pgp-plugin@0.0.7':
+  '@dimorphic-git/pgp-plugin@0.0.7':
     resolution: {integrity: sha512-6adXezgOeXFn5CHYlxAtmq7OoDjLPWxyxL7FXtM6ROdLOT/WScU1asPXG0dhGmKJNR4u23WF5pIbNHJtqKLZ/Q==}
 
   '@isomorphic-pgp/parser@0.0.3':
@@ -6800,7 +6800,7 @@ snapshots:
     dependencies:
       '@hapi/hoek': 11.0.7
 
-  '@isomorphic-git/cors-proxy@2.7.1':
+  '@dimorphic-git/cors-proxy@2.7.1':
     dependencies:
       cross-env: 5.2.1
       daemonize-process: 1.0.9
@@ -6812,16 +6812,16 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
-  '@isomorphic-git/idb-keyval@3.3.2': {}
+  '@dimorphic-git/idb-keyval@3.3.2': {}
 
-  '@isomorphic-git/lightning-fs@3.4.2':
+  '@dimorphic-git/lightning-fs@3.4.2':
     dependencies:
-      '@isomorphic-git/idb-keyval': 3.3.2
+      '@dimorphic-git/idb-keyval': 3.3.2
       isomorphic-textencoder: 1.0.1
       just-debounce-it: 1.1.0
       just-once: 1.1.0
 
-  '@isomorphic-git/pgp-plugin@0.0.7':
+  '@dimorphic-git/pgp-plugin@0.0.7':
     dependencies:
       '@isomorphic-pgp/sign-and-verify': 0.0.10
       '@isomorphic-pgp/util': 0.0.6

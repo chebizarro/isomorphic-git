@@ -1,1 +1,1 @@
-declare module 'isomorphic-git/http'
+declare module 'dimorphic-git/http'

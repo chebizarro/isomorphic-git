@@ -1,5 +1,5 @@
 /* eslint-env node, browser, jasmine */
-import { resolveRef } from 'isomorphic-git'
+import { resolveRef } from 'dimorphic-git'
 
 import { makeFixture } from './__helpers__/FixtureFS.js'
 

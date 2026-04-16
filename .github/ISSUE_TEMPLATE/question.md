@@ -10,5 +10,5 @@ about: If you have questions, please check StackOverflow
 
 For questions or help please see:
 
-- [Gitter Chat](https://gitter.im/isomorphic-git/Lobby)
-- The [isomorphic-git](https://stackoverflow.com/questions/tagged/isomorphic-git) tag on [StackOverflow](https://stackoverflow.com/questions/ask)
+- [Gitter Chat](https://gitter.im/dimorphic-git/Lobby)
+- The [dimorphic-git](https://stackoverflow.com/questions/tagged/dimorphic-git) tag on [StackOverflow](https://stackoverflow.com/questions/ask)

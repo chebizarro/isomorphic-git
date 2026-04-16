@@ -1,5 +1,5 @@
 /* eslint-env node, browser, jasmine */
-import { Errors, addNote, readBlob, resolveRef, readTree } from 'isomorphic-git'
+import { Errors, addNote, readBlob, resolveRef, readTree } from 'dimorphic-git'
 
 import { makeFixture } from './__helpers__/FixtureFS.js'
 
@@ -21,12 +21,12 @@ describe('addNote', () => {
       note: 'This is a note about a commit.',
     })
     const commit = await resolveRef({ fs, gitdir, ref: 'refs/notes/commits' })
-    expect(commit).toEqual('3b4b7a6c2382ea60a0b4c7ff69920af9a2e6408d')
-    expect(oid).toEqual('3b4b7a6c2382ea60a0b4c7ff69920af9a2e6408d')
+    expect(commit).toEqual('166e2168a3a5e51df57d1e0fae0c57e0a7063260')
+    expect(oid).toEqual('166e2168a3a5e51df57d1e0fae0c57e0a7063260')
     const { blob } = await readBlob({
       fs,
       gitdir,
-      oid: '3b4b7a6c2382ea60a0b4c7ff69920af9a2e6408d',
+      oid: '166e2168a3a5e51df57d1e0fae0c57e0a7063260',
       filepath: 'f6d51b1f9a449079f6999be1fb249c359511f164',
     })
     expect(Buffer.from(blob).toString('utf8')).toEqual(
@@ -50,12 +50,12 @@ describe('addNote', () => {
       note: 'This is a note about a tree.',
     })
     const commit = await resolveRef({ fs, gitdir, ref: 'refs/notes/commits' })
-    expect(commit).toEqual('4b52ff827d2b5fe1786bf52a1b78dd25517b6cdd')
-    expect(oid).toEqual('4b52ff827d2b5fe1786bf52a1b78dd25517b6cdd')
+    expect(commit).toEqual('fd6b8eb98045307684f55554b31ca87869cea870')
+    expect(oid).toEqual('fd6b8eb98045307684f55554b31ca87869cea870')
     const { blob } = await readBlob({
       fs,
       gitdir,
-      oid: '4b52ff827d2b5fe1786bf52a1b78dd25517b6cdd',
+      oid: 'fd6b8eb98045307684f55554b31ca87869cea870',
       filepath: '199948939a0b95c6f27668689102496574b2c332',
     })
     expect(Buffer.from(blob).toString('utf8')).toEqual(
@@ -79,12 +79,12 @@ describe('addNote', () => {
       note: 'This is a note about a blob.',
     })
     const commit = await resolveRef({ fs, gitdir, ref: 'refs/notes/commits' })
-    expect(commit).toEqual('6428616e2600d3cd4b66059d5c561a85ce4b33ff')
-    expect(oid).toEqual('6428616e2600d3cd4b66059d5c561a85ce4b33ff')
+    expect(commit).toEqual('49ca31d127d3f4183d7da5bf06df4157febe3d35')
+    expect(oid).toEqual('49ca31d127d3f4183d7da5bf06df4157febe3d35')
     const { blob } = await readBlob({
       fs,
       gitdir,
-      oid: '6428616e2600d3cd4b66059d5c561a85ce4b33ff',
+      oid: '49ca31d127d3f4183d7da5bf06df4157febe3d35',
       filepath: '68aba62e560c0ebc3396e8ae9335232cd93a3f60',
     })
     expect(Buffer.from(blob).toString('utf8')).toEqual(
@@ -162,12 +162,12 @@ describe('addNote', () => {
       note: 'This is a note about a blob.',
     })
     const commit = await resolveRef({ fs, gitdir, ref: 'refs/notes/alt' })
-    expect(commit).toEqual('6428616e2600d3cd4b66059d5c561a85ce4b33ff')
-    expect(oid).toEqual('6428616e2600d3cd4b66059d5c561a85ce4b33ff')
+    expect(commit).toEqual('49ca31d127d3f4183d7da5bf06df4157febe3d35')
+    expect(oid).toEqual('49ca31d127d3f4183d7da5bf06df4157febe3d35')
     const { blob } = await readBlob({
       fs,
       gitdir,
-      oid: '6428616e2600d3cd4b66059d5c561a85ce4b33ff',
+      oid: '49ca31d127d3f4183d7da5bf06df4157febe3d35',
       filepath: '68aba62e560c0ebc3396e8ae9335232cd93a3f60',
     })
     expect(Buffer.from(blob).toString('utf8')).toEqual(

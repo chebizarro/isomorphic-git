@@ -10,7 +10,7 @@ import { pgp } from '@isomorphic-git/pgp-plugin'
 git.commit({ ..., onSign: pgp.sign })
 ```
 
-You can choose between an [OpenPGP.js implementation](https://github.com/isomorphic-git/openpgp-plugin) and an [isomorphic-pgp implementation](https://github.com/isomorphic-git/pgp-plugin)!
+You can choose between an [OpenPGP.js implementation](https://github.com/dimorphic-git/openpgp-plugin) and an [isomorphic-pgp implementation](https://github.com/dimorphic-git/pgp-plugin)!
 
 OpenPGP (recommended for node apps)
 - much wider support for different keys
@@ -64,7 +64,7 @@ let { valid, invalid } = await pgp.verify({ payload, publicKey, signature: commi
 ```js
 // Verify an annotated tag object
 import { pgp } from '@isomorphic-git/pgp-plugin'
-import { resolveRef, readCommit } from 'isomorphic-git'
+import { resolveRef, readCommit } from 'dimorphic-git'
 
 let oid = await resolveRef({ fs, dir, ref: 'v1.0.0' })
 let { tag, payload } = await readTag({ fs, dir, oid })

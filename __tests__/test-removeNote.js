@@ -1,5 +1,5 @@
 /* eslint-env node, browser, jasmine */
-import { listNotes, removeNote } from 'isomorphic-git'
+import { listNotes, removeNote } from 'dimorphic-git'
 
 import { makeFixture } from './__helpers__/FixtureFS.js'
 
@@ -29,7 +29,7 @@ describe('removeNote', () => {
       gitdir,
     })
     expect(notes.length).toBe(2)
-    expect(oid).toBe('96cc0598c9f2eaac733d0817981039596c0c410f')
+    expect(oid).toBe('c642388ecacce33ef635c18db0671eb74f51852b')
   })
   it('from alternate branch', async () => {
     // Setup
@@ -59,6 +59,6 @@ describe('removeNote', () => {
       ref: 'refs/notes/alt',
     })
     expect(notes.length).toBe(0)
-    expect(oid).toBe('cfab6e154843d83173626d8d39d1dbe0f603921b')
+    expect(oid).toBe('eeb1e0a40f66aa3952b8ba62db9dc3bcc5b33bed')
   })
 })

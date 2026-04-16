@@ -1,6 +1,6 @@
 // @ts-nocheck
 /* eslint-env node, browser, jasmine */
-import { walk, WORKDIR, TREE, STAGE, setConfig } from 'isomorphic-git'
+import { walk, WORKDIR, TREE, STAGE, setConfig } from 'dimorphic-git'
 
 import { makeFixture } from './__helpers__/FixtureFS.js'
 

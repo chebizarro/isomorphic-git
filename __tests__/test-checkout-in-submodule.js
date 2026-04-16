@@ -8,8 +8,8 @@ import {
   getConfig,
   fetch as gitFetch,
   setConfig,
-} from 'isomorphic-git'
-import http from 'isomorphic-git/http'
+} from 'dimorphic-git'
+import http from 'dimorphic-git/http'
 
 /* eslint-env node, browser, jasmine */
 

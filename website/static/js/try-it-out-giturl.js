@@ -1,4 +1,4 @@
-import http from './isomorphic-git/http/web/index.js'
+import http from './dimorphic-git/http/web/index.js'
 
 document.addEventListener('DOMContentLoaded', function listener () {
   document.removeEventListener('DOMContentLoaded', listener)
@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function listener () {
     let info = await git.getRemoteInfo({
       http,
       url: value,
-      corsProxy: 'https://cors.isomorphic-git.org'
+      corsProxy: 'https://cors.dimorphic-git.org'
     })
     const limit = 1000;
     if (info.refs.tags) {

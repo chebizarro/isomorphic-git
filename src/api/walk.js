@@ -50,7 +50,7 @@ import { join } from '../utils/join.js'
  * Tree walkers are represented by three separate functions that can be imported:
  *
  * ```js
- * import { TREE, WORKDIR, STAGE } from 'isomorphic-git'
+ * import { TREE, WORKDIR, STAGE } from 'dimorphic-git'
  * ```
  *
  * These functions return opaque handles called `Walker`s.

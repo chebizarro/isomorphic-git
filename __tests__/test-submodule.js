@@ -1,4 +1,4 @@
-import * as git from 'isomorphic-git'
+import * as git from 'dimorphic-git'
 import * as fs from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'

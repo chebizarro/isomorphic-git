@@ -2,7 +2,7 @@
 
 This document provides a quick reference for all APIs added as part of the libgit2 parity effort. For the original APIs (add, commit, clone, push, etc.), see the existing documentation.
 
-All functions follow the standard isomorphic-git convention: `{ fs, dir, gitdir, ...options }`.
+All functions follow the standard dimorphic-git convention: `{ fs, dir, gitdir, ...options }`.
 
 ---
 

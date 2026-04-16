@@ -100,4 +100,4 @@ The format is based on Keep a Changelog, and this project adheres to Semantic Ve
 ### Migration
 - See `UPGRADING.md` for the feature flag, behavior changes, migration checklist, and rollout plan.
 
-[2.0.0-alpha]: https://github.com/isomorphic-git/isomorphic-git/releases/tag/v2.0.0-alpha
+[2.0.0-alpha]: https://github.com/dimorphic-git/dimorphic-git/releases/tag/v2.0.0-alpha

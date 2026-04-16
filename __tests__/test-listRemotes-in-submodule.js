@@ -1,5 +1,5 @@
 /* eslint-env node, browser, jasmine */
-import { listRemotes } from 'isomorphic-git'
+import { listRemotes } from 'dimorphic-git'
 
 import { makeFixtureAsSubmodule } from './__helpers__/FixtureFSSubmodule.js'
 

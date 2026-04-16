@@ -9,7 +9,7 @@ import {
   status,
   commit,
   readCommit,
-} from 'isomorphic-git'
+} from 'dimorphic-git'
 
 import { makeFixtureAsSubmodule } from './__helpers__/FixtureFSSubmodule.js'
 

@@ -1,6 +1,6 @@
 /* eslint-env node, browser, jasmine */
 
-import { Errors } from 'isomorphic-git'
+import { Errors } from 'dimorphic-git'
 
 describe('Errors', () => {
   it('have the correct value for their static property code', async () => {

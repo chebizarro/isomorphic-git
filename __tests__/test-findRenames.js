@@ -1,6 +1,6 @@
 import { makeFixture } from './__helpers__/FixtureFS.js'
 
-const { diffTrees, findRenames, DELTA } = await import('isomorphic-git')
+const { diffTrees, findRenames, DELTA } = await import('dimorphic-git')
 
 describe('findRenames', () => {
   it('detects exact renames (same OID)', async () => {

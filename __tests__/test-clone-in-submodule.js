@@ -6,8 +6,8 @@ import {
   currentBranch,
   resolveRef,
   getConfig,
-} from 'isomorphic-git'
-import http from 'isomorphic-git/http'
+} from 'dimorphic-git'
+import http from 'dimorphic-git/http'
 
 import { makeFixtureAsSubmodule } from './__helpers__/FixtureFSSubmodule.js'
 
@@ -29,7 +29,7 @@ describe('clone', () => {
         dir,
         gitdir,
         gitdirsmfullpath,
-      } = await makeFixtureAsSubmodule('isomorphic-git')
+      } = await makeFixtureAsSubmodule('dimorphic-git')
       await clone({
         fs,
         http,
@@ -63,7 +63,7 @@ describe('clone', () => {
   )
   it('clone with noCheckout', async () => {
     const { fs, dir, gitdir, gitdirsmfullpath } = await makeFixtureAsSubmodule(
-      'isomorphic-git'
+      'dimorphic-git'
     )
     await clone({
       fs,
@@ -89,7 +89,7 @@ describe('clone', () => {
   })
   it('clone a tag', async () => {
     const { fs, dir, gitdir, gitdirsmfullpath } = await makeFixtureAsSubmodule(
-      'isomorphic-git'
+      'dimorphic-git'
     )
     await clone({
       fs,
@@ -115,7 +115,7 @@ describe('clone', () => {
   })
   it('clone should not peel tag', async () => {
     const { fs, dir, gitdir, gitdirsmfullpath } = await makeFixtureAsSubmodule(
-      'isomorphic-git'
+      'dimorphic-git'
     )
     await clone({
       fs,
@@ -131,7 +131,7 @@ describe('clone', () => {
     expect(oid.trim()).toBe('db34227a52a6490fc80a13da3916ea91d183fc3f')
   })
   it('clone with an unregistered protocol', async () => {
-    const { fs, dir, gitdir } = await makeFixtureAsSubmodule('isomorphic-git')
+    const { fs, dir, gitdir } = await makeFixtureAsSubmodule('dimorphic-git')
     const url = `foobar://github.com/isomorphic-git/isomorphic-git`
     let error = null
     try {
@@ -467,7 +467,7 @@ describe('clone', () => {
 
   it('removes the gitdir when clone fails', async () => {
     const { fs, dir, gitdir, gitdirsmfullpath } = await makeFixtureAsSubmodule(
-      'isomorphic-git'
+      'dimorphic-git'
     )
     const url = `foobar://github.com/isomorphic-git/isomorphic-git`
     try {
@@ -491,7 +491,7 @@ describe('clone', () => {
   })
 
   it('should set up the remote tracking branch by default', async () => {
-    const { fs, dir, gitdir } = await makeFixtureAsSubmodule('isomorphic-git')
+    const { fs, dir, gitdir } = await makeFixtureAsSubmodule('dimorphic-git')
     await clone({
       fs,
       http,
@@ -540,7 +540,7 @@ describe('clone', () => {
 
   if (typeof process === 'object' && (process.versions || {}).node) {
     it('should allow agent to be used with built-in http plugin for Node.js', async () => {
-      const { fs, dir, gitdir } = await makeFixtureAsSubmodule('isomorphic-git')
+      const { fs, dir, gitdir } = await makeFixtureAsSubmodule('dimorphic-git')
       const connectionLog = []
       const { Agent } = await import('https')
       const httpWithAgent = {

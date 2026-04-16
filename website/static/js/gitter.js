@@ -1,3 +1,3 @@
 ;((window.gitter = {}).chat = {}).options = {
-  room: 'isomorphic-git/Lobby'
+  room: 'dimorphic-git/Lobby'
 }

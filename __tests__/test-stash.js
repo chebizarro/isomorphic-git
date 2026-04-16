@@ -9,7 +9,7 @@ import {
   status,
   commit,
   readCommit,
-} from 'isomorphic-git'
+} from 'dimorphic-git'
 
 import { makeFixture } from './__helpers__/FixtureFS.js'
 

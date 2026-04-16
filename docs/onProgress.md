@@ -25,7 +25,7 @@ You could choose to show the phase as a label next to the progress bar, or show 
 You are writing a browser application, and want to display progress in your UI somehow.
 
 ```js
-import { clone } from 'isomorphic-git'
+import { clone } from 'dimorphic-git'
 clone({
   ...,
   onProgress: event => {

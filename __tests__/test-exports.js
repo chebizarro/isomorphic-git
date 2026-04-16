@@ -1,5 +1,5 @@
 /* eslint-env node, browser, jasmine */
-import * as git from 'isomorphic-git'
+import * as git from 'dimorphic-git'
 
 describe('exports', () => {
   it('exposes only the intended API functions', async () => {

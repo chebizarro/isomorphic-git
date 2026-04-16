@@ -5,7 +5,7 @@ import {
   Fetch,
   InMemory,
 } from '@zenfs/core'
-import { FileSystem } from 'isomorphic-git/internal-apis'
+import { FileSystem } from 'dimorphic-git/internal-apis'
 
 export async function makeZenFS(dir) {
   const index = require('../../__fixtures__/index.json')

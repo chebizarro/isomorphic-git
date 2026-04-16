@@ -9,7 +9,7 @@ jobs:
       vmImage: 'ubuntu-24.04'
 
     # Most pipelines finish in under 15 minutes. 30 minutes should be more than enough.
-    # See https://dev.azure.com/isomorphic-git/isomorphic-git/_pipeline/analytics/duration.
+    # See https://dev.azure.com/dimorphic-git/dimorphic-git/_pipeline/analytics/duration.
     timeoutInMinutes: 120
 
     steps:
@@ -52,7 +52,7 @@ jobs:
         condition: and(succeededOrFailed(), ne(variables['system.pullrequest.isfork'], true))
         inputs:
           artifactName: 'npm-tarball.tgz'
-          PathtoPublish: '$(System.DefaultWorkingDirectory)/isomorphic-git-0.0.0-development.tgz'
+          PathtoPublish: '$(System.DefaultWorkingDirectory)/dimorphic-git-0.0.0-development.tgz'
 
       - task: PublishBuildArtifacts@1
         displayName: 'Save index.umd.min.js'

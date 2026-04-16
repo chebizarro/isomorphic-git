@@ -4,7 +4,7 @@ import { dirname, join, resolve } from 'path'
 import { fileURLToPath } from 'url'
 
 import findUp from 'find-up'
-import { FileSystem } from 'isomorphic-git/internal-apis'
+import { FileSystem } from 'dimorphic-git/internal-apis'
 import onExit from 'signal-exit'
 
 const TEMP_PATH = join(os.tmpdir(), 'jest-fixture-')

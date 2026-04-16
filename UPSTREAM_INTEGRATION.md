@@ -7,7 +7,7 @@
 
 ## Overview
 
-This document tracks the integration of upstream isomorphic-git changes into the v2.0.0-alpha fork with libgit2 compatibility layer.
+This document tracks the integration of upstream dimorphic-git changes into the v2.0.0-alpha fork with libgit2 compatibility layer.
 
 ## Integrated Changes ✅
 

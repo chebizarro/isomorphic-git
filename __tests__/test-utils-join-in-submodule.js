@@ -1,7 +1,7 @@
 /* eslint-env node, browser, jasmine */
 import * as path from 'path/posix'
 
-import { join } from 'isomorphic-git/internal-apis'
+import { join } from 'dimorphic-git/internal-apis'
 
 describe('utils/join', () => {
   describe('when "internal join" generates paths the same as "path.join"', () => {

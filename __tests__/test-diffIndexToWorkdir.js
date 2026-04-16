@@ -1,5 +1,5 @@
 /* eslint-env node, browser, jasmine */
-import { init, add, commit, diffIndexToWorkdir, diffFile, DELTA } from 'isomorphic-git'
+import { init, add, commit, diffIndexToWorkdir, diffFile, DELTA } from 'dimorphic-git'
 import * as _fs from 'fs'
 import * as os from 'os'
 import { join } from 'path'

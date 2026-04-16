@@ -1,6 +1,6 @@
 /* eslint-env node, browser, jasmine */
-import { Errors } from 'isomorphic-git'
-import { GitRemoteManager, GitRemoteHTTP } from 'isomorphic-git/internal-apis'
+import { Errors } from 'dimorphic-git'
+import { GitRemoteManager, GitRemoteHTTP } from 'dimorphic-git/internal-apis'
 
 describe('GitRemoteManager', () => {
   it('getRemoteHelperFor (http)', async () => {
@@ -9,7 +9,7 @@ describe('GitRemoteManager', () => {
     let error = null
     try {
       helper = await GitRemoteManager.getRemoteHelperFor({
-        url: 'http://github.com/isomorphic-git-isomorphic-git',
+        url: 'http://github.com/dimorphic-git-dimorphic-git',
       })
     } catch (err) {
       error = err
@@ -24,7 +24,7 @@ describe('GitRemoteManager', () => {
     let error = null
     try {
       helper = await GitRemoteManager.getRemoteHelperFor({
-        url: 'http::https://github.com/isomorphic-git-isomorphic-git',
+        url: 'http::https://github.com/dimorphic-git-dimorphic-git',
       })
     } catch (err) {
       error = err
@@ -39,7 +39,7 @@ describe('GitRemoteManager', () => {
     let error = null
     try {
       helper = await GitRemoteManager.getRemoteHelperFor({
-        url: 'https://github.com/isomorphic-git-isomorphic-git',
+        url: 'https://github.com/dimorphic-git-dimorphic-git',
       })
     } catch (err) {
       error = err

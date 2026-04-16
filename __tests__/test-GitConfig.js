@@ -1,5 +1,5 @@
 /* eslint-env node, browser, jasmine */
-import { GitConfig } from 'isomorphic-git/internal-apis'
+import { GitConfig } from 'dimorphic-git/internal-apis'
 
 describe('GitConfig', () => {
   describe('get value', () => {

@@ -23,7 +23,7 @@ import { resolveProxy } from '../utils/proxy.js'
  * @param {string} args.dir - The [working tree](dir-vs-gitdir.md) directory path
  * @param {string} [args.gitdir=join(dir,'.git')] - [required] The [git directory](dir-vs-gitdir.md) path
  * @param {string} args.url - The URL of the remote repository
- * @param {string} [args.corsProxy] - Optional [CORS proxy](https://www.npmjs.com/%40isomorphic-git/cors-proxy). Value is stored in the git config file for that repo.
+ * @param {string} [args.corsProxy] - Optional [CORS proxy](https://www.npmjs.com/%40dimorphic-git/cors-proxy). Value is stored in the git config file for that repo.
  * @param {string} [args.ref] - Which branch to checkout. By default this is the designated "main branch" of the repository.
  * @param {boolean} [args.singleBranch = false] - Instead of the default behavior of fetching all the branches, only fetch a single branch.
  * @param {boolean} [args.noCheckout = false] - If true, clone will only fetch the repo, not check out a branch. Skipping checkout can save a lot of time normally spent writing files to disk.
@@ -46,8 +46,8 @@ import { resolveProxy } from '../utils/proxy.js'
  *   fs,
  *   http,
  *   dir: '/tutorial',
- *   corsProxy: 'https://cors.isomorphic-git.org',
- *   url: 'https://github.com/isomorphic-git/isomorphic-git',
+ *   corsProxy: 'https://cors.dimorphic-git.org',
+ *   url: 'https://github.com/dimorphic-git/dimorphic-git',
  *   singleBranch: true,
  *   depth: 1
  * })

@@ -2,7 +2,7 @@ const React = require('react')
 
 const script = `
 void async function() {
-  const response = await fetch('https://api.github.com/repos/isomorphic-git/isomorphic-git', {
+  const response = await fetch('https://api.github.com/repos/dimorphic-git/dimorphic-git', {
     headers: { accept: 'application/vnd.github.v3+json' }
   })
   const data = await response.json()
@@ -15,7 +15,7 @@ class GitHubStarButton extends React.Component {
     // "Server-side" rendered, so `componentDidMount` wouldn't be called
     return (
       <div>
-        <a href="https://github.com/isomorphic-git/isomorphic-git">GitHub <span id="gitHubStars" /></a>
+        <a href="https://github.com/dimorphic-git/dimorphic-git">GitHub <span id="gitHubStars" /></a>
         <script dangerouslySetInnerHTML={{ __html: script }} />
       </div>
     );

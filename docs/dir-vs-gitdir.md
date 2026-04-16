@@ -14,8 +14,8 @@ I looked hard and wide for a good explanation of the "working tree" and the "git
 >
 > — [Mark Longair from Stack Overflow](https://stackoverflow.com/a/5283457)
 
-The isomorphic-git equivalent of `--work-tree` is the **`dir`** argument.
+The dimorphic-git equivalent of `--work-tree` is the **`dir`** argument.
 
-The isomorphic-git equivalent of `--git-dir` is the **`gitdir`** argument.
+The dimorphic-git equivalent of `--git-dir` is the **`gitdir`** argument.
 
 This is really only important when working with bare repositories. Most of the time setting `dir` is sufficient, because `gitdir` defaults to `path.join(dir, '.git')`.

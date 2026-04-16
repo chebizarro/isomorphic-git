@@ -9,7 +9,7 @@ import {
   log,
   statusMatrix,
   commit as gitCommit,
-} from 'isomorphic-git'
+} from 'dimorphic-git'
 
 import { makeFixtureAsSubmodule } from './__helpers__/FixtureFSSubmodule.js'
 

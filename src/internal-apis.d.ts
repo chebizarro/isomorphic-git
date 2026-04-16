@@ -1,4 +1,4 @@
-declare module 'isomorphic-git/internal-apis'
+declare module 'dimorphic-git/internal-apis'
 
 
 // ref: https://stackoverflow.com/a/77801519/387194

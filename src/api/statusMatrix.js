@@ -21,7 +21,7 @@ import { resolveCommit } from '../utils/resolveCommit.js'
  *
  * The returned `StatusMatrix` is admittedly not the easiest format to read.
  * However it conveys a large amount of information in dense format that should make it easy to create reports about the current state of the repository;
- * without having to do multiple, time-consuming isomorphic-git calls.
+ * without having to do multiple, time-consuming dimorphic-git calls.
  * My hope is that the speed and flexibility of the function will make up for the learning curve of interpreting the return value.
  *
  * ```js live

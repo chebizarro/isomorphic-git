@@ -1,5 +1,5 @@
 /* eslint-env node, browser, jasmine */
-import { getConfig, getConfigAll, setConfig } from 'isomorphic-git'
+import { getConfig, getConfigAll, setConfig } from 'dimorphic-git'
 
 import { makeFixtureAsSubmodule } from './__helpers__/FixtureFSSubmodule.js'
 
@@ -22,7 +22,7 @@ describe('config', () => {
       path: 'remote.upstream.fetch',
     })
     expect(sym).toBe(false)
-    expect(url).toBe('https://github.com/isomorphic-git/isomorphic-git')
+    expect(url).toBe('https://github.com/dimorphic-git/dimorphic-git')
     expect(rfv).toBe('0')
     expect(fetch).toBe('refs/heads/qa/*:refs/remotes/upstream/qa/*')
     expect(fetches).toEqual([
@@ -54,9 +54,9 @@ describe('config', () => {
       fs,
       gitdir,
       path: 'remote.origin.url',
-      value: 'https://github.com/isomorphic-git/isomorphic-git',
+      value: 'https://github.com/dimorphic-git/dimorphic-git',
     })
     const url = await getConfig({ fs, gitdir, path: 'remote.origin.url' })
-    expect(url).toBe('https://github.com/isomorphic-git/isomorphic-git')
+    expect(url).toBe('https://github.com/dimorphic-git/dimorphic-git')
   })
 })

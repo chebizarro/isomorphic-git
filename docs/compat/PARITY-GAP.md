@@ -1,8 +1,8 @@
-# libgit2 → isomorphic-git Feature Parity Gap Analysis
+# libgit2 → dimorphic-git Feature Parity Gap Analysis
 
 Updated: 2026-04-15
 
-This document maps every libgit2 public API module (`include/git2/*.h`) to its isomorphic-git equivalent, identifies missing features, behavioral gaps, and categorizes each item by priority and feasibility for a JS/TS environment.
+This document maps every libgit2 public API module (`include/git2/*.h`) to its dimorphic-git equivalent, identifies missing features, behavioral gaps, and categorizes each item by priority and feasibility for a JS/TS environment.
 
 ---
 
@@ -21,7 +21,7 @@ This document maps every libgit2 public API module (`include/git2/*.h`) to its i
 
 ### Core Object Model
 
-| libgit2 module | isomorphic-git | Status | Notes |
+| libgit2 module | dimorphic-git | Status | Notes |
 |---|---|---|---|
 | `blob.h` | `readBlob`, `writeBlob`, `hashBlob`, `blobIsBinary`, `blobSize`, `blobCreateFromWorkdir` | ✅ | Full parity including binary detection and raw size |
 | `commit.h` | `readCommit`, `writeCommit`, `commit`, `commitNthAncestor`, `commitParent`, `commitHeaderField` | ✅ | Extended with ancestor traversal and header extraction |
@@ -33,7 +33,7 @@ This document maps every libgit2 public API module (`include/git2/*.h`) to its i
 
 ### References & Branches
 
-| libgit2 module | isomorphic-git | Status | Notes |
+| libgit2 module | dimorphic-git | Status | Notes |
 |---|---|---|---|
 | `refs.h` | `resolveRef`, `expandRef`, `deleteRef`, `writeRef`, `listRefs`, `foreachRef`, `refNameIsValid`, `symbolicRefTarget` | ✅ | Full parity including iteration and validation |
 | `branch.h` | `branch`, `deleteBranch`, `renameBranch`, `listBranches`, `currentBranch`, `branchUpstream`, `setBranchUpstream`, `unsetBranchUpstream`, `branchNameIsValid`, `branchIsHead` | ✅ | Full parity including upstream tracking |
@@ -44,7 +44,7 @@ This document maps every libgit2 public API module (`include/git2/*.h`) to its i
 
 ### Repository & Config
 
-| libgit2 module | isomorphic-git | Status | Notes |
+| libgit2 module | dimorphic-git | Status | Notes |
 |---|---|---|---|
 | `repository.h` | `init`, `findRoot`, `repositoryState`, `repositoryStateCleanup`, `isBare`, `isEmpty`, `isShallow`, `isHeadDetached`, `isHeadUnborn`, `REPOSITORY_STATE` | ✅ | Full parity including state detection (merge, rebase, cherry-pick, revert, bisect) |
 | `config.h` | `getConfig`, `getConfigAll`, `setConfig`, `deleteConfig`, `appendConfig`, `deleteConfigSection`, `listConfigSubsections` | ✅ | Full parity including section management |
@@ -52,7 +52,7 @@ This document maps every libgit2 public API module (`include/git2/*.h`) to its i
 
 ### Index & Working Directory
 
-| libgit2 module | isomorphic-git | Status | Notes |
+| libgit2 module | dimorphic-git | Status | Notes |
 |---|---|---|---|
 | `index.h` | `add`, `remove`, `updateIndex`, `resetIndex`, `listFiles`, `GitIndex` model, `indexHasConflicts`, `indexConflictGet`, `indexConflictAdd`, `indexConflictRemove`, `indexConflictIterator`, `indexConflictCleanup` | ✅ | Full parity including conflict entry management |
 | `checkout.h` | `checkout` | ✅ | Has `onConflict` callback for conflict notification, `onProgress`, `onPostCheckout`. |
@@ -60,7 +60,7 @@ This document maps every libgit2 public API module (`include/git2/*.h`) to its i
 
 ### Diff & Patch
 
-| libgit2 module | isomorphic-git | Status | Notes |
+| libgit2 module | dimorphic-git | Status | Notes |
 |---|---|---|---|
 | `diff.h` | `diffTrees`, `diffFile`, `diffIndexToWorkdir`, `diffStat`, `diffTreeToIndex`, `diffIndexToIndex`, `diffBlobs`, `diffPatchId`, `findRenames`, `DELTA` | ✅ | Full parity including rename detection, stat summaries, blob diffs, and patch IDs |
 | `patch.h` | `formatPatch` | ✅ | Patch generation from diffs |
@@ -69,13 +69,13 @@ This document maps every libgit2 public API module (`include/git2/*.h`) to its i
 
 ### Merge & Conflict Resolution
 
-| libgit2 module | isomorphic-git | Status | Notes |
+| libgit2 module | dimorphic-git | Status | Notes |
 |---|---|---|---|
 | `merge.h` | `merge`, `findMergeBase`, `abortMerge`, `mergeAnalysis`, `MERGE_ANALYSIS`, `MERGE_PREFERENCE` | ✅ | Full parity including merge analysis with preference detection. Has 3-way merge via diff3 and tree merge. |
 
 ### History Rewriting
 
-| libgit2 module | isomorphic-git | Status | Notes |
+| libgit2 module | dimorphic-git | Status | Notes |
 |---|---|---|---|
 | `cherrypick.h` | `cherryPick` | ✅ | Full cherry-pick support |
 | `rebase.h` | `rebase` | ✅ | Full rebase with init/next/commit/finish/abort |
@@ -84,7 +84,7 @@ This document maps every libgit2 public API module (`include/git2/*.h`) to its i
 
 ### Remote Operations
 
-| libgit2 module | isomorphic-git | Status | Notes |
+| libgit2 module | dimorphic-git | Status | Notes |
 |---|---|---|---|
 | `remote.h` | `addRemote`, `deleteRemote`, `listRemotes`, `getRemoteInfo`, `getRemoteInfo2`, `renameRemote`, `setRemoteUrl`, `setRemotePushUrl`, `remoteDefaultBranch` | ✅ | Full parity including rename and URL management |
 | `clone.h` | `clone` | ✅ | |
@@ -97,7 +97,7 @@ This document maps every libgit2 public API module (`include/git2/*.h`) to its i
 
 ### Graph & History Traversal
 
-| libgit2 module | isomorphic-git | Status | Notes |
+| libgit2 module | dimorphic-git | Status | Notes |
 |---|---|---|---|
 | `revwalk.h` | `log`, `walk`, `revwalk`, `SORT` | ✅ | Full parity with configurable sort (topological, time, reverse), first-parent-only, include/exclude |
 | `graph.h` | `isDescendent`, `findMergeBase`, `graphAheadBehind`, `graphDescendantOf` | ✅ | Full parity including ahead/behind counts |
@@ -106,20 +106,20 @@ This document maps every libgit2 public API module (`include/git2/*.h`) to its i
 
 ### Stash
 
-| libgit2 module | isomorphic-git | Status | Notes |
+| libgit2 module | dimorphic-git | Status | Notes |
 |---|---|---|---|
 | `stash.h` | `stash` (push/pop/apply/drop/list/clear/create) | ✅ | Has `includeUntracked` and `keepIndex` options. |
 
 ### Attributes & Filters
 
-| libgit2 module | isomorphic-git | Status | Notes |
+| libgit2 module | dimorphic-git | Status | Notes |
 |---|---|---|---|
 | `attr.h` | `getAttr`, `getAttrMany`, `getAttrAll`, `ATTR_VALUE` | ✅ | Full parity with .gitattributes parsing and resolution |
 | `filter.h` | `applyFilter`, `filterList`, `FILTER_MODE` | ✅ | Content filter pipeline (text/eol/autocrlf, custom via `onFilter` callback) |
 
 ### Pack & Object Database
 
-| libgit2 module | isomorphic-git | Status | Notes |
+| libgit2 module | dimorphic-git | Status | Notes |
 |---|---|---|---|
 | `odb.h` | `odbRead`, `odbWrite`, `odbExists`, `odbAddBackend`, `odbClearBackends`, `odbListBackends` | ✅ | Full parity with custom backend support |
 | `pack.h` | `packObjects`, `PackBuilder`, `packBuilderNew` | ✅ | Full parity with incremental pack builder |
@@ -127,37 +127,37 @@ This document maps every libgit2 public API module (`include/git2/*.h`) to its i
 
 ### Notes
 
-| libgit2 module | isomorphic-git | Status | Notes |
+| libgit2 module | dimorphic-git | Status | Notes |
 |---|---|---|---|
 | `notes.h` | `addNote`, `removeNote`, `readNote`, `listNotes`, `noteForeach`, `noteRead`, `noteCreate`, `noteRemove` | ✅ | Full parity including foreach iteration |
 
 ### Blame
 
-| libgit2 module | isomorphic-git | Status | Notes |
+| libgit2 module | dimorphic-git | Status | Notes |
 |---|---|---|---|
 | `blame.h` | `blame` | ✅ | Full blame support |
 
 ### Submodule
 
-| libgit2 module | isomorphic-git | Status | Notes |
+| libgit2 module | dimorphic-git | Status | Notes |
 |---|---|---|---|
 | `submodule.h` | `submoduleList`, `submoduleStatus`, `submoduleInit`, `submoduleDeinit`, `submoduleSync`, `submoduleAdd`, `SUBMODULE_STATUS` | ✅ | Full lifecycle management |
 
 ### Shallow Repository
 
-| libgit2 module | isomorphic-git | Status | Notes |
+| libgit2 module | dimorphic-git | Status | Notes |
 |---|---|---|---|
 | `shallow.h` (via repository) | `isShallow`, `listShallowRoots`, `unshallow` | ✅ | Full parity including root listing and unshallow |
 
 ### Sparse Checkout
 
-| libgit2 module | isomorphic-git | Status | Notes |
+| libgit2 module | dimorphic-git | Status | Notes |
 |---|---|---|---|
 | (sparse-checkout) | `sparseCheckoutInit`, `sparseCheckoutSet`, `sparseCheckoutAdd`, `sparseCheckoutList` | ✅ | Full sparse checkout support |
 
 ### Email / Message Formatting
 
-| libgit2 module | isomorphic-git | Status | Notes |
+| libgit2 module | dimorphic-git | Status | Notes |
 |---|---|---|---|
 | `email.h` | `emailCreateFromCommit` | ✅ | Mbox-format patch email generation |
 | `message.h` | `messagePrettify`, `messageTrailers` | ✅ | Full parity with message cleanup and trailer parsing |
@@ -165,19 +165,19 @@ This document maps every libgit2 public API module (`include/git2/*.h`) to its i
 
 ### Pathspec
 
-| libgit2 module | isomorphic-git | Status | Notes |
+| libgit2 module | dimorphic-git | Status | Notes |
 |---|---|---|---|
 | `pathspec.h` | `Pathspec`, `pathspecNew`, `pathspecMatchesPath` | ✅ | Full parity with glob, negation, prefix matching |
 
 ### Worktree
 
-| libgit2 module | isomorphic-git | Status | Notes |
+| libgit2 module | dimorphic-git | Status | Notes |
 |---|---|---|---|
 | `worktree.h` | `worktreeList`, `worktreeAdd`, `worktreeLock`, `worktreeUnlock`, `worktreeIsLocked`, `worktreePrune` | ✅ | Full parity with list, add, lock/unlock, prune |
 
 ### Infrastructure / Not Applicable
 
-| libgit2 module | isomorphic-git | Status | Notes |
+| libgit2 module | dimorphic-git | Status | Notes |
 |---|---|---|---|
 | `global.h` | — | 🚫 | Library init/shutdown; not needed in JS. |
 | `common.h` | — | 🚫 | C types/macros. |

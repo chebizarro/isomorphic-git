@@ -1,6 +1,6 @@
 /* eslint-env node, browser, jasmine */
-import { listServerRefs } from 'isomorphic-git'
-import http from 'isomorphic-git/http'
+import { listServerRefs } from 'dimorphic-git'
+import http from 'dimorphic-git/http'
 
 // this is so it works with either Node local tests or Browser WAN tests
 const localhost =

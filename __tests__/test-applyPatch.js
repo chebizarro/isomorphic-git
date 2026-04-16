@@ -1,6 +1,6 @@
 import { makeFixture } from './__helpers__/FixtureFS.js'
 
-const { formatPatch, applyPatch } = await import('isomorphic-git')
+const { formatPatch, applyPatch } = await import('dimorphic-git')
 
 describe('applyPatch', () => {
   it('applies a patch that modifies a file', async () => {

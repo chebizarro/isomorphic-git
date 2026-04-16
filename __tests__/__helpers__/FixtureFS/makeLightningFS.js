@@ -1,4 +1,4 @@
-import { FileSystem } from 'isomorphic-git/internal-apis'
+import { FileSystem } from 'dimorphic-git/internal-apis'
 
 // this is so it works with either Node local tests or Browser WAN tests
 const localhost =

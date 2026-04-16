@@ -1,11 +1,11 @@
 /* eslint-env jest */
-import * as git from 'isomorphic-git'
+import * as git from 'dimorphic-git'
 import * as fs from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 
 function makeTmpDir() {
-  return fs.mkdtempSync(join(tmpdir(), 'isogit-phase4-'))
+  return fs.mkdtempSync(join(tmpdir(), 'dimogit-phase4-'))
 }
 
 async function initRepo() {
@@ -185,7 +185,7 @@ describe('emailCreateFromCommit', () => {
     expect(mbox).toContain(`From ${oid}`)
     expect(mbox).toContain('From: Test <test@test.com>')
     expect(mbox).toContain('Subject: [PATCH 1/1] Initial commit')
-    expect(mbox).toContain('isomorphic-git')
+    expect(mbox).toContain('dimorphic-git')
   })
 
   it('supports patch numbering', async () => {

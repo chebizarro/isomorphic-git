@@ -77,7 +77,7 @@ export async function _removeNote({
     ref,
     tree: treeOid,
     parent: parent && [parent],
-    message: `Note removed by 'isomorphic-git removeNote'\n`,
+    message: `Note removed by 'dimorphic-git removeNote'\n`,
     author,
     committer,
     signingKey,

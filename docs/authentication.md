@@ -9,9 +9,9 @@ Git does all its authentication using HTTPS Basic Authentication.
 Usually this is straightforward: just specify `username` and `password` in the URL. In a browser, you can do this:
 
 ```js
-// this will just build a url like https://user:password@github.com/isomorphic-git/isomorphic-git
+// this will just build a url like https://user:password@github.com/dimorphic-git/dimorphic-git
 // it escapes all the non-URL characters for you
-const repoUrl = "https://github.com/isomorphic-git/isomorphic-git"
+const repoUrl = "https://github.com/dimorphic-git/dimorphic-git"
 const u = new URL(repoUrl)
 
 // your github username
@@ -24,7 +24,7 @@ await git.push({
   fs,
   http,
   dir: '/yours',
-  corsProxy: 'https://cors.isomorphic-git.org',
+  corsProxy: 'https://cors.dimorphic-git.org',
   url: u.toString(),
   author: {
     name: "you",

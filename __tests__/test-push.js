@@ -6,8 +6,8 @@ import {
   push,
   listBranches,
   resolveRef,
-} from 'isomorphic-git'
-import http from 'isomorphic-git/http'
+} from 'dimorphic-git'
+import http from 'dimorphic-git/http'
 
 import { makeFixture } from './__helpers__/FixtureFS.js'
 

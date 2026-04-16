@@ -24,11 +24,11 @@ import { writeListRefsRequest } from '../wire/writeListRefsRequest.js'
  *
  * Hard numbers vary by situation, but here's some numbers from my machine:
  *
- * Using isomorphic-git in a browser, with a CORS proxy, listing only the branches (refs/heads) of https://github.com/isomorphic-git/isomorphic-git
+ * Using dimorphic-git in a browser, with a CORS proxy, listing only the branches (refs/heads) of https://github.com/dimorphic-git/dimorphic-git
  * - Protocol Version 1 took ~300ms and transferred 84 KB.
  * - Protocol Version 2 took ~500ms and transferred 4.1 KB.
  *
- * Using isomorphic-git in a browser, with a CORS proxy, listing only the branches (refs/heads) of https://gitlab.com/gitlab-org/gitlab
+ * Using dimorphic-git in a browser, with a CORS proxy, listing only the branches (refs/heads) of https://gitlab.com/gitlab-org/gitlab
  * - Protocol Version 1 took ~4900ms and transferred 9.41 MB.
  * - Protocol Version 2 took ~1280ms and transferred 433 KB.
  *
@@ -48,7 +48,7 @@ import { writeListRefsRequest } from '../wire/writeListRefsRequest.js'
  * @param {AuthFailureCallback} [args.onAuthFailure] - optional auth rejected callback
  * @param {AuthSuccessCallback} [args.onAuthSuccess] - optional auth approved callback
  * @param {string} args.url - The URL of the remote repository. Will be gotten from gitconfig if absent.
- * @param {string} [args.corsProxy] - Optional [CORS proxy](https://www.npmjs.com/%40isomorphic-git/cors-proxy). Overrides value in repo config.
+ * @param {string} [args.corsProxy] - Optional [CORS proxy](https://www.npmjs.com/%40dimorphic-git/cors-proxy). Overrides value in repo config.
  * @param {boolean} [args.forPush = false] - By default, the command queries the 'fetch' capabilities. If true, it will ask for the 'push' capabilities.
  * @param {Object<string, string>} [args.headers] - Additional headers to include in HTTP requests, similar to git's `extraHeader` config
  * @param {1 | 2} [args.protocolVersion = 2] - Which version of the Git Protocol to use.
@@ -63,8 +63,8 @@ import { writeListRefsRequest } from '../wire/writeListRefsRequest.js'
  * // List all the branches on a repo
  * let refs = await git.listServerRefs({
  *   http,
- *   corsProxy: "https://cors.isomorphic-git.org",
- *   url: "https://github.com/isomorphic-git/isomorphic-git.git",
+ *   corsProxy: "https://cors.dimorphic-git.org",
+ *   url: "https://github.com/dimorphic-git/dimorphic-git.git",
  *   prefix: "refs/heads/",
  * });
  * console.log(refs);
@@ -73,8 +73,8 @@ import { writeListRefsRequest } from '../wire/writeListRefsRequest.js'
  * // Get the default branch on a repo
  * let refs = await git.listServerRefs({
  *   http,
- *   corsProxy: "https://cors.isomorphic-git.org",
- *   url: "https://github.com/isomorphic-git/isomorphic-git.git",
+ *   corsProxy: "https://cors.dimorphic-git.org",
+ *   url: "https://github.com/dimorphic-git/dimorphic-git.git",
  *   prefix: "HEAD",
  *   symrefs: true,
  * });
@@ -84,8 +84,8 @@ import { writeListRefsRequest } from '../wire/writeListRefsRequest.js'
  * // List all the tags on a repo
  * let refs = await git.listServerRefs({
  *   http,
- *   corsProxy: "https://cors.isomorphic-git.org",
- *   url: "https://github.com/isomorphic-git/isomorphic-git.git",
+ *   corsProxy: "https://cors.dimorphic-git.org",
+ *   url: "https://github.com/dimorphic-git/dimorphic-git.git",
  *   prefix: "refs/tags/",
  *   peelTags: true,
  * });
@@ -95,8 +95,8 @@ import { writeListRefsRequest } from '../wire/writeListRefsRequest.js'
  * // List all the pull requests on a repo
  * let refs = await git.listServerRefs({
  *   http,
- *   corsProxy: "https://cors.isomorphic-git.org",
- *   url: "https://github.com/isomorphic-git/isomorphic-git.git",
+ *   corsProxy: "https://cors.dimorphic-git.org",
+ *   url: "https://github.com/dimorphic-git/dimorphic-git.git",
  *   prefix: "refs/pull/",
  * });
  * console.log(refs);

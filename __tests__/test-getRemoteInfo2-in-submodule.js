@@ -1,6 +1,6 @@
 /* eslint-env node, browser, jasmine */
-import { Errors, getRemoteInfo2 } from 'isomorphic-git'
-import http from 'isomorphic-git/http'
+import { Errors, getRemoteInfo2 } from 'dimorphic-git'
+import http from 'dimorphic-git/http'
 
 // this is so it works with either Node local tests or Browser WAN tests
 const localhost =
@@ -81,7 +81,7 @@ describe('getRemoteInfo2', () => {
     try {
       await getRemoteInfo2({
         http,
-        url: `git@github.com:isomorphic-git/isomorphic-git.git`,
+        url: `git@github.com:dimorphic-git/dimorphic-git.git`,
       })
     } catch (e) {
       err = e

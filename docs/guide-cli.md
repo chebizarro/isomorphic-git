@@ -4,9 +4,9 @@ title: isogit CLI
 sidebar_label: isogit CLI
 ---
 
-Isomorphic-git comes with a simple CLI tool, named "isogit" because "isomorphic-git" is a lot to type.
+Isomorphic-git comes with a simple CLI tool, named "isogit" because "dimorphic-git" is a lot to type.
 It is really just a thin shell that translates command line arguments into the equivalent JS API commands,
-so you should be able to run any current *or future* isomorphic-git commands using the CLI.
+so you should be able to run any current *or future* dimorphic-git commands using the CLI.
 
 It always assumes two of the arguments:
 - `fs` is node's native `fs` module
@@ -17,7 +17,7 @@ The first argument is the name of the command and then command line option flags
 Example:
 
 ```sh
-isogit clone --url=https://github.com/isomorphic-git/isomorphic-git --depth=1 --singleBranch
+isogit clone --url=https://github.com/dimorphic-git/dimorphic-git --depth=1 --singleBranch
 ```
 
 will run
@@ -26,7 +26,7 @@ will run
 git.clone({
   fs: require('fs'),
   dir: process.cwd(),
-  url: 'https://github.com/isomorphic-git/isomorphic-git',
+  url: 'https://github.com/dimorphic-git/dimorphic-git',
   depth: 1,
   singleBranch: true
 })

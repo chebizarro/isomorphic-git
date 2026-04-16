@@ -1,5 +1,5 @@
 /* eslint-env node, browser, jasmine */
-import { GitRefSpecSet } from 'isomorphic-git/internal-apis'
+import { GitRefSpecSet } from 'dimorphic-git/internal-apis'
 
 describe('GitRefSpecSet', () => {
   it('fetch = +refs/heads/*:refs/remotes/origin/*', async () => {

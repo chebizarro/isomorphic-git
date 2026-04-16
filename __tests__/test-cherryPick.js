@@ -10,7 +10,7 @@ import {
   branch,
   checkout,
   resolveRef,
-} from 'isomorphic-git'
+} from 'dimorphic-git'
 import * as _fs from 'fs'
 import * as os from 'os'
 import { join } from 'path'

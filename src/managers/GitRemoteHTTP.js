@@ -10,7 +10,7 @@ import { parseRefsAdResponse } from '../wire/parseRefsAdResponse.js'
 
 // Try to accommodate known CORS proxy implementations:
 // - https://jcubic.pl/proxy.php?  <-- uses query string
-// - https://cors.isomorphic-git.org  <-- uses path
+// - https://cors.dimorphic-git.org  <-- uses path
 const corsProxify = (corsProxy, url) =>
   corsProxy.endsWith('?')
     ? `${corsProxy}${url}`

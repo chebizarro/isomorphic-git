@@ -47,7 +47,7 @@ import { resolveProxy } from '../utils/proxy.js'
  * @param {string[]} [args.exclude = []] - A list of branches or tags. Instructs the remote server not to send us any commits reachable from these refs.
  * @param {boolean} [args.prune = false] - Delete local remote-tracking branches that are not present on the remote
  * @param {boolean} [args.pruneTags = false] - Prune local tags that don’t exist on the remote, and force-update those tags that differ
- * @param {string} [args.corsProxy] - Optional [CORS proxy](https://www.npmjs.com/%40isomorphic-git/cors-proxy). Overrides value in repo config.
+ * @param {string} [args.corsProxy] - Optional [CORS proxy](https://www.npmjs.com/%40dimorphic-git/cors-proxy). Overrides value in repo config.
  * @param {Object<string, string>} [args.headers] - Additional headers to include in HTTP requests, similar to git's `extraHeader` config
  * @param {string|object} [args.proxy] - SOCKS proxy URL (e.g. 'socks5://localhost:1080') or a custom http.Agent instance. Requires the `socks-proxy-agent` package if a string is provided.
  * @param {object} [args.cache] - a [cache](cache.md) object
@@ -60,8 +60,8 @@ import { resolveProxy } from '../utils/proxy.js'
  *   fs,
  *   http,
  *   dir: '/tutorial',
- *   corsProxy: 'https://cors.isomorphic-git.org',
- *   url: 'https://github.com/isomorphic-git/isomorphic-git',
+ *   corsProxy: 'https://cors.dimorphic-git.org',
+ *   url: 'https://github.com/dimorphic-git/dimorphic-git',
  *   ref: 'main',
  *   depth: 1,
  *   singleBranch: true,

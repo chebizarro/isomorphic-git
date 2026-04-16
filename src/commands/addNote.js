@@ -106,7 +106,7 @@ export async function _addNote({
     ref,
     tree: treeOid,
     parent: parent && [parent],
-    message: `Note added by 'isomorphic-git addNote'\n`,
+    message: `Note added by 'dimorphic-git addNote'\n`,
     author,
     committer,
     signingKey,

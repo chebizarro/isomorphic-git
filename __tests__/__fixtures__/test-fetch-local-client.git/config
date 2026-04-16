@@ -8,5 +8,5 @@
 	url = http://127.0.0.1:8888/test-fetch-local.git
 	fetch = +refs/heads/*:refs/remotes/origin/*
 [remote "ssh"]
-	url = git@github.com:isomorphic-git/isomorphic-git.git
+	url = git@github.com:dimorphic-git/dimorphic-git.git
 	fetch = +refs/heads/*:refs/remotes/origin/*

@@ -4,9 +4,9 @@ title: WebWorker Example
 sidebar_label: WebWorker Example
 ---
 
-While `isomorphic-git` tries not to block the main thread, it still does on occasion.
+While `dimorphic-git` tries not to block the main thread, it still does on occasion.
 This can cause your webapp to stutter or even freeze up briefly!
-To achieve buttery smooth performance, you'll eventually want to move all your `isomorphic-git` usage off of the main thread.
+To achieve buttery smooth performance, you'll eventually want to move all your `dimorphic-git` usage off of the main thread.
 Actually, you should move all your logic that's not directly responsible for updating the DOM off the main thread.
 That's still a real challenge in 2020, but more and more libraries are appearing to help solve this.
 
@@ -30,7 +30,7 @@ Here is a complete example that runs git in a WebWorker.
 The worker wraps some git functions and exposes them to the main thread, while the main thread exposes some functions to the worker for use in callbacks like `onProgress`, `onMessage`, and `onAuth`.
 
 <iframe
-  src="https://codesandbox.io/embed/magic-portal-with-isomorphic-git-ejdoo?fontsize=14&hidenavigation=1&module=%2Fworker.js&theme=dark"
+  src="https://codesandbox.io/embed/magic-portal-with-dimorphic-git-ejdoo?fontsize=14&hidenavigation=1&module=%2Fworker.js&theme=dark"
   style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
-  title="isomorphic-git@1.0 in a Worker example"
+  title="dimorphic-git@1.0 in a Worker example"
   sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>

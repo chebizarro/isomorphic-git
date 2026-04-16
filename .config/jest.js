@@ -4,9 +4,9 @@ export default function commonConfig(outputName) {
     testRegex: '/__tests__/(server-only\\.)?test-[^\\/]+\\.js',
     setupFiles: ['<rootDir>/__tests__/jest.setup.js'],
     moduleNameMapper: {
-      '^isomorphic-git$': '<rootDir>/src',
-      '^isomorphic-git/http$': '<rootDir>/src/http/node',
-      '^isomorphic-git/(.+)$': '<rootDir>/src/$1',
+      '^dimorphic-git$': '<rootDir>/src',
+      '^dimorphic-git/http$': '<rootDir>/src/http/node',
+      '^dimorphic-git/(.+)$': '<rootDir>/src/$1',
     },
     collectCoverageFrom: ['src/*.js', 'src/**/*.js'],
     coverageReporters: ['lcov', 'cobertura'],

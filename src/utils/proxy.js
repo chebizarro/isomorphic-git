@@ -1,5 +1,5 @@
 /**
- * SOCKS/HTTP proxy support for isomorphic-git.
+ * SOCKS/HTTP proxy support for dimorphic-git.
  *
  * Creates an http.Agent that tunnels requests through a SOCKS4/4a/5/5h
  * proxy. This is the libgit2 equivalent of `proxy.h` / `git_proxy_options`.
@@ -19,8 +19,8 @@
  * @throws {Error} If socks-proxy-agent is not installed
  *
  * @example
- * import { createProxyAgent } from 'isomorphic-git'
- * import http from 'isomorphic-git/http/node'
+ * import { createProxyAgent } from 'dimorphic-git'
+ * import http from 'dimorphic-git/http/node'
  *
  * const agent = createProxyAgent('socks5://localhost:1080')
  * await git.clone({

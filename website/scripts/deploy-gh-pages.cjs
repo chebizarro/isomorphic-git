@@ -1,6 +1,6 @@
 const path = require('path')
 const fs = require('fs')
-const git = require('isomorphic-git')
+const git = require('dimorphic-git')
 git.plugins.set('fs', fs)
 
 let dir = path.join(__dirname, '../..')
@@ -10,13 +10,13 @@ let dir = path.join(__dirname, '../..')
   commit = commit[0]
   let message = commit.message
 
-  dir = path.join(dir, 'website/build/isomorphic-git.github.io')
+  dir = path.join(dir, 'website/build/dimorphic-git.github.io')
 
   await git.init({ dir })
   await git.addRemote({
     dir,
     remote: 'origin',
-    url: 'https://github.com/isomorphic-git/isomorphic-git.github.io'
+    url: 'https://github.com/dimorphic-git/dimorphic-git.github.io'
   })
   await git.fetch({
     dir,
@@ -37,8 +37,8 @@ let dir = path.join(__dirname, '../..')
     author: commit.author,
     message: commit.message,
     committer: {
-      name: 'isomorphic-git-bot',
-      email: 'wmhilton+isomorphic-git-bot@gmail.com',
+      name: 'dimorphic-git-bot',
+      email: 'wmhilton+dimorphic-git-bot@gmail.com',
     }
   })
   await git.push({

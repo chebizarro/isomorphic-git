@@ -1,6 +1,6 @@
 /* eslint-env node, browser, jasmine */
 // const { pgp } = require('@isomorphic-git/pgp-plugin')
-import { log } from 'isomorphic-git'
+import { log } from 'dimorphic-git'
 
 import { makeFixture } from './__helpers__/FixtureFS.js'
 

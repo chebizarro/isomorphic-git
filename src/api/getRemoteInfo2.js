@@ -37,7 +37,7 @@ import { resolveProxy } from '../utils/proxy.js'
  * @param {AuthFailureCallback} [args.onAuthFailure] - optional auth rejected callback
  * @param {AuthSuccessCallback} [args.onAuthSuccess] - optional auth approved callback
  * @param {string} args.url - The URL of the remote repository. Will be gotten from gitconfig if absent.
- * @param {string} [args.corsProxy] - Optional [CORS proxy](https://www.npmjs.com/%40isomorphic-git/cors-proxy). Overrides value in repo config.
+ * @param {string} [args.corsProxy] - Optional [CORS proxy](https://www.npmjs.com/%40dimorphic-git/cors-proxy). Overrides value in repo config.
  * @param {boolean} [args.forPush = false] - By default, the command queries the 'fetch' capabilities. If true, it will ask for the 'push' capabilities.
  * @param {Object<string, string>} [args.headers] - Additional headers to include in HTTP requests, similar to git's `extraHeader` config
  * @param {1 | 2} [args.protocolVersion = 2] - Which version of the Git Protocol to use.
@@ -49,8 +49,8 @@ import { resolveProxy } from '../utils/proxy.js'
  * @example
  * let info = await git.getRemoteInfo2({
  *   http,
- *   corsProxy: "https://cors.isomorphic-git.org",
- *   url: "https://github.com/isomorphic-git/isomorphic-git.git"
+ *   corsProxy: "https://cors.dimorphic-git.org",
+ *   url: "https://github.com/dimorphic-git/dimorphic-git.git"
  * });
  * console.log(info);
  *

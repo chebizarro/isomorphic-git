@@ -3,7 +3,7 @@ title: onAuth
 sidebar_label: onAuth
 ---
 
-The `onAuth` callback allows isomorphic-git to request credentials.
+The `onAuth` callback allows dimorphic-git to request credentials.
 It is only called if a server returns an HTTP error (such as 404 or 401) when attempting to access the resource without credentials.
 
 Authentication is normally required for pushing to a git repository.
@@ -89,8 +89,8 @@ Unfortunately, all the major git hosting companies have chosen different convent
 
 I will gladly accept pull requests to document more companies' conventions.
 
-Since it is a rarely used feature, I'm not including the conversion table directly in isomorphic-git anymore.
-But if there's interest in maintaining this table as some kind of function, I'm considering starting an `@isomorphic-git/quirksmode` package to handle these kinds of hosting-provider specific oddities.
+Since it is a rarely used feature, I'm not including the conversion table directly in dimorphic-git anymore.
+But if there's interest in maintaining this table as some kind of function, I'm considering starting an `@dimorphic-git/quirksmode` package to handle these kinds of hosting-provider specific oddities.
 
 ## Option 2: Headers
 

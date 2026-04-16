@@ -2,7 +2,7 @@
 import { pkg } from '../utils/pkg.js'
 
 /**
- * Return the version number of isomorphic-git
+ * Return the version number of dimorphic-git
  *
  * I don't know why you might need this. I added it just so I could check that I was getting
  * the correct version of the library and not a cached version.

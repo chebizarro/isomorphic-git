@@ -1,5 +1,5 @@
 /* eslint-env node, browser, jasmine */
-import { flatFileListToDirectoryStructure } from 'isomorphic-git/internal-apis'
+import { flatFileListToDirectoryStructure } from 'dimorphic-git/internal-apis'
 
 describe('flatFileListToDirectoryStructure', () => {
   it('simple', async () => {

@@ -88,7 +88,7 @@ class HomeSplash extends React.Component {
     let language = this.props.language || "";
     return (
       <SplashContainer>
-        <Logo img_src={imgUrl("isomorphic-git-logo.svg")} />
+        <Logo img_src={imgUrl("dimorphic-git-logo.svg")} />
         <div className="inner">
           <ProjectTitle />
           <PromoSection>
@@ -98,7 +98,7 @@ class HomeSplash extends React.Component {
             <Button href={docUrl("alphabetic.html", language)}>
               Interactive Docs
             </Button>
-            <Button href="https://github.com/isomorphic-git/isomorphic-git/releases">
+            <Button href="https://github.com/dimorphic-git/dimorphic-git/releases">
               Download
             </Button>
           </PromoSection>
@@ -116,7 +116,7 @@ const Features = props => (
   >
     <div className="gridBlock">
       <div className="blockElement alignCenter fourByGridBlock imageAlignTop">
-        <div className="isomorphic-git-browser-list">
+        <div className="dimorphic-git-browser-list">
           <img
             src="https://raw.githubusercontent.com/alrra/browser-logos/bc47e4601d2c1fd46a7912f9aed5cdda4afdb301/src/chrome/chrome.svg?sanitize=true"
             alt=""
@@ -155,7 +155,7 @@ const Features = props => (
           />
         </div>
         <div className="blockContent">
-          <h2 className="isomorphic-git-browser-list-header">
+          <h2 className="dimorphic-git-browser-list-header">
             <div>
               <p>Works in All Modern Browsers</p>
             </div>
@@ -168,12 +168,12 @@ const Features = props => (
           </div>
         </div>
       </div>
-      <div className="blockElement alignCenter fourByGridBlock imageAlignTop isomorphic-git-browser-list-block-2">
+      <div className="blockElement alignCenter fourByGridBlock imageAlignTop dimorphic-git-browser-list-block-2">
         <div className="blockImage">
           <img src={imgUrl("nodejs-new-pantone-black.png")} />
         </div>
         <div className="blockContent">
-          <h2 className="isomorphic-git-browser-list-header isomorphic-git-browser-list-header-2">
+          <h2 className="dimorphic-git-browser-list-header dimorphic-git-browser-list-header-2">
             <div>
               <span>
                 <p>Works on Desktops and Servers</p>
@@ -199,7 +199,7 @@ const FeatureCallout = ({ language }) => (
     style={{ textAlign: "center" }}
   >
     <h2>Features</h2>
-    <ul className="isomorphic-git-feature-list">
+    <ul className="dimorphic-git-feature-list">
       <li>
         <a href={docUrl("clone.html", language)} >
           <GoRepoClone size="3.5em" style={{paddingRight: '10px'}} />clone repos
@@ -308,14 +308,14 @@ const LearnHow = props => (
     <div className="gridBlock">
       <div className="blockElement fourByGridBlock">
         <MarkdownBlock>{`
-  isomorphic-git is a pure JavaScript implementation of git that works in node and browser environments (including WebWorkers and ServiceWorkers).
+  dimorphic-git is a pure JavaScript implementation of git that works in node and browser environments (including WebWorkers and ServiceWorkers).
   This means it can be used to read and write to git repositories, as well as fetch from and push to git remotes like GitHub.
 
-  isomorphic-git aims for 100% interoperability with the canonical git implementation.
+  dimorphic-git aims for 100% interoperability with the canonical git implementation.
   This means it does all its operations by modifying files in a ".git" directory just like the git you are used to.
   The included \`isogit\` CLI can operate on git repositories on your desktop or server.
 
-  isomorphic-git aims to be a complete solution with no assembly required.
+  dimorphic-git aims to be a complete solution with no assembly required.
   The API has been designed with modern tools like Rollup and Webpack in mind.
   By providing functionality as individual functions, code bundlers can produce smaller bundles by including only the functions your application uses.
       `}</MarkdownBlock>

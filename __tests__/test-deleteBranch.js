@@ -6,7 +6,7 @@ import {
   listBranches,
   listTags,
   getConfig,
-} from 'isomorphic-git'
+} from 'dimorphic-git'
 
 import { makeFixture } from './__helpers__/FixtureFS.js'
 

@@ -4,16 +4,16 @@ title: Quick Start
 sidebar_label: Quick Start
 ---
 
-Here's a whirlwind tour of the main features of `isomorphic-git`.
+Here's a whirlwind tour of the main features of `dimorphic-git`.
 
-First, let's set up LightningFS and isomorphic-git. *Note: I've already done this for you, which is why there is no RUN button for this code block.*
+First, let's set up LightningFS and dimorphic-git. *Note: I've already done this for you, which is why there is no RUN button for this code block.*
 
 ```html
 <script src="https://unpkg.com/@isomorphic-git/lightning-fs"></script>
-<script src="https://unpkg.com/isomorphic-git"></script>
+<script src="https://unpkg.com/dimorphic-git"></script>
 <script type="module">
-import http from 'https://unpkg.com/isomorphic-git/http/web/index.js'
-// Initialize isomorphic-git with a file system
+import http from 'https://unpkg.com/dimorphic-git/http/web/index.js'
+// Initialize dimorphic-git with a file system
 window.fs = new LightningFS('fs')
 // I prefer using the Promisified version honestly
 window.pfs = window.fs.promises
@@ -32,9 +32,9 @@ await pfs.readdir(dir);
 ```
 
 Now that we've got an empty directory, let's clone a git repository.
-I'm cloning `isomorphic-git` itself (how meta!).
+I'm cloning `dimorphic-git` itself (how meta!).
 I'm only cloning a single branch and only to a depth of 10 commits to save time, bandwidth, and browser storage space.
-Since GitHub hasn't added CORS headers to the git clone endpoint yet, we have to use a [proxy server](https://cors.isomorphic-git.org/).
+Since GitHub hasn't added CORS headers to the git clone endpoint yet, we have to use a [proxy server](https://cors.dimorphic-git.org/).
 (They never suspected that a *browser* would want to run "git clone"!)
 
 ```js live
@@ -42,8 +42,8 @@ await git.clone({
   fs,
   http,
   dir,
-  corsProxy: 'https://cors.isomorphic-git.org',
-  url: 'https://github.com/isomorphic-git/isomorphic-git',
+  corsProxy: 'https://cors.dimorphic-git.org',
+  url: 'https://github.com/dimorphic-git/dimorphic-git',
   ref: 'main',
   singleBranch: true,
   depth: 10
@@ -154,7 +154,7 @@ let commits = await git.log({fs, dir, depth: 1})
 console.log(commits[0])
 ```
 
-Congrats! This just scratches the surface of what you can do with `isomorphic-git`.
+Congrats! This just scratches the surface of what you can do with `dimorphic-git`.
 There are a lot more functions. You can see them all in the [Alphabetical Index](./alphabetic).
 
 ---

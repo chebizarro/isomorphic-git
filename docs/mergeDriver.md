@@ -4,7 +4,7 @@ sidebar_label: mergeDriver
 ---
 The merge driver is a callback which is called for each conflicting file during a merge. It takes the file contents on each branch as an array and returns the merged result.
 
-By default the [merge](./merge.md) command uses the diff3 algorithm to try to solve merge conflicts, and throws an error if the conflict cannot be resolved. This is not always ideal, so isomorphic-git implements merge drivers so that users may implement their own merging algorithm.
+By default the [merge](./merge.md) command uses the diff3 algorithm to try to solve merge conflicts, and throws an error if the conflict cannot be resolved. This is not always ideal, so dimorphic-git implements merge drivers so that users may implement their own merging algorithm.
 
 A merge driver implements the following API:
 

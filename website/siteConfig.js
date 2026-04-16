@@ -9,12 +9,12 @@
 const users = require('./users')
 
 const siteConfig = {
-  title: 'isomorphic-git' /* title for your website */,
+  title: 'dimorphic-git' /* title for your website */,
   tagline: 'A pure JavaScript implementation of git for node and browsers!',
-  url: 'https://isomorphic-git.org' /* your website url */,
-  cname: 'isomorphic-git.org' /* gets overwritten each time */,
+  url: 'https://dimorphic-git.org' /* your website url */,
+  cname: 'dimorphic-git.org' /* gets overwritten each time */,
   baseUrl: '/' /* base url for your project */,
-  editUrl: 'https://github.com/isomorphic-git/isomorphic-git/edit/main/docs/',
+  editUrl: 'https://github.com/dimorphic-git/dimorphic-git/edit/main/docs/',
   headerLinks: [
     {
       doc: 'alphabetic',
@@ -23,18 +23,18 @@ const siteConfig = {
     { doc: 'quickstart', label: 'Guide' },
     { blog: true, label: 'Blog' },
     {
-      href: 'https://github.com/isomorphic-git/isomorphic-git',
+      href: 'https://github.com/dimorphic-git/dimorphic-git',
       label: 'GitHub'
     },
     {
-      href: 'https://npmjs.com/package/isomorphic-git',
+      href: 'https://npmjs.com/package/dimorphic-git',
       label: 'npm'
     }
   ],
   users,
   /* path to images for header/footer */
-  headerIcon: 'img/isomorphic-git-logo.svg',
-  footerIcon: 'img/isomorphic-git-logo.svg',
+  headerIcon: 'img/dimorphic-git-logo.svg',
+  footerIcon: 'img/dimorphic-git-logo.svg',
   twitterImage: 'img/favicon/android-chrome-192x192.png',
   favicon: 'img/favicon.png',
   /* colors for website */
@@ -46,8 +46,8 @@ const siteConfig = {
   copyright: 'Copyright © ' +
     new Date().getFullYear() +
     ' Isomorphic-git Contributors',
-  organizationName: 'isomorphic-git', // or set an env variable ORGANIZATION_NAME
-  projectName: 'isomorphic-git.github.io', // or set an env variable PROJECT_NAME
+  organizationName: 'dimorphic-git', // or set an env variable ORGANIZATION_NAME
+  projectName: 'dimorphic-git.github.io', // or set an env variable PROJECT_NAME
   highlight: {
     // Highlight.js theme to use for syntax highlighting in code blocks
     theme: 'default'
@@ -64,9 +64,9 @@ const siteConfig = {
     '/js/sidecar.v1.js',
     // Used to transform the code blocks into editable examples
     '/js/codemirrorify.js',
-    // isomorphic-git itself
+    // dimorphic-git itself
     'https://unpkg.com/@isomorphic-git/lightning-fs',
-    '/js/isomorphic-git/index.umd.min.js',
+    '/js/dimorphic-git/index.umd.min.js',
     // the tutorial
     { type: 'module', src: '/js/tutorial.js' },
     // the button on the home page
@@ -75,11 +75,11 @@ const siteConfig = {
     'https://unpkg.com/@webcomponents/shadydom',
     '/js/object-inspector.min.js',
     // minimal analytics
-    { 'data-domain': 'isomorphic-git.org', src: 'https://plausible.io/js/plausible.js' }
+    { 'data-domain': 'dimorphic-git.org', src: 'https://plausible.io/js/plausible.js' }
   ],
   // stylesheets: ['./css/tutorial.css'],
   // You may provide arbitrary config keys to be used as needed by your template.
-  repoUrl: 'https://github.com/isomorphic-git/isomorphic-git',
+  repoUrl: 'https://github.com/dimorphic-git/dimorphic-git',
   algolia: {
     apiKey: 'ac63b0df4513e31143eef156f520056c',
     indexName: 'isomorphic_git',

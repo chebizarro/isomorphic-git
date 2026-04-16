@@ -9,7 +9,7 @@ import {
   resolveRef,
   init,
   add,
-} from 'isomorphic-git'
+} from 'dimorphic-git'
 
 import { makeFixtureAsSubmodule } from './__helpers__/FixtureFSSubmodule.js'
 

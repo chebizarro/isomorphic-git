@@ -1,7 +1,7 @@
 /* eslint-env node, browser, jasmine */
-import { init, commit, add, resolveRef } from 'isomorphic-git'
-import { readReflog } from 'isomorphic-git'
-import { FileSystem } from 'isomorphic-git/internal-apis'
+import { init, commit, add, resolveRef } from 'dimorphic-git'
+import { readReflog } from 'dimorphic-git'
+import { FileSystem } from 'dimorphic-git/internal-apis'
 import * as _fs from 'fs'
 import * as os from 'os'
 import { join } from 'path'

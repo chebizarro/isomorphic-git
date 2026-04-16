@@ -1,6 +1,6 @@
-import http from './isomorphic-git/http/web/index.js'
+import http from './dimorphic-git/http/web/index.js'
 
-// Initialize isomorphic-git with a file system
+// Initialize dimorphic-git with a file system
 window.fs = new LightningFS('fs')
 
 // make a Promisified version for convenience

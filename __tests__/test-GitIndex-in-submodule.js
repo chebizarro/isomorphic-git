@@ -2,7 +2,7 @@
 
 import * as path from 'path'
 
-import { GitIndex, GitIndexManager } from 'isomorphic-git/internal-apis'
+import { GitIndex, GitIndexManager } from 'dimorphic-git/internal-apis'
 
 import { makeFixtureAsSubmodule } from './__helpers__/FixtureFSSubmodule.js'
 

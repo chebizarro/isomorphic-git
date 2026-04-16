@@ -10,8 +10,8 @@ import {
   TREE,
   WORKDIR,
   walk,
-} from 'isomorphic-git'
-import { GitIndexManager, modified } from 'isomorphic-git/internal-apis'
+} from 'dimorphic-git'
+import { GitIndexManager, modified } from 'dimorphic-git/internal-apis'
 
 import { makeFixtureAsSubmodule } from './__helpers__/FixtureFSSubmodule.js'
 

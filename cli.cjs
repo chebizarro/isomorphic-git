@@ -20,7 +20,7 @@ minimisted(async function({ _: [command, ...args], ...opts }) {
           dir: '.',
           onAuth: () => ({ username: opts.username, password: opts.password }),
           headers: {
-            'User-Agent': `git/isogit-${git.version()}`,
+            'User-Agent': `git/dimogit-${git.version()}`,
           },
         },
         opts
